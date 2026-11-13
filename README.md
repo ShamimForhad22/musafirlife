@@ -4,7 +4,7 @@ Front end design for MusafirLife.com, a visa processing, travel, and Hajj and Um
 
 ## What is here
 
-`index.html` is the whole site in one file.  is the earlier scroll animated design. Logo files are in . It has no build step and no dependencies apart from Google Fonts.
+`index.html` is the whole site in one file. `cinematic.html` is the earlier scroll animated design. Logo files are in `assets/logo`. It has no build step and no dependencies apart from Google Fonts.
 
 | Tab | Content |
 | --- | --- |
