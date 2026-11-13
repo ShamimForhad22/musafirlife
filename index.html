@@ -3,1092 +3,1308 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="MusafirLife: visit and travel visas for any country, air tickets, tours, and Hajj and Umrah packages, with live tracking of every application.">
+<meta name="description" content="MusafirLife: visit and travel visas for any country, air tickets, tour packages, and Hajj and Umrah from Dhaka. Track every step on WhatsApp.">
+<meta name="theme-color" content="#0B3B4A">
+<meta property="og:title" content="MusafirLife · Travel, Visa, Hajj and Umrah">
+<meta property="og:description" content="Visit and travel visas for any country, air tickets, tours, and Hajj and Umrah. Track every step on WhatsApp.">
+<meta property="og:image" content="assets/logo/musafirlife-logo-stacked.png">
+<link rel="icon" type="image/svg+xml" href="assets/logo/musafirlife-app-icon.svg">
+<link rel="apple-touch-icon" href="assets/logo/musafirlife-app-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>MusafirLife Website</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
-img{max-width:100%}
-[hidden]{display:none!important}
-</style>
-<title>MusafirLife</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
-<style>
-/* Layout: one continuous flight on the Home tab. A fixed sky and a plane sit behind pinned stages; scroll position is the flight time. Other tabs are calm reading pages under the same sky. */
+/* Layout: a conventional, calm travel site. One clear booking box at the top, big plain cards below, one action per section. */
 :root{
-  color-scheme:dark;
-  --night:#071226; --ink:#0B1B33; --fg:#F6F8FC; --muted:#CDD8E8;
-  --gold:#F5B841; --mint:#37D6A0; --coral:#FF8A5B; --paper:#F7F3EA; --paper-ink:#1B2433;
-  --glass:rgba(7,18,38,.66); --glass-line:rgba(255,255,255,.18);
+  --bg:#F5F7F6; --surface:#FFFFFF; --surface-2:#EDF3F1; --fg:#13232B; --muted:#475960; --line:#D8E2DF;
+  --brand:#0B5E57; --brand-ink:#FFFFFF; --brand-soft:#E1F0EC; --brand-deep:#083F3A;
+  --accent:#F2A93B; --accent-ink:#2A1B00; --ok:#1C7F54; --ok-soft:#E1F3EA; --warn-soft:#FDF0D8; --warn-ink:#6B4500;
+  --shadow:0 1px 2px rgba(19,35,43,.06),0 8px 24px rgba(19,35,43,.07);
   --display:'Plus Jakarta Sans','Segoe UI',system-ui,sans-serif;
   --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
-  --navh:76px;
+  --r:16px;
+  --logo-ink:#0B3B4A; --logo-mid:#2E6A80; --logo-gold:#E4A13A;
 }
-@media (max-width:900px){:root{--navh:120px}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ --logo-ink:#F2F7F6; --logo-mid:#8FB3C4; --logo-gold:#F2B655;
+  --bg:#0D1719; --surface:#142226; --surface-2:#1A2C31; --fg:#EAF1EF; --muted:#A8BAB6; --line:#283C41;
+  --brand:#3BBFAE; --brand-ink:#04211E; --brand-soft:#173936; --brand-deep:#0A2B28;
+  --accent:#F5B84E; --accent-ink:#2A1B00; --ok:#4CC88E; --ok-soft:#163A2B; --warn-soft:#3A2C12; --warn-ink:#F5D18E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{ --logo-ink:#F2F7F6; --logo-mid:#8FB3C4; --logo-gold:#F2B655;
+  --bg:#0D1719; --surface:#142226; --surface-2:#1A2C31; --fg:#EAF1EF; --muted:#A8BAB6; --line:#283C41;
+  --brand:#3BBFAE; --brand-ink:#04211E; --brand-soft:#173936; --brand-deep:#0A2B28;
+  --accent:#F5B84E; --accent-ink:#2A1B00; --ok:#4CC88E; --ok-soft:#163A2B; --warn-soft:#3A2C12; --warn-ink:#F5D18E;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25); color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--night);color:var(--fg);font-family:var(--body);font-size:18px;line-height:1.6}
-main{position:relative;z-index:2;overflow-x:clip}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-.mono{font-family:var(--mono);letter-spacing:.03em}
-#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;background:linear-gradient(#0a3a96,#2876d6)}
-#plane{position:fixed;left:0;top:0;width:clamp(56px,7vw,96px);z-index:1;pointer-events:none;filter:drop-shadow(0 14px 18px rgba(3,8,20,.45));will-change:transform;transition:opacity .4s}
-#plane svg{display:block;width:100%;height:auto}
-html:not(.motion) #plane{display:none}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--surface)}
+a{color:var(--brand)}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(32px,4.6vw,54px);font-weight:800}
+h2{font-size:clamp(26px,3vw,38px);font-weight:800}
+h3{font-size:20px;font-weight:700}
+p{margin:0}
+.container{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.section{padding-block:clamp(44px,6vw,80px)}
+.section.alt{background:var(--surface)}
+.shead{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:28px}
+.shead div{display:flex;flex-direction:column;gap:8px;max-width:640px}
+.shead p{color:var(--muted);font-size:18px}
+.kicker{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
 
-/* nav with tabs */
-.nav{position:fixed;inset:0 0 auto;z-index:20;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(rgba(7,18,38,.9),rgba(7,18,38,.55) 70%,rgba(7,18,38,0))}
-.nav-in{max-width:1280px;margin:0 auto;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;text-decoration:none;min-height:44px}
-.brand i{width:26px;height:26px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center}
-.brand i::after{content:"";width:9px;height:9px;background:var(--gold);clip-path:polygon(0 50%,100% 0,60% 100%,45% 60%)}
-.tabs{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tabs a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;white-space:nowrap}
-.tabs a:hover{background:rgba(255,255,255,.14)}
-.tabs a[aria-current="page"]{background:var(--gold);color:#1a1300}
-@media (max-width:900px){.tabs{order:3;flex:1 1 100%}}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:999px;font-weight:600;font-size:17px;text-decoration:none;border:1.5px solid transparent;font-family:var(--body);cursor:pointer}
-.btn.gold{background:var(--gold);color:#1a1300}
-.btn.line{border-color:rgba(255,255,255,.7);color:var(--fg);background:rgba(7,18,38,.35)}
-.btn:hover{filter:brightness(1.08)}
+/* buttons */
+.btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;border:1.5px solid transparent;font:inherit;font-weight:600;font-size:17px;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--brand);color:var(--brand-ink)}
+.btn-accent{background:var(--accent);color:var(--accent-ink)}
+.btn-ghost{background:var(--surface);color:var(--fg);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--brand)}
+.btn-link{min-height:44px;padding:0;border:0;background:none;color:var(--brand);font:inherit;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+.btn-link:hover{text-decoration:underline}
+.btn svg,.btn-link svg{width:20px;height:20px;flex-shrink:0}
 
-/* shared */
-.view{position:relative;z-index:2}
-.stage{position:relative}
-.motion .scene{height:var(--len)}
-.motion .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(var(--navh) + 8px + env(safe-area-inset-top,0px)) 28px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(14px,3vh,34px)}
-.motion .scene .wrap{height:100%}
-.copy{max-width:800px;display:flex;flex-direction:column;gap:10px;text-shadow:0 2px 26px rgba(4,10,26,.6)}
-.eyebrow{margin:0;font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-h1,h2{font-family:var(--display);font-weight:800;line-height:1.04;letter-spacing:-.015em;margin:0;text-wrap:balance}
-h2{font-size:clamp(30px,4.6vw,62px)}
-h3{font-family:var(--display);font-weight:700;margin:0;font-size:22px;line-height:1.2}
-.lede{margin:0;color:var(--fg);font-size:clamp(16px,1.5vw,20px);font-weight:500;max-width:60ch}
-.viz{min-height:0;min-width:0}
-.glass{background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
+/* top bar + header */
+.topbar{background:var(--brand-deep);color:#E6F2EF;font-size:15px}
+.topbar .container{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 20px;padding-block:8px}
+.topbar span{display:inline-flex;align-items:center;gap:8px}
+.topbar svg{width:16px;height:16px}
+@media (max-width:640px){.topbar .hide-sm{display:none}}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg);min-height:44px}
+.logo-mark{width:50px;height:auto;flex-shrink:0;display:block;overflow:visible}
+.lw{transform-box:fill-box;transform-origin:left bottom;transition:transform .45s cubic-bezier(.2,1.4,.4,1)}
+.lw1,.lw2,.lw3{transition:transform .45s cubic-bezier(.2,1.4,.4,1)}
+.logo:hover .lw{transform:translate(2px,-3px) rotate(-4deg)}
+.logo:hover .lw1{transform:translate(2px,-2px)}
+.logo:hover .lw3{transform:translate(-1px,1px)}
+.wm{display:flex;flex-direction:column;line-height:1}
+.wm-svg{display:block;height:27px;width:auto}
+.wm-sw{stroke-dasharray:100;stroke-dashoffset:0}
+.logo:hover .wm-sw{animation:draw .8s ease-out}
+@keyframes draw{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+.wm small{white-space:nowrap;margin-top:7px;font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:480px){.wm-svg{height:22px}.wm small{display:none}.logo-mark{width:40px}}
+.menu{display:flex;align-items:center;gap:2px}
+.menu a{display:inline-flex;align-items:center;white-space:nowrap;min-height:44px;padding:0 12px;border-radius:10px;color:var(--fg);text-decoration:none;font-weight:600;font-size:16px}
+.menu a:hover{background:var(--surface-2)}
+.menu a[aria-current="page"]{color:var(--brand);background:var(--brand-soft)}
+.hactions{display:flex;align-items:center;gap:8px}
+.burger{display:none;width:48px;height:48px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer;place-items:center}
+.burger svg{width:24px;height:24px}
+@media (max-width:1240px){
+  .burger{display:grid}
+  .menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));box-shadow:var(--shadow)}
+  .menu.open{display:flex}
+  .menu a{min-height:52px;font-size:18px}
+}
+@media (max-width:480px){.hactions .btn-primary{padding:0 14px;font-size:16px}}
 
 /* hero */
-.hero{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(var(--navh) + 8px + env(safe-area-inset-top,0px)) 28px}
-.hero-word{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-family:var(--display);font-weight:800;font-size:clamp(90px,23vw,380px);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.26);white-space:nowrap;pointer-events:none;will-change:transform}
-.hero-in{position:relative;display:flex;flex-direction:column;gap:clamp(12px,2.2vh,24px);text-shadow:0 2px 26px rgba(4,10,26,.6)}
-h1{font-size:clamp(42px,7.6vw,116px)}
-h1 span{display:block;will-change:transform}
-h1 .l2{color:var(--gold)}
-.services{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px}
-.services li{flex:1 1 220px;min-width:0;text-shadow:none;display:flex}
-.services a{display:block;flex:1;padding:16px 18px;text-decoration:none;transition:transform .2s,border-color .2s}
-.services a:hover{transform:translateY(-3px);border-color:var(--gold)}
-.ask{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(18px,1.8vw,24px)}
-.hint{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
-.skip{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.7);background:rgba(7,18,38,.35);color:var(--fg);font:inherit;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:none;cursor:pointer}
-.go{align-self:flex-start;text-shadow:none}
-@media (max-width:760px){.go{display:none}}
-.finder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:12px;align-items:end;padding:16px;max-width:880px;text-shadow:none}
-.quick{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 22px;font-weight:600;font-size:16px}
-.quick a{display:inline-flex;align-items:center;min-height:44px}
-@media (max-width:760px){.finder{grid-template-columns:repeat(2,minmax(0,1fr))}.finder .btn{grid-column:1/-1}.quick{display:none}.hero .lede{font-size:15px}}
-.card .btn{margin-top:auto;align-self:flex-start}
-.order{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
-@media (max-width:860px){.order{grid-template-columns:minmax(0,1fr)}}
-.onav{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;counter-reset:o}
-.onav li{counter-increment:o;display:flex;flex-direction:column;gap:2px;padding-top:10px;border-top:4px solid rgba(255,255,255,.3);font-size:15px;font-weight:600;color:var(--muted)}
-.onav li::before{content:"Step " counter(o);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-.onav li.ok{border-color:var(--mint);color:var(--fg)}
-.onav li.cur{border-color:var(--gold);color:var(--fg)}
-.ostep{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:16px}
-.ostep legend{padding:0;font-family:var(--display);font-weight:700;font-size:24px;margin-bottom:6px}
-.radios{display:flex;flex-wrap:wrap;gap:10px}
-.radios label{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.5);font-weight:500;cursor:pointer}
-.radios input{width:20px;height:20px;accent-color:var(--gold)}
-.sum{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 16px;font-size:16px}
-.sum dt{color:var(--muted)}.sum dd{margin:0;font-weight:600;text-align:right;overflow-wrap:anywhere}
-.faq details{border-top:1px solid var(--glass-line);padding:14px 0}
-.faq summary{cursor:pointer;font-weight:600;font-size:18px;min-height:32px}
-.faq p{margin:8px 0 0;color:var(--muted);font-size:17px;max-width:70ch}
-.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-/* chapter rail, progress and help */
-#prog{position:fixed;left:0;right:0;top:0;height:4px;z-index:25;background:var(--gold);transform-origin:left;transform:scaleX(0)}
-.rail{position:fixed;right:max(8px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:15;display:none;flex-direction:column}
-.motion .rail.show{display:flex}
-.rail button{position:relative;width:44px;height:34px;background:none;border:0;cursor:pointer;display:grid;place-items:center}
-.rail button::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid #fff;background:rgba(7,18,38,.5);transition:transform .2s,background .2s}
-.rail button.cur::before{background:var(--gold);border-color:var(--gold);transform:scale(1.4)}
-.rail button span{position:absolute;right:44px;white-space:nowrap;padding:4px 10px;border-radius:8px;background:rgba(7,18,38,.9);font-size:14px;font-weight:600;color:var(--fg);opacity:0;pointer-events:none;transition:opacity .2s}
-.rail button:hover span,.rail button:focus-visible span,.rail button.cur span{opacity:1}
-@media (max-width:900px){.motion .rail.show{display:none}}
-.help{position:fixed;z-index:22;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 10px 30px rgba(3,8,20,.5)}
-.services b{display:block;font-family:var(--display);font-size:19px}
-.services span{color:var(--muted);font-size:16px}
-.hint{margin:0;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
-@media (max-width:760px){.services li{flex:1 1 45%}.services a{padding:12px 14px}.services b{font-size:15px}.services span{display:none}}
+.hero{background:linear-gradient(180deg,var(--brand-soft),var(--bg));padding-block:clamp(28px,5vw,64px) clamp(36px,5vw,64px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,4vw,56px);align-items:center}
+.hero-copy{display:flex;flex-direction:column;gap:16px}
+.hero-copy p{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:52ch}
+.hero-points{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-weight:600;font-size:16px}
+.hero-points li{display:inline-flex;align-items:center;gap:8px}
+.hero-points svg{width:20px;height:20px;color:var(--ok)}
+.hero-art{position:relative;width:100%;max-width:560px;justify-self:center}
+.hero-art>svg{display:block;width:100%;height:auto}
+@media (max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-art{max-width:560px}}
 
-/* scanner */
-.scan{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(14px,4vw,56px);align-items:center}
-.passport{position:relative;overflow:hidden;background:var(--paper);color:var(--paper-ink);border-radius:16px;padding:clamp(12px,1.6vw,22px);display:flex;flex-direction:column;gap:12px;max-width:460px;width:100%;justify-self:center;box-shadow:0 30px 60px rgba(3,8,20,.45);transform:rotate(-3deg);will-change:transform}
-.pp-top{display:flex;justify-content:space-between;gap:8px;font-size:11px;font-weight:700}
-.pp-body{display:flex;gap:14px}
-.pp-photo{width:28%;aspect-ratio:4/5;border-radius:8px;background:repeating-linear-gradient(135deg,#d8d0bd 0 8px,#cfc6b0 8px 16px);flex-shrink:0}
-.pp-body dl{margin:0;display:grid;gap:6px;min-width:0}
-.pp-body dt{color:#4d5767;font-size:12px}
-.pp-body dd{margin:0;font-weight:700;font-family:var(--mono);font-size:13px}
-.mrz{position:relative;font-size:clamp(8px,1vw,12px);line-height:1.7;white-space:nowrap;overflow:hidden;padding:6px 8px;border-radius:6px;font-weight:500}
-.mrz-hl{position:absolute;inset:0 auto 0 0;width:100%;background:rgba(245,184,65,.5);z-index:0}
-.mrz span{position:relative;z-index:1}
-.beam{position:absolute;top:0;bottom:0;left:100%;width:3px;background:var(--coral);box-shadow:0 0 0 1px rgba(255,138,91,.5),-40px 0 50px 20px rgba(255,138,91,.35);opacity:0}
-.form{padding:clamp(14px,2vw,26px);display:flex;flex-direction:column;gap:14px}
-.form-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px}
-.pill{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.16);color:var(--fg);white-space:nowrap}
-.pill.ok{background:var(--mint);color:#04261a}
-.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.f{border:1px solid var(--glass-line);border-radius:12px;padding:8px 12px;display:flex;flex-direction:column;min-width:0;transition:border-color .3s,background .3s}
-.f.done{border-color:var(--mint);background:rgba(55,214,160,.12)}
-.f .k{font-size:13px;color:var(--muted)}
-.f .v{font-family:var(--mono);font-weight:700;font-size:clamp(12px,1.2vw,15px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-@media (max-width:760px){.scan{grid-template-columns:minmax(0,1fr)}.passport{max-width:290px}}
+/* booking box */
+.book{margin-top:clamp(20px,3vw,36px);background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+.book-tabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--line);scrollbar-width:none}
+.book-tabs::-webkit-scrollbar{display:none}
+.book-tabs button{flex:1 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:58px;padding:0 20px;border:0;border-bottom:3px solid transparent;background:none;color:var(--muted);font:inherit;font-weight:600;font-size:16px;cursor:pointer;white-space:nowrap}
+.book-tabs button svg{width:20px;height:20px}
+.book-tabs button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--brand);background:var(--brand-soft)}
+.book-panel{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;align-items:end}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld label,.fld .lab{font-size:15px;font-weight:600;color:var(--fg)}
+.fld input,.fld select,.fld textarea{width:100%;min-width:0;min-height:52px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-size:17px}
+.fld textarea{padding:12px 14px;min-height:110px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--brand);outline:none;box-shadow:0 0 0 3px var(--brand-soft)}
+.fld .help{font-size:14px;color:var(--muted)}
+.book-panel .btn{width:100%;min-height:52px}
+
+/* trust strip */
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}
+.trust div{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;font-size:15px;min-width:0}
+.trust b{display:block;font-size:16px}
+.trust span{color:var(--muted)}
+.ico{width:44px;height:44px;flex-shrink:0;border-radius:12px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+.ico svg{width:22px;height:22px}
+@media (max-width:900px){.trust{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.trust{grid-template-columns:minmax(0,1fr)}}
+
+/* service cards */
+.svc{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:1000px){.svc{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.svc{grid-template-columns:minmax(0,1fr)}}
+.svc a{display:flex;flex-direction:column;gap:10px;padding:22px;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);color:var(--fg);text-decoration:none;transition:border-color .15s,transform .15s,box-shadow .15s}
+.svc a:hover{border-color:var(--brand);transform:translateY(-3px);box-shadow:var(--shadow)}
+.svc p{color:var(--muted);font-size:16px}
+.svc .go{margin-top:auto;color:var(--brand);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.svc .go svg{width:18px;height:18px}
+
+/* country cards */
+.countries{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.ccard{display:flex;flex-direction:column;gap:12px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);min-width:0}
+.ctop{display:flex;align-items:center;gap:12px}
+.code{width:48px;height:48px;flex-shrink:0;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:16px;color:var(--brand)}
+.ctop b{display:block;font-size:18px;line-height:1.25}
+.ctop span{font-size:14px;color:var(--muted)}
+.cmeta{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;min-height:30px;padding:0 10px;border-radius:999px;background:var(--surface-2);font-size:14px;font-weight:500;color:var(--fg)}
+.cfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid var(--line);font-size:15px}
+.cfoot .price{color:var(--muted)}
+.cfoot .price b{color:var(--fg);font-size:16px}
+.empty{grid-column:1/-1;padding:24px;border:1.5px dashed var(--line);border-radius:var(--r);text-align:center;color:var(--muted)}
+
+/* steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}}
+.steps li{counter-increment:s;position:relative;display:flex;flex-direction:column;gap:8px;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.steps li::before{content:counter(s);width:40px;height:40px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:18px}
+.steps p{color:var(--muted);font-size:16px}
+
+/* feature split */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
+.split-copy{display:flex;flex-direction:column;gap:14px}
+.split-copy p{color:var(--muted);font-size:18px}
+.ticks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.ticks li{display:flex;gap:10px;align-items:flex-start}
+.ticks svg{width:22px;height:22px;flex-shrink:0;margin-top:2px;color:var(--ok)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(16px,2.4vw,28px);box-shadow:var(--shadow);min-width:0}
+
+/* scanner demo */
+.scan{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px;align-items:start}
+@media (max-width:560px){.scan{grid-template-columns:minmax(0,1fr)}}
+.pass{position:relative;overflow:hidden;background:#F6F1E4;color:#1B2433;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;border:1px solid #E2D9C3}
+.pass-top{display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:.06em}
+.pass-row{display:flex;gap:12px}
+.pass-photo{width:64px;height:80px;border-radius:8px;flex-shrink:0;background:repeating-linear-gradient(135deg,#ddd4bf 0 7px,#d2c8b0 7px 14px)}
+.pass dl{margin:0;display:grid;gap:4px;font-size:12px}
+.pass dt{color:#555f6d}.pass dd{margin:0;font-weight:700}
+.mrz{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;line-height:1.6;white-space:nowrap;overflow:hidden;background:#fff;border-radius:6px;padding:6px}
+.beam{position:absolute;top:0;bottom:0;left:-6px;width:4px;background:var(--accent);box-shadow:0 0 24px 8px rgba(242,169,59,.45);opacity:0}
+.scanning .beam{animation:beam 1.4s ease-in-out}
+@keyframes beam{0%{left:-6px;opacity:1}100%{left:100%;opacity:1}}
+.sfields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.sf{display:flex;flex-direction:column;padding:8px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);min-width:0;transition:border-color .3s,background .3s}
+.sf span{font-size:13px;color:var(--muted)}
+.sf b{font-size:15px;min-height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf.done{border-color:var(--ok);background:var(--ok-soft)}
+.scan-status{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;color:var(--muted);margin-top:4px}
+.scan-status.ok{color:var(--ok)}
 
 /* tracking */
-.track{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:clamp(8px,1.6vh,18px)}
-.arcbox{position:relative}
-.arcbox svg{display:block;width:100%;height:auto;max-height:28vh;overflow:visible}
-.arc-bg{fill:none;stroke:rgba(255,255,255,.4);stroke-width:2;stroke-dasharray:3 9}
-.arc-fg{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round}
-#arc-nodes circle{fill:var(--night);stroke:#fff;stroke-width:3;transition:fill .3s}
-#arc-nodes circle.on{fill:var(--mint);stroke:var(--mint)}
-#arc-plane path{fill:#fff}
-.code{position:absolute;bottom:-4px;font-size:clamp(13px,1.6vw,20px);font-weight:700}
-.code.c1{left:0}.code.c2{right:0}
-.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
-.steps li{padding:8px 12px;border-radius:12px;border:1px solid var(--glass-line);background:var(--glass);font-size:15px;line-height:1.35;color:var(--muted);transition:background .3s,color .3s,border-color .3s}
-.steps li b{display:block;color:inherit}
-.steps li.on{color:var(--fg);border-color:var(--mint)}
-.steps li.cur{background:var(--gold);border-color:var(--gold);color:#1a1300}
-.phones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,2vw,24px);min-height:0}
-.phone{padding:12px;display:flex;flex-direction:column;gap:8px;min-height:140px;overflow:hidden}
-.phone h3{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
-.bubbles{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;overflow:hidden}
-.bub{align-self:flex-start;max-width:94%;background:#E4F7EC;color:#0b2418;border-radius:4px 14px 14px 14px;padding:8px 12px;font-size:clamp(13.5px,1.2vw,16px);line-height:1.4;display:none}
-.bub.in{display:block;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
-.bub small{display:block;font-size:11px;color:#355646;text-align:right}
-@keyframes pop{from{transform:translateY(14px) scale(.9);opacity:0}}
-@media (max-width:760px){.steps{grid-template-columns:minmax(0,1fr)}.steps li{display:none}.steps li.cur{display:block}}
-
-/* reels */
-.reelwin{margin-inline:calc(50% - 50vw);display:flex;align-items:center;min-height:0}
-.reeltrack{display:flex;gap:4vw;padding-inline:9vw;will-change:transform}
-.reel{position:relative;flex:0 0 auto;width:min(82vw,1000px);height:min(56vh,560px);min-height:240px;margin:0;border-radius:22px;overflow:hidden;background:var(--ink);box-shadow:0 30px 70px rgba(3,8,20,.5);will-change:transform}
-.reel svg{position:absolute;inset:0;width:100%;height:100%}
-.reel figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(14px,2vw,28px);display:flex;flex-direction:column;gap:4px;background:linear-gradient(transparent,rgba(4,10,26,.88))}
-.reel figcaption b{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,54px);line-height:1.05}
-.reel figcaption span{color:var(--fg);font-size:clamp(15px,1.4vw,19px);font-weight:500}
-.hud{position:absolute;top:14px;left:16px;right:16px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;font-weight:700;text-shadow:0 1px 8px rgba(0,0,0,.6)}
-.hud i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--coral);margin-right:8px;animation:blink 1.2s steps(2) infinite}
-@keyframes blink{50%{opacity:.2}}
-html:not(.motion) .reelwin{overflow-x:auto}
-
-/* group */
-.group{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(14px,4vw,56px);align-items:center}
-.cabin{justify-self:center;width:100%;max-width:min(640px,78vh);padding:clamp(10px,1.6vw,22px);border-radius:28px}
-.seats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) .5fr repeat(4,minmax(0,1fr));gap:clamp(4px,.9vw,10px)}
-.seat{aspect-ratio:1;border-radius:26%;background:rgba(255,255,255,.2);border:2px solid transparent;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:clamp(9px,1.1vw,14px);color:#fff;will-change:transform;transition:background .35s,color .35s,border-color .35s}
-.seat.ok.lit{background:var(--mint);color:#04261a}
-.seat.proc.lit{background:var(--gold);color:#1a1300}
-.seat.miss.lit{background:transparent;border:2px dashed #fff}
-.stats{padding:clamp(14px,2vw,26px);display:flex;flex-direction:column;gap:14px}
-.stat{display:flex;flex-direction:column;gap:6px}
-.stat div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:16px}
-.stat b{font-family:var(--display);font-size:clamp(22px,2.6vw,34px);font-weight:800;font-variant-numeric:tabular-nums}
-.bar{height:8px;border-radius:4px;background:rgba(255,255,255,.18);overflow:hidden}
-.bar i{display:block;height:100%;width:100%;background:var(--mint);transform-origin:left;will-change:transform}
-.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
-.legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:12px;height:12px;border-radius:4px;background:var(--mint)}
-.legend .p{background:var(--gold)}.legend .m{background:transparent;border:2px dashed #fff}
-.popin{transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .3s}
-.motion .popin:not(.in){transform:translateY(16px) scale(.9);opacity:0}
-@media (max-width:760px){.group{grid-template-columns:minmax(0,1fr)}.cabin{max-width:340px}}
-
-/* quote and expiry */
-.docs{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(14px,4vw,56px);align-items:center}
-.doc{position:relative;background:var(--paper);color:var(--paper-ink);border-radius:10px;overflow:hidden;box-shadow:0 30px 60px rgba(3,8,20,.45);max-width:560px;width:100%;justify-self:center}
-.doc-band{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(14px,2vh,22px) clamp(14px,2vw,26px);background:var(--ink);color:#fff;font-family:var(--display);font-weight:800;font-size:clamp(18px,2.2vw,24px)}
-.doc-band span{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-.doc-body{padding:clamp(12px,1.8vw,24px);display:flex;flex-direction:column;font-size:clamp(14px,1.25vw,16px)}
-.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #d9d2c2;transition:opacity .35s,transform .35s}
-.row.t{border-bottom:0;font-weight:700;font-size:1.1em}
-.motion .row:not(.in){opacity:0;transform:translateX(-18px)}
-.stamp{position:absolute;right:16px;bottom:56px;padding:6px 12px;border:3px solid #0B6B5D;color:#0B6B5D;font-weight:700;font-size:13px;letter-spacing:.08em;border-radius:8px;transform:rotate(-10deg);background:rgba(247,243,234,.9);transition:transform .35s cubic-bezier(.2,1.6,.4,1),opacity .2s}
-.motion .stamp:not(.in){transform:rotate(-10deg) scale(2.2);opacity:0}
-.expiry{padding:clamp(14px,2vw,26px);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
-.ringbox{position:relative;width:min(220px,26vh);aspect-ratio:1}
-.ringbox svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:14}
-.ring-fg{fill:none;stroke:var(--mint);stroke-width:14;stroke-linecap:round;transition:stroke .4s}
-.warn .ring-fg{stroke:var(--gold)}
-.ringnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
-.ringnum b{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vh,56px);font-variant-numeric:tabular-nums}
-.ringnum span{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.expiry p{margin:0;font-size:16px}
-@media (max-width:760px){.docs{grid-template-columns:minmax(0,1fr)}.doc{max-width:340px}.row.x{display:none}.ringbox{width:120px}}
-
-/* landing strip and footer */
-.land .wrap{display:flex;flex-direction:column;gap:26px;padding-block:14vh 40px}
-.land h2{font-size:clamp(40px,7.4vw,108px)}
-.land h2 em{font-style:normal;color:var(--gold)}
-.foot{display:flex;flex-wrap:wrap;gap:20px 48px;padding:24px;font-size:16px}
-.foot div{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 220px}
-.foot b{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-
-/* reading pages (other tabs) */
-.page .wrap{display:flex;flex-direction:column;gap:clamp(22px,4vh,40px);padding-block:calc(var(--navh) + 36px + env(safe-area-inset-top,0px)) 48px}
-.page h1{font-size:clamp(36px,5.6vw,76px)}
-.page .wrap>*{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
-.page .wrap>*:nth-child(2){animation-delay:.08s}.page .wrap>*:nth-child(3){animation-delay:.16s}.page .wrap>*:nth-child(4){animation-delay:.24s}.page .wrap>*:nth-child(5){animation-delay:.32s}
-@keyframes rise{from{transform:translateY(26px);opacity:0}}
-@media (prefers-reduced-motion:reduce){.page .wrap>*{animation:none}.bub.in{animation:none}.hud i{animation:none}}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.card{padding:22px;display:flex;flex-direction:column;gap:8px;min-width:0}
-.card p{margin:0;color:var(--muted);font-size:17px}
-.card .tag{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
-.chips li{padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-line);font-size:16px;font-weight:500}
-.panel{padding:clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:16px}
-.how{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;counter-reset:s}
-.how li{counter-increment:s;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--gold);padding-top:12px;font-size:17px;color:var(--muted)}
-.how li::before{content:"Step " counter(s);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
-.how b{color:var(--fg);font-family:var(--display);font-size:20px}
-.note{margin:0;font-size:16px;color:var(--muted);max-width:70ch}
 .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-.tl li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:14px;padding-bottom:18px;position:relative}
-.tl li::before{content:"";width:20px;height:20px;border-radius:50%;background:var(--mint);margin-top:4px}
-.tl li::after{content:"";position:absolute;left:9px;top:26px;bottom:0;width:2px;background:var(--mint)}
+.tl li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;position:relative;padding-bottom:20px}
+.tl li:last-child{padding-bottom:0}
+.tl .dot{width:28px;height:28px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;z-index:1}
+.tl .dot svg{width:16px;height:16px}
+.tl li::after{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--ok)}
 .tl li:last-child::after{display:none}
-.tl li.now::before{background:var(--night);border:6px solid var(--gold)}
-.tl li.now::after,.tl li.next::after{background:rgba(255,255,255,.3)}
-.tl li.next::before{background:transparent;border:2px solid #fff}
-.tl b{display:block}.tl span{color:var(--muted);font-size:16px}
-.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
-.fld label{font-size:15px;font-weight:600}
-.fld input,.fld select{min-height:48px;padding:0 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.5);background:rgba(7,18,38,.6);color:var(--fg);font:inherit;font-size:17px;min-width:0;width:100%}
-.msg{margin:0;padding:12px 16px;border-radius:12px;background:rgba(245,184,65,.18);border:1px solid var(--gold);font-size:16px}
+.tl li.now .dot{background:var(--surface);border:7px solid var(--accent)}
+.tl li.now::after,.tl li.next::after{background:var(--line)}
+.tl li.next .dot{background:var(--surface);border:2px solid var(--muted)}
+.tl b{display:block;font-size:17px}
+.tl span{font-size:15px;color:var(--muted)}
+.wa{display:flex;align-items:flex-start;gap:10px;margin-top:18px;padding:12px 14px;border-radius:14px;background:var(--ok-soft);font-size:15px}
+.wa svg{width:22px;height:22px;flex-shrink:0;color:var(--ok)}
+.status-pill{display:inline-flex;align-items:center;min-height:30px;padding:0 12px;border-radius:999px;background:var(--warn-soft);color:var(--warn-ink);font-size:14px;font-weight:700}
+.ptop{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:18px}
+.ptop span{font-size:14px;color:var(--muted)}
+
+/* packages */
+.pkgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.pkgs{grid-template-columns:minmax(0,1fr)}}
+.pkg{display:flex;flex-direction:column;gap:14px;padding:24px;background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r)}
+.pkg.best{border-color:var(--brand);box-shadow:var(--shadow)}
+.pkg .badge{align-self:flex-start;display:inline-flex;align-items:center;min-height:28px;padding:0 10px;border-radius:999px;background:var(--brand);color:var(--brand-ink);font-size:13px;font-weight:700}
+.pkg .from{font-size:15px;color:var(--muted)}
+.pkg .from b{display:block;font-family:var(--display);font-size:28px;color:var(--fg)}
+.pkg .ticks{font-size:16px}
+.pkg .btn{margin-top:auto}
+
+/* faq */
+.faq{display:flex;flex-direction:column;gap:10px;max-width:860px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 18px}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:60px;cursor:pointer;font-weight:600;font-size:18px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:26px;font-weight:400;color:var(--brand);flex-shrink:0}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding-bottom:16px;color:var(--muted);font-size:17px}
+
+/* cta band + footer */
+.cta-band{background:var(--brand);color:var(--brand-ink);border-radius:24px;padding:clamp(24px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
+.cta-band p{opacity:.92;font-size:18px;margin-top:6px}
+.cta-band .btn-ghost{background:transparent;color:var(--brand-ink);border-color:currentColor}
+footer.site{background:var(--surface);border-top:1px solid var(--line);padding-block:40px 28px;margin-top:clamp(40px,6vw,80px)}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:860px){.fgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+.fgrid div{display:flex;flex-direction:column;gap:6px;min-width:0;font-size:16px}
+.fgrid h3{font-size:16px;margin-bottom:4px}
+.fgrid a{color:var(--fg);text-decoration:none;min-height:36px;display:inline-flex;align-items:center}
+.fgrid a:hover{color:var(--brand)}
+.fgrid .muted{color:var(--muted)}
+.fbottom{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);font-size:15px;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* floating whatsapp */
+.float-wa{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 20px 0 16px;border-radius:999px;background:#1F9D57;color:#fff;font-weight:700;text-decoration:none;box-shadow:0 10px 28px rgba(0,0,0,.25)}
+.float-wa svg{width:26px;height:26px}
+@media (max-width:480px){.float-wa span{display:none}.float-wa{padding:0 15px}}
+
+/* inner pages */
+.page-head{background:linear-gradient(180deg,var(--brand-soft),var(--bg));padding-block:clamp(28px,4vw,52px)}
+.page-head .container{display:flex;flex-direction:column;gap:12px}
+.page-head p{color:var(--muted);font-size:19px;max-width:60ch}
+.crumbs{font-size:15px;color:var(--muted)}
+.crumbs a{color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:20px}
+.toolbar .fld{flex:1 1 260px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills button{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-weight:600;font-size:15px;cursor:pointer}
+.pills button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.two{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.two{grid-template-columns:minmax(0,1fr)}}
+.docs-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.docs-list li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.docs-list li:last-child{border-bottom:0}
+.docs-list input{width:22px;height:22px;margin-top:2px;accent-color:var(--brand);flex-shrink:0}
+.note{font-size:15px;color:var(--muted)}
+.msg{padding:14px 16px;border-radius:12px;background:var(--warn-soft);color:var(--warn-ink);font-size:16px;font-weight:500}
+.msg.ok{background:var(--ok-soft);color:var(--ok)}
+
+/* order */
+.onav{list-style:none;margin:0 0 22px;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.onav li{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600;color:var(--muted)}
+.onav li::before{content:"";height:6px;border-radius:3px;background:var(--line)}
+.onav li.ok::before{background:var(--ok)}
+.onav li.cur{color:var(--fg)}
+.onav li.cur::before{background:var(--brand)}
+@media (max-width:520px){.onav li span{display:none}}
+.ostep{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:16px}
+.ostep legend{padding:0;margin-bottom:6px;font-family:var(--display);font-weight:700;font-size:24px}
+.ogrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.choice{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.choice label{display:flex;align-items:center;gap:10px;min-height:56px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer}
+.choice label:has(input:checked){border-color:var(--brand);background:var(--brand-soft)}
+.choice input{width:20px;height:20px;accent-color:var(--brand)}
+.oacts{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;margin-top:22px}
+.sum{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 14px;font-size:16px}
+.sum dt{color:var(--muted)}
+.sum dd{margin:0;text-align:right;font-weight:600;overflow-wrap:anywhere}
+.drop{display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px 16px;border:2px dashed var(--line);border-radius:16px;text-align:center;cursor:pointer;background:var(--surface-2)}
+.drop:hover{border-color:var(--brand)}
+.drop svg{width:36px;height:36px;color:var(--brand)}
+.drop input{position:absolute;width:1px;height:1px;opacity:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* ===== hover effects and decorative elements ===== */
+.menu a{position:relative}
+.menu a::after{content:"";position:absolute;left:14px;right:14px;bottom:7px;height:2.5px;border-radius:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.menu a:hover::after,.menu a[aria-current="page"]::after{transform:scaleX(1)}
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s ease}
+.btn:hover::after{transform:translateX(120%)}
+.btn-primary:hover{box-shadow:0 8px 22px rgba(11,94,87,.32)}
+.btn-accent:hover{box-shadow:0 8px 22px rgba(242,169,59,.4)}
+.btn svg,.btn-link svg,.svc .go svg{transition:transform .2s}
+.btn:hover svg,.btn-link:hover svg,.svc a:hover .go svg{transform:translateX(4px)}
+.ico{transition:background .25s,color .25s,transform .35s cubic-bezier(.2,1.4,.4,1)}
+.svc a{position:relative;overflow:hidden}
+.svc a::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--brand),var(--accent));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.svc a:hover::before{transform:scaleX(1)}
+.svc a:hover .ico{background:var(--brand);color:var(--brand-ink);transform:rotate(-8deg) scale(1.1)}
+.svc a::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:var(--brand-soft);transform:scale(0);transition:transform .45s ease;z-index:0}
+.svc a:hover::after{transform:scale(1)}
+.svc a>*{position:relative;z-index:1}
+.ccard,.pkg,.steps li,.trust div,.faq details,.panel{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.ccard:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow)}
+.code{transition:background .25s,color .25s,transform .35s cubic-bezier(.2,1.4,.4,1)}
+.ccard:hover .code{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);transform:rotate(-6deg)}
+.pkg:hover{transform:translateY(-6px);border-color:var(--brand);box-shadow:0 18px 40px rgba(11,94,87,.16)}
+.pkg .from b{transition:color .2s}
+.pkg:hover .from b{color:var(--brand)}
+.pkg .ticks li{transition:transform .2s}
+.pkg:hover .ticks li{transform:translateX(3px)}
+.steps li:hover{transform:translateY(-4px);border-color:var(--brand);box-shadow:var(--shadow)}
+.steps li::before{transition:transform .35s cubic-bezier(.2,1.4,.4,1),background .25s,color .25s}
+.steps li:hover::before{transform:scale(1.15) rotate(-8deg);background:var(--accent);color:var(--accent-ink)}
+.trust div:hover{transform:translateY(-3px);border-color:var(--brand);box-shadow:var(--shadow)}
+.trust div:hover .ico{background:var(--brand);color:var(--brand-ink);transform:scale(1.1)}
+.faq details:hover{border-color:var(--brand)}
+.faq summary::after{transition:transform .25s}
+.faq summary:hover::after{transform:rotate(90deg)}
+.book-tabs button{transition:color .2s,background .2s}
+.book-tabs button:hover{color:var(--brand)}
+.book-tabs button svg{transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+.book-tabs button:hover svg{transform:translateY(-3px) rotate(-8deg)}
+.chip{transition:background .2s,color .2s}
+.ccard:hover .chip{background:var(--brand-soft)}
+.fgrid a{background:linear-gradient(var(--brand),var(--brand)) left 85%/0 2px no-repeat;transition:background-size .25s,color .2s}
+.fgrid a:hover{background-size:100% 2px}
+.fgrid .logo{background:none;min-height:0}
+
+/* decorative: dotted map pattern, floating cards, stamps */
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(var(--brand) 1.2px,transparent 1.3px);background-size:22px 22px;opacity:.09;-webkit-mask-image:radial-gradient(ellipse 70% 80% at 80% 30%,#000,transparent 70%);mask-image:radial-gradient(ellipse 70% 80% at 80% 30%,#000,transparent 70%)}
+.hero .container{position:relative}
+.hero-art{transition:transform .3s ease-out;transform-style:preserve-3d}
+.float{position:absolute;display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);font-size:13.5px;line-height:1.3;color:var(--fg);animation:bob 5s ease-in-out infinite}
+.float b{display:block;font-size:14px}
+.float span.s{color:var(--muted)}
+.float .fi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+.float .fi svg{width:18px;height:18px}
+.f1{left:-4%;top:12%}
+.f1 .fi{background:var(--accent);color:var(--accent-ink)}
+.f2{left:4%;bottom:6%;animation-delay:-2.5s}
+.f2 .fi{background:var(--brand);color:var(--brand-ink)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.stamp{position:absolute;right:-2%;top:-4%;width:96px;height:96px;border-radius:50%;border:3px dashed var(--accent);color:var(--warn-ink);display:grid;place-items:center;text-align:center;font-family:var(--display);font-weight:800;font-size:11px;letter-spacing:.12em;line-height:1.2;transform:rotate(14deg);background:var(--surface);animation:spin 26s linear infinite}
+.stamp::before{content:"";position:absolute;inset:7px;border-radius:50%;border:1.5px solid var(--accent)}
+@keyframes spin{to{transform:rotate(374deg)}}
+@media (max-width:900px){.f1{left:0}.stamp{right:0}}
+.page-head{position:relative;overflow:hidden}
+.page-head::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;border:2px dashed var(--brand);opacity:.18;pointer-events:none}
+.page-head::before{content:"";position:absolute;right:40px;top:40px;width:150px;height:150px;border-radius:50%;border:2px solid var(--accent);opacity:.25;pointer-events:none}
+.section.alt{position:relative}
+.section.alt::before{content:"";position:absolute;left:0;right:0;top:-1px;height:14px;background:linear-gradient(135deg,var(--bg) 25%,transparent 25%) -7px 0/14px 14px,linear-gradient(225deg,var(--bg) 25%,transparent 25%) -7px 0/14px 14px;pointer-events:none}
+.cta-band{position:relative;overflow:hidden}
+.cta-band>*{position:relative;z-index:1}
+.cta-deco{position:absolute;right:-20px;top:50%;width:380px;max-width:60%;transform:translateY(-50%);opacity:.22;pointer-events:none;z-index:0}
+.cta-deco path{fill:none;stroke:var(--brand-ink);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
+.float-wa::before{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #1F9D57;animation:ring 2.4s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+.float-wa{transition:transform .2s}
+.float-wa:hover{transform:translateY(-3px) scale(1.04)}
+.totop{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--brand);box-shadow:var(--shadow);display:grid;place-items:center;cursor:pointer;transition:transform .2s,background .2s,color .2s}
+.totop svg{width:22px;height:22px;transform:rotate(-90deg)}
+.totop:hover{background:var(--brand);color:var(--brand-ink);transform:translateY(-3px)}
+
+/* full width hero slideshow */
+.hero-slider{position:relative;overflow:hidden;background:#06262A;color:#fff;min-height:clamp(600px,82vh,760px);touch-action:pan-y}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s}
+.slide.on{opacity:1;visibility:visible;z-index:1}
+.slide .scene{position:absolute;inset:0;width:100%;height:100%;transform:scale(1.1);transform-origin:70% 60%;transition:transform 8s linear}
+.slide.on .scene{transform:scale(1)}
+.shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,18,22,.9) 0%,rgba(3,18,22,.72) 34%,rgba(3,18,22,.18) 66%,rgba(3,18,22,0) 85%),linear-gradient(0deg,rgba(3,18,22,.75) 0%,rgba(3,18,22,0) 30%)}
+.scontent{position:relative;height:100%;display:flex;align-items:center;padding-block:calc(40px) 170px}
+.sc-in{display:flex;flex-direction:column;gap:16px;max-width:620px}
+.sc-in>*{transform:translateY(22px);opacity:0;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .7s}
+.slide.on .sc-in>*{transform:none;opacity:1}
+.slide.on .sc-in>*:nth-child(2){transition-delay:.1s}.slide.on .sc-in>*:nth-child(3){transition-delay:.2s}.slide.on .sc-in>*:nth-child(4){transition-delay:.3s}.slide.on .sc-in>*:nth-child(5){transition-delay:.4s}.slide.on .sc-in>*:nth-child(6){transition-delay:.5s}
+.srow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.hero-slider .kicker{color:#FFD891}
+.offer{display:inline-flex;align-items:center;min-height:32px;padding:0 14px;border-radius:999px;background:#F2A93B;color:#2A1B00;font-size:14px;font-weight:700}
+.hero-slider h1,.hero-slider h2{color:#fff;font-size:clamp(34px,5vw,64px);font-weight:800;line-height:1.06}
+.stext{font-size:clamp(17px,1.5vw,20px);color:#E2ECEA;max-width:52ch}
+.hero-slider .hero-points li{color:#fff}
+.hero-slider .hero-points svg{color:#7FE3B6}
+.cprice{font-size:17px;color:#E2ECEA}
+.cprice b{font-family:var(--display);font-size:28px;color:#fff;margin:0 4px}
+.hero-slider .cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn-glass{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.btn-glass:hover{background:#fff;color:#0B5E57}
+.sbar{position:absolute;left:0;right:0;bottom:84px;z-index:3;display:flex;align-items:flex-end;justify-content:space-between;gap:16px}
+.stabs{display:flex;gap:6px;min-width:0;overflow-x:auto;scrollbar-width:none;flex:1}
+.stabs::-webkit-scrollbar{display:none}
+.stabs button{flex:1 1 0;min-width:96px;max-width:170px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:10px 4px 6px;border:0;background:none;color:rgba(255,255,255,.72);font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-align:left;transition:color .2s}
+.stabs button:hover,.stabs button[aria-current="true"]{color:#fff}
+.tl-name{white-space:nowrap}
+.tl-bar{display:block;width:100%;height:3px;border-radius:2px;background:rgba(255,255,255,.28);overflow:hidden}
+.tl-bar i{display:block;height:100%;width:0;background:#F2A93B}
+.stabs button.done .tl-bar i{width:100%}
+.stabs button[aria-current="true"] .tl-bar i.run{animation:sprog var(--dur,6s) linear forwards}
+.hero-slider.paused .tl-bar i.run{animation-play-state:paused}
+.stabs button[aria-current="true"] .tl-bar i.stop{width:100%}
+@keyframes sprog{from{width:0}to{width:100%}}
+.sctl{display:flex;gap:8px;flex-shrink:0}
+.sctl button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.1);color:#fff;display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:background .2s,color .2s,transform .2s}
+.sctl button:hover{background:#F2A93B;color:#2A1B00;border-color:#F2A93B;transform:scale(1.08)}
+.sctl svg{width:20px;height:20px}
+.book-wrap{position:relative;z-index:5;margin-top:-64px;padding-bottom:clamp(28px,4vw,48px)}
+.book-wrap .book{margin-top:0}
+@media (max-width:760px){
+  .hero-slider{min-height:660px}
+  .shade{background:linear-gradient(0deg,rgba(3,18,22,.95) 0%,rgba(3,18,22,.8) 45%,rgba(3,18,22,.25) 75%,rgba(3,18,22,.1) 100%)}
+  .scontent{align-items:flex-end;padding-block:40px 190px}
+  .sc-in{gap:12px}
+  .stabs .tl-name{display:none}
+  .stabs button{min-width:0;padding-top:0}
+  .sbar{bottom:96px}
+  .sctl button{width:44px;height:44px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<canvas id="sky" aria-hidden="true"></canvas>
-<div id="plane" aria-hidden="true"><svg viewBox="0 0 120 120"><path fill="#fff" d="M112 60c0 4-10 6-24 6H22l-12 3v-18l12 3h66c14 0 24 2 24 6zM70 54L46 6h10l30 48zM70 66L46 114h10l30-48zM26 54l-10-18h7l15 18zM26 66l-10 18h7l15-18z"/><path fill="#F5B841" d="M10 51l12 3v12l-12 3z"/></svg></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="mlg" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#C98A25"/><stop offset="1" stop-color="#F4C766"/></linearGradient></defs>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-pass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M9 16h6"/></g></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4zM14 6v12"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+  <symbol id="i-palm" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 21c0-5 0-8 1-11M13 10c-2-3-6-3-8-1M13 10c1-3 5-5 8-3M13 10c3-1 6 1 7 4M13 10c-3 0-6 2-6 5M3 21h18"/></symbol>
+  <symbol id="i-track" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h6"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-office" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 21V7l8-4 8 4v14M9 21v-5h6v5M8 10h2M14 10h2M3 21h18"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.3-4.1A8 8 0 1 1 20 11.5z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></symbol>
+</svg>
 
-<header class="nav">
-  <div class="nav-in">
-    <a class="brand" href="#home"><i></i>MusafirLife</a>
-    <nav class="tabs" aria-label="Main" id="tabs">
+<div class="topbar">
+  <div class="container">
+    <span><svg><use href="#i-phone"/></svg>Call or WhatsApp [YOUR PHONE NUMBER]</span>
+    <span class="hide-sm"><svg><use href="#i-clock"/></svg>Open [DAYS], [HOURS]</span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="container hrow">
+    <a class="logo" href="#home" aria-label="MusafirLife home"><svg class="logo-mark" viewBox="2 6 62 60" aria-hidden="true"><g class="lw"><path class="lw1" d="M6 44 C 22 42, 38 32, 52 10 C 50 30, 34 46, 8 48 Z" fill="url(#mlg)"/><path class="lw2" d="M10 53 C 28 52, 44 42, 58 22 C 56 40, 40 54, 12 56.5 Z" fill="var(--logo-ink)"/><path class="lw3" d="M16 61 C 32 60.5, 46 54, 60 38 C 57 52, 44 61.5, 18 63 Z" fill="var(--logo-mid)"/></g></svg><span class="wm"><svg class="wm-svg" viewBox="-2 -77.5 690.6 79.5" aria-hidden="true"><path d="M6.6000000000000005 0.0V-74.5H21.6L49.5 -37.5H42.5L69.60000000000001 -74.5H84.60000000000001V0.0H69.10000000000001V-57.400000000000006L75.3 -56.0L46.6 -19.0H44.6L16.900000000000002 -56.0L22.1 -57.400000000000006V0.0ZM130.4 1.2000000000000002Q121.60000000000001 1.2000000000000002 114.70000000000002 -2.5Q107.80000000000001 -6.2 103.85000000000001 -12.65Q99.9 -19.1 99.9 -27.3V-74.5H115.4V-28.3Q115.4 -23.900000000000002 117.35000000000001 -20.35Q119.30000000000001 -16.8 122.70000000000002 -14.8Q126.10000000000001 -12.8 130.4 -12.8Q134.8 -12.8 138.15 -14.8Q141.5 -16.8 143.45 -20.35Q145.4 -23.900000000000002 145.4 -28.3V-74.5H160.9V-27.3Q160.9 -19.1 156.95 -12.65Q153.0 -6.2 146.1 -2.5Q139.2 1.2000000000000002 130.4 1.2000000000000002ZM203.3 1.2000000000000002Q196.3 1.2000000000000002 190.15000000000003 -1.35Q184.00000000000003 -3.9000000000000004 179.55 -8.600000000000001Q175.10000000000002 -13.3 172.90000000000003 -19.700000000000003L185.60000000000002 -25.400000000000002Q188.40000000000003 -19.3 193.35000000000002 -15.8Q198.3 -12.3 204.3 -12.3Q207.50000000000003 -12.3 209.8 -13.3Q212.10000000000002 -14.3 213.40000000000003 -16.05Q214.70000000000002 -17.8 214.70000000000002 -20.200000000000003Q214.70000000000002 -22.8 213.10000000000002 -24.65Q211.50000000000003 -26.5 208.10000000000002 -27.6L193.50000000000003 -32.4Q184.60000000000002 -35.300000000000004 180.10000000000002 -40.650000000000006Q175.60000000000002 -46.0 175.60000000000002 -53.5Q175.60000000000002 -60.1 178.85000000000002 -65.10000000000001Q182.10000000000002 -70.10000000000001 187.95000000000002 -72.9Q193.8 -75.7 201.40000000000003 -75.7Q208.10000000000002 -75.7 213.8 -73.4Q219.50000000000003 -71.10000000000001 223.65000000000003 -66.9Q227.8 -62.7 229.90000000000003 -56.800000000000004L217.3 -51.1Q215.20000000000002 -56.300000000000004 211.0 -59.25Q206.8 -62.2 201.40000000000003 -62.2Q198.3 -62.2 195.90000000000003 -61.2Q193.50000000000003 -60.2 192.20000000000005 -58.35Q190.90000000000003 -56.5 190.90000000000003 -54.1Q190.90000000000003 -51.5 192.60000000000002 -49.55Q194.3 -47.6 197.70000000000002 -46.5L212.00000000000003 -41.900000000000006Q221.00000000000003 -39.0 225.45000000000005 -33.8Q229.90000000000003 -28.6 229.90000000000003 -21.1Q229.90000000000003 -14.600000000000001 226.50000000000003 -9.55Q223.10000000000002 -4.5 217.15000000000003 -1.65Q211.20000000000002 1.2000000000000002 203.3 1.2000000000000002ZM320.1 0.0V-74.5H371.1V-61.0H335.6V-42.1H366.1V-28.6H335.6V0.0ZM381.8 0.0V-74.5H397.3V0.0ZM413.5 0.0V-74.5H442.0Q449.7 -74.5 455.65 -71.80000000000001Q461.59999999999997 -69.10000000000001 465.0 -63.800000000000004Q468.4 -58.5 468.4 -50.7Q468.4 -43.1 464.9 -37.75Q461.4 -32.4 455.5 -29.700000000000003L472.5 0.0H455.09999999999997L436.7 -32.9L446.7 -27.0H429.0V0.0ZM429.0 -40.5H442.09999999999997Q445.4 -40.5 447.79999999999995 -41.8Q450.2 -43.1 451.54999999999995 -45.400000000000006Q452.9 -47.7 452.9 -50.7Q452.9 -53.800000000000004 451.54999999999995 -56.10000000000001Q450.2 -58.400000000000006 447.79999999999995 -59.7Q445.4 -61.0 442.09999999999997 -61.0H429.0Z" fill="var(--logo-ink)"/><path d="M238.40 0.00L267.39 -74.50L280.41 -74.50L309.40 0.00L291.11 0.00L273.90 -47.38L256.69 0.00Z" fill="var(--logo-ink)"/><path class="wm-sw" d="M239.82 -22.35C263.25 -24.59 300.88 -31.29 316.50 -49.17" fill="none" stroke="var(--logo-gold)" stroke-width="7.13" stroke-linecap="round" pathLength="100"/><path d="M483.2 0.0V-74.5H498.7V-13.5H530.1999999999999V0.0ZM540.9 0.0V-74.5H556.4V0.0ZM572.6 0.0V-74.5H623.6V-61.0H588.1V-42.1H618.6V-28.6H588.1V0.0ZM634.3000000000001 0.0V-74.5H684.4000000000001V-61.0H649.8000000000001V-44.1H682.4000000000001V-30.6H649.8000000000001V-13.5H684.4000000000001V0.0Z" fill="var(--logo-gold)"/></svg><small>Travel · Visa · Hajj and Umrah</small></span></a>
+    <nav class="menu" id="menu" aria-label="Main">
       <a href="#home" data-tab="home">Home</a>
       <a href="#visa" data-tab="visa">Visa</a>
       <a href="#hajj-umrah" data-tab="hajj-umrah">Hajj and Umrah</a>
       <a href="#tours" data-tab="tours">Tickets and Tours</a>
-      <a href="#track" data-tab="track">Track</a>
+      <a href="#track" data-tab="track">Track my file</a>
       <a href="#contact" data-tab="contact">Contact</a>
     </nav>
-    <a class="btn gold" href="#order">Order now</a>
+    <div class="hactions">
+      <a class="btn btn-primary" href="#order">Apply now</a>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg><use href="#i-menu"/></svg></button>
+    </div>
   </div>
 </header>
 
-<div id="prog" aria-hidden="true"></div>
-<nav class="rail" id="rail" aria-label="Home sections">
-  <button type="button"><span>Start</span></button>
-  <button type="button"><span>Passport scan</span></button>
-  <button type="button"><span>Tracking</span></button>
-  <button type="button"><span>Countries</span></button>
-  <button type="button"><span>Family and groups</span></button>
-  <button type="button"><span>Quotes and reminders</span></button>
-</nav>
-<a class="btn gold help" href="#contact">Need help? Chat with us</a>
+<main id="main">
 
 <!-- ================= HOME ================= -->
 <div class="view" id="v-home">
-<main>
-
-<section class="scene" id="s-hero" style="--len:150vh">
-  <div class="stage">
-    <div class="hero">
-      <div class="hero-word" id="heroWord" aria-hidden="true">MUSAFIR</div>
-      <div class="hero-in" id="heroIn">
-        <p class="eyebrow">Visa · Tickets · Tours · Hajj and Umrah · Any country</p>
-        <h1><span class="l1" id="l1">Every journey,</span><span class="l2" id="l2">tracked to the gate.</span></h1>
-        <p class="lede">MusafirLife handles visit and travel visas for any country, air tickets, tours, and Hajj and Umrah. You follow every step on your phone.</p>
-        <form class="finder glass" id="finder">
-          <div class="fld"><label for="hService">I need</label><select id="hService"><option>Visit or travel visa</option><option>Student visa</option><option>Business visa</option><option>Medical visa</option><option>Work visa</option><option>Air ticket</option><option>Tour package</option><option>Umrah</option><option>Hajj</option></select></div>
-          <div class="fld"><label for="hDest">Going to</label><input id="hDest" type="text" placeholder="Country or city" list="countries" autocomplete="off"></div>
-          <button class="btn gold" type="submit">Start my order</button>
+  <section class="hero-slider" id="slides" aria-roledescription="carousel" aria-label="Offers and destinations">
+    <div class="slide on" role="group" aria-roledescription="slide" aria-label="1 of 7: All services">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E5C66"/><stop offset=".6" stop-color="#5FB3A8"/><stop offset="1" stop-color="#F6D9A0"/></linearGradient></defs>
+<rect width="1000" height="420" fill="url(#s0)"/>
+<circle cx="820" cy="250" r="90" fill="#FFE7AE" opacity=".9"/><circle cx="820" cy="250" r="130" fill="#FFE7AE" opacity=".18"/>
+<g fill="#fff" opacity=".85"><ellipse cx="620" cy="120" rx="70" ry="16"/><ellipse cx="660" cy="108" rx="40" ry="16"/><ellipse cx="930" cy="160" rx="60" ry="14"/><ellipse cx="420" cy="180" rx="50" ry="12"/></g>
+<path d="M300 380 C 480 160, 760 80, 980 120" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 12" stroke-linecap="round" opacity=".8"/>
+<g transform="translate(740 98) rotate(-8) scale(2.6)" fill="#ffffff"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" transform="rotate(90 12 12)"/></g>
+<g fill="#2F7F78"><rect x="560" y="300" width="40" height="120"/><rect x="606" y="270" width="30" height="150"/><path d="M621 230l7 40h-14z"/><rect x="642" y="316" width="46" height="104"/><rect x="900" y="290" width="36" height="130"/><rect x="940" y="320" width="60" height="100"/></g>
+<g fill="#0B4F48"><rect x="720" y="330" width="100" height="90"/><path d="M720 332a50 52 0 0 1 100 0z"/><rect x="768" y="270" width="4" height="16"/><rect x="694" y="270" width="12" height="150"/><path d="M700 240l8 30h-16z"/><rect x="834" y="270" width="12" height="150"/><path d="M840 240l8 30h-16z"/></g>
+<rect x="0" y="400" width="1000" height="20" fill="#E9C98E"/></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="kicker">Visa · Tickets · Tours · Hajj and Umrah</span></div>
+          <h1>Your visa and travel, made simple.</h1>
+          <p class="stext">Visit and travel visas for any country, air tickets, holidays, and Hajj and Umrah. Send a photo of your passport and follow every step on WhatsApp.</p>
+          <ul class="hero-points"><li><svg><use href="#i-check"/></svg>Any country</li><li><svg><use href="#i-check"/></svg>Updates on WhatsApp</li><li><svg><use href="#i-check"/></svg>Clear price before you pay</li></ul>
+          <div class="cta"><a class="btn btn-accent" href="#order">Apply now<svg><use href="#i-arrow"/></svg></a><a class="btn btn-glass" href="#track">Track my file</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="2 of 7: Umrah" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#081133"/><stop offset="1" stop-color="#2B3F8A"/></linearGradient></defs><rect width="1000" height="420" fill="url(#s1)"/><rect x="0" y="392" width="500" height="28" fill="#0E173F"/><g transform="translate(500 20)">
+<rect width="500" height="400" fill="url(#s1)"/>
+<g fill="#fff"><circle cx="40" cy="40" r="1.4"/><circle cx="120" cy="70" r="1"/><circle cx="200" cy="30" r="1.6"/><circle cx="300" cy="60" r="1"/><circle cx="430" cy="40" r="1.4"/><circle cx="470" cy="110" r="1"/><circle cx="80" cy="120" r="1"/></g>
+<path d="M92 52a26 26 0 1 0 19 44a21 21 0 1 1-19-44z" fill="#F7E7B4"/>
+<g fill="#15204F"><rect x="330" y="96" width="56" height="304"/><rect x="342" y="58" width="32" height="40"/><path d="M358 8l6 50h-12z"/><rect x="276" y="186" width="54" height="214"/><rect x="386" y="186" width="54" height="214"/><rect x="0" y="230" width="140" height="170"/></g>
+<circle cx="358" cy="126" r="15" fill="#9FF0C8"/>
+<g fill="#0E173F"><rect x="120" y="120" width="12" height="280"/><path d="M126 86l9 34h-18z"/><rect x="226" y="150" width="11" height="250"/><path d="M231.5 120l8 30h-16z"/><rect x="0" y="300" width="500" height="100"/></g>
+<g fill="#F5D58A"><rect x="20" y="316" width="14" height="30" rx="7"/><rect x="60" y="316" width="14" height="30" rx="7"/><rect x="390" y="316" width="14" height="30" rx="7"/><rect x="430" y="316" width="14" height="30" rx="7"/><rect x="470" y="316" width="14" height="30" rx="7"/></g>
+<rect x="0" y="372" width="500" height="28" fill="#E9E4D6"/>
+<rect x="196" y="270" width="104" height="106" fill="#07070C"/><rect x="196" y="294" width="104" height="9" fill="#F2A93B"/><rect x="264" y="322" width="18" height="54" fill="#F2A93B"/></g></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="offer">Group departures every month</span><span class="kicker">Umrah</span></div>
+          <h2>Umrah with peace of mind</h2>
+          <p class="stext">Visa, flights and hotels near the Haram, with transport and Ziyarah included.</p>
+          <div class="cta"><button type="button" class="btn btn-accent" data-order="Umrah|Saudi Arabia" tabindex="-1">Book Umrah<svg><use href="#i-arrow"/></svg></button><a class="btn btn-glass" href="#hajj-umrah" tabindex="-1">See all packages</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="3 of 7: Hajj" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A2A6E"/><stop offset=".65" stop-color="#E9835A"/><stop offset="1" stop-color="#F6C27E"/></linearGradient></defs><rect width="1000" height="420" fill="url(#s2)"/><rect x="0" y="392" width="500" height="28" fill="#E8DCC4"/><g transform="translate(500 20)">
+<rect width="500" height="400" fill="url(#s2)"/>
+<circle cx="360" cy="200" r="54" fill="#FFD98A" opacity=".95"/>
+<path d="M0 260 L120 150 L200 210 L290 120 L420 230 L500 190 V400 H0Z" fill="#6B3D5E"/>
+<path d="M0 290 L160 210 L260 260 L380 200 L500 270 V400 H0Z" fill="#4E2C4D"/>
+<rect x="286" y="104" width="6" height="22" fill="#F6E7C8"/>
+<g fill="#FDF7EC">
+<path d="M10 330l18-22 18 22z"/><path d="M50 330l18-22 18 22z"/><path d="M90 330l18-22 18 22z"/><path d="M130 330l18-22 18 22z"/><path d="M170 330l18-22 18 22z"/><path d="M210 330l18-22 18 22z"/><path d="M250 330l18-22 18 22z"/><path d="M290 330l18-22 18 22z"/><path d="M330 330l18-22 18 22z"/><path d="M370 330l18-22 18 22z"/><path d="M410 330l18-22 18 22z"/><path d="M450 330l18-22 18 22z"/>
+<path d="M-10 366l20-26 20 26z"/><path d="M34 366l20-26 20 26z"/><path d="M78 366l20-26 20 26z"/><path d="M122 366l20-26 20 26z"/><path d="M166 366l20-26 20 26z"/><path d="M210 366l20-26 20 26z"/><path d="M254 366l20-26 20 26z"/><path d="M298 366l20-26 20 26z"/><path d="M342 366l20-26 20 26z"/><path d="M386 366l20-26 20 26z"/><path d="M430 366l20-26 20 26z"/><path d="M474 366l20-26 20 26z"/>
+</g>
+<g fill="#E8DCC4"><rect x="0" y="330" width="500" height="8"/><rect x="0" y="366" width="500" height="34"/></g></g></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="offer">Pre registration open</span><span class="kicker">Hajj</span></div>
+          <h2>Hajj packages for the coming season</h2>
+          <p class="stext">Registration support, camps in Mina and Arafat, and hotels in Makkah and Madinah.</p>
+          <div class="cta"><button type="button" class="btn btn-accent" data-order="Hajj|Saudi Arabia" tabindex="-1">Ask about Hajj<svg><use href="#i-arrow"/></svg></button><a class="btn btn-glass" href="#hajj-umrah" tabindex="-1">See Hajj details</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="4 of 7: Family holiday" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4FB8E3"/><stop offset="1" stop-color="#FCE3B0"/></linearGradient></defs><rect width="1000" height="420" fill="url(#s3)"/><rect x="0" y="392" width="500" height="28" fill="#EBC584"/><g transform="translate(500 20)">
+<rect width="500" height="400" fill="url(#s3)"/>
+<circle cx="380" cy="90" r="38" fill="#FFF3C4"/>
+<g fill="#fff" opacity=".9"><ellipse cx="110" cy="70" rx="40" ry="12"/><ellipse cx="136" cy="62" rx="24" ry="12"/></g>
+<rect x="0" y="210" width="500" height="70" fill="#1E9CC2"/><rect x="0" y="210" width="500" height="10" fill="#7FD3EA"/>
+<path d="M0 270 Q 120 250 250 268 T 500 262 V400 H0Z" fill="#F3D69C"/>
+<path d="M0 300 Q 200 286 500 300 V400 H0Z" fill="#EBC584"/>
+<g><path d="M430 300 C 426 240, 420 200, 404 160" fill="none" stroke="#6B4A2B" stroke-width="9" stroke-linecap="round"/>
+<g fill="#2F8F5B"><path d="M404 160c-30-6-56 6-66 24 22-12 44-14 66-24z"/><path d="M404 160c-4-30-30-46-52-46 20 12 34 26 52 46z"/><path d="M404 160c24-22 54-22 70-10-26 0-48 4-70 10z"/><path d="M404 160c30 2 50 22 52 40-16-18-34-30-52-40z"/></g></g>
+<g><path d="M70 300 L 96 220" stroke="#5A3E25" stroke-width="4"/><path d="M40 228 Q 96 190 152 214 Z" fill="#E8573C"/><path d="M96 220 L 152 214 Q 126 196 96 192 Z" fill="#F2A93B"/></g>
+<g fill="#16323D">
+<circle cx="200" cy="246" r="11"/><path d="M188 260h24l4 50h-32z" /><rect x="190" y="306" width="8" height="34" rx="4"/><rect x="202" y="306" width="8" height="34" rx="4"/>
+<circle cx="246" cy="250" r="10"/><path d="M234 263h24l6 46h-36z"/><rect x="238" y="305" width="8" height="35" rx="4"/><rect x="250" y="305" width="8" height="35" rx="4"/>
+<circle cx="284" cy="276" r="8"/><path d="M276 286h16l2 28h-20z"/><rect x="278" y="312" width="6" height="26" rx="3"/><rect x="286" y="312" width="6" height="26" rx="3"/>
+<circle cx="164" cy="280" r="7"/><path d="M157 289h14l2 24h-18z"/><rect x="158" y="311" width="5" height="26" rx="2.5"/><rect x="165" y="311" width="5" height="26" rx="2.5"/>
+<path d="M171 294 L 188 278" stroke="#16323D" stroke-width="5" stroke-linecap="round"/><path d="M212 276 L 236 276" stroke="#16323D" stroke-width="5" stroke-linecap="round"/><path d="M260 280 L 278 292" stroke="#16323D" stroke-width="5" stroke-linecap="round"/>
+</g></g></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="offer">Kids [OFFER]</span><span class="kicker">Family holiday</span></div>
+          <h2>A family holiday in Thailand</h2>
+          <p class="stext">Five days in Bangkok and Pattaya with flights, hotel with breakfast and airport transfers.</p>
+          <div class="cta"><button type="button" class="btn btn-accent" data-order="Tour package|Thailand" tabindex="-1">Book this holiday<svg><use href="#i-arrow"/></svg></button><a class="btn btn-glass" href="#tours" tabindex="-1">See all tours</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="5 of 7: Dubai" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0D4FAE"/><stop offset="1" stop-color="#F3B27A"/></linearGradient></defs><rect width="1000" height="420" fill="url(#s4)"/><rect x="0" y="392" width="500" height="28" fill="#D99A4E"/><g transform="translate(500 20)">
+<rect width="500" height="400" fill="url(#s4)"/>
+<circle cx="100" cy="120" r="36" fill="#FFF1C9"/>
+<g fill="#2D5FA8"><rect x="30" y="220" width="40" height="180"/><rect x="80" y="190" width="32" height="210"/><rect x="350" y="200" width="44" height="200"/><rect x="404" y="170" width="36" height="230"/><rect x="448" y="230" width="52" height="170"/></g>
+<g fill="#123A78"><path d="M250 20l8 110 10 34 8 236h-52l8-236 10-34z"/><rect x="150" y="210" width="48" height="190"/><path d="M300 180l42 26v194h-42z"/><rect x="110" y="250" width="38" height="150"/></g>
+<path d="M0 350Q100 300 240 346T500 330V400H0Z" fill="#E9B46A"/><path d="M0 372Q160 340 330 370T500 364V400H0Z" fill="#D99A4E"/></g></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="offer">Visa included</span><span class="kicker">Dubai</span></div>
+          <h2>Dubai city break</h2>
+          <p class="stext">Four days with a desert safari, city tour and hotel. We arrange the UAE visa for you.</p>
+          <div class="cta"><button type="button" class="btn btn-accent" data-order="Tour package|United Arab Emirates" tabindex="-1">Book Dubai<svg><use href="#i-arrow"/></svg></button><a class="btn btn-glass" href="#tours" tabindex="-1">See all tours</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="6 of 7: Malaysia" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#062A3D"/><stop offset="1" stop-color="#1FA89C"/></linearGradient></defs><rect width="1000" height="420" fill="url(#s5)"/><rect x="0" y="392" width="500" height="28" fill="#0B3D2E"/><g transform="translate(500 20)">
+<rect width="500" height="400" fill="url(#s5)"/>
+<g fill="#fff" opacity=".7"><circle cx="60" cy="50" r="1.3"/><circle cx="420" cy="70" r="1.3"/><circle cx="300" cy="40" r="1"/></g>
+<g fill="#0D4A5C"><rect x="20" y="220" width="50" height="180"/><rect x="80" y="250" width="40" height="150"/><rect x="390" y="230" width="46" height="170"/><rect x="444" y="200" width="40" height="200"/></g>
+<g fill="#052635"><rect x="182" y="130" width="50" height="270"/><rect x="191" y="86" width="32" height="46"/><path d="M207 20l7 66h-14z"/><rect x="278" y="130" width="50" height="270"/><rect x="287" y="86" width="32" height="46"/><path d="M303 20l7 66h-14z"/><rect x="232" y="222" width="46" height="8"/></g>
+<g fill="#F5D58A"><rect x="194" y="160" width="5" height="5"/><rect x="210" y="190" width="5" height="5"/><rect x="290" y="176" width="5" height="5"/><rect x="312" y="210" width="5" height="5"/><rect x="200" y="260" width="5" height="5"/><rect x="304" y="290" width="5" height="5"/></g>
+<g fill="#0B3D2E"><ellipse cx="60" cy="400" rx="150" ry="46"/><ellipse cx="260" cy="414" rx="190" ry="40"/><ellipse cx="470" cy="400" rx="150" ry="50"/></g></g></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="offer">Best seller</span><span class="kicker">Malaysia and Singapore</span></div>
+          <h2>Two countries in six days</h2>
+          <p class="stext">Kuala Lumpur and Singapore with flights, hotels and guided city tours.</p>
+          <div class="cta"><button type="button" class="btn btn-accent" data-order="Tour package|Malaysia" tabindex="-1">Book this tour<svg><use href="#i-arrow"/></svg></button><a class="btn btn-glass" href="#tours" tabindex="-1">See all tours</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide" role="group" aria-roledescription="slide" aria-label="7 of 7: UK and Europe" aria-hidden="true">
+      <svg class="scene" viewBox="0 0 1000 420" preserveAspectRatio="xMaxYMax slice" aria-hidden="true"><defs><linearGradient id="s6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#172446"/><stop offset="1" stop-color="#E0A070"/></linearGradient></defs><rect width="1000" height="420" fill="url(#s6)"/><rect x="0" y="392" width="500" height="28" fill="#0D1838"/><g transform="translate(500 20)">
+<rect width="500" height="400" fill="url(#s6)"/>
+<g fill="none" stroke="#2B3966" stroke-width="5"><circle cx="380" cy="210" r="86"/></g>
+<g stroke="#2B3966" stroke-width="2.5"><path d="M380 124v172M294 210h172M319 149l122 122M441 149L319 271"/></g>
+<g fill="#2B3966"><rect x="350" y="270" width="60" height="130"/><rect x="10" y="280" width="80" height="120"/></g>
+<g fill="#111B3C"><rect x="130" y="110" width="48" height="290"/><rect x="124" y="98" width="60" height="14"/><path d="M154 24l24 74h-48z"/><rect x="178" y="290" width="200" height="110"/><g><rect x="196" y="262" width="10" height="30"/><rect x="246" y="262" width="10" height="30"/><rect x="296" y="262" width="10" height="30"/><rect x="346" y="262" width="10" height="30"/></g></g>
+<circle cx="154" cy="146" r="17" fill="#F5E6B0"/><path d="M154 146v-10M154 146l7 4" stroke="#111B3C" stroke-width="2"/>
+<rect x="0" y="384" width="500" height="16" fill="#0D1838"/></g></svg>
+      <div class="shade"></div>
+      <div class="container scontent">
+        <div class="sc-in">
+          <div class="srow"><span class="offer">Visit visa</span><span class="kicker">UK and Europe</span></div>
+          <h2>UK and Schengen visit visas</h2>
+          <p class="stext">Full document check, appointment booking and a travel plan that embassies expect.</p>
+          <div class="cta"><button type="button" class="btn btn-accent" data-order="Visit or travel visa|United Kingdom" tabindex="-1">Start my visa<svg><use href="#i-arrow"/></svg></button><a class="btn btn-glass" href="#visa" tabindex="-1">See all countries</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="container sbar">
+      <div class="stabs" id="sDots"><button type="button" aria-label="Show slide 1: All services" aria-current="true"><span class="tl-name">All services</span><span class="tl-bar"><i></i></span></button><button type="button" aria-label="Show slide 2: Umrah"><span class="tl-name">Umrah</span><span class="tl-bar"><i></i></span></button><button type="button" aria-label="Show slide 3: Hajj"><span class="tl-name">Hajj</span><span class="tl-bar"><i></i></span></button><button type="button" aria-label="Show slide 4: Family holiday"><span class="tl-name">Family holiday</span><span class="tl-bar"><i></i></span></button><button type="button" aria-label="Show slide 5: Dubai"><span class="tl-name">Dubai</span><span class="tl-bar"><i></i></span></button><button type="button" aria-label="Show slide 6: Malaysia"><span class="tl-name">Malaysia</span><span class="tl-bar"><i></i></span></button><button type="button" aria-label="Show slide 7: UK and Europe"><span class="tl-name">UK and Europe</span><span class="tl-bar"><i></i></span></button></div>
+      <div class="sctl">
+        <button type="button" id="sPrev" aria-label="Previous slide"><svg style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button>
+        <button type="button" id="sPlay" aria-label="Pause slideshow"><svg viewBox="0 0 24 24" id="sPlayIco"><path fill="currentColor" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+        <button type="button" id="sNext" aria-label="Next slide"><svg><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <p class="sr" aria-live="polite" id="sLive"></p>
+  </section>
+  <div class="container book-wrap">
+      <div class="book" id="book">
+        <div class="book-tabs" role="tablist" aria-label="What do you need?">
+          <button type="button" role="tab" id="bt-visa" aria-selected="true" aria-controls="bp-visa"><svg><use href="#i-pass"/></svg>Visa</button>
+          <button type="button" role="tab" id="bt-flight" aria-selected="false" aria-controls="bp-flight" tabindex="-1"><svg><use href="#i-ticket"/></svg>Air ticket</button>
+          <button type="button" role="tab" id="bt-tour" aria-selected="false" aria-controls="bp-tour" tabindex="-1"><svg><use href="#i-palm"/></svg>Tour package</button>
+          <button type="button" role="tab" id="bt-umrah" aria-selected="false" aria-controls="bp-umrah" tabindex="-1"><svg><use href="#i-moon"/></svg>Hajj and Umrah</button>
+        </div>
+        <form class="book-panel" role="tabpanel" id="bp-visa" aria-labelledby="bt-visa" data-service="Visit or travel visa">
+          <div class="fld"><label for="bvCountry">Country you are visiting</label><input id="bvCountry" data-dest list="countryList" type="text" placeholder="For example United Kingdom" autocomplete="off"></div>
+          <div class="fld"><label for="bvType">Visa type</label><select id="bvType" data-type><option>Visit or tourist</option><option>Business</option><option>Student</option><option>Medical</option><option>Work</option><option>Transit</option></select></div>
+          <div class="fld"><label for="bvN">Travellers</label><select id="bvN" data-n><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></div>
+          <button class="btn btn-accent" type="submit">Start my visa<svg><use href="#i-arrow"/></svg></button>
         </form>
-        <datalist id="countries"><option value="United Kingdom"><option value="USA"><option value="Canada"><option value="Schengen area"><option value="Australia"><option value="Japan"><option value="Malaysia"><option value="Thailand"><option value="Singapore"><option value="UAE"><option value="Saudi Arabia"><option value="Turkey"><option value="India"><option value="China"></datalist>
-        <ul class="quick">
-          <li><a href="#track">Track my file</a></li>
-          <li><a href="#hajj-umrah">Hajj and Umrah packages</a></li>
-          <li><a href="#tours">Tickets and tours</a></li>
-          <li><a href="#visa">All visa countries</a></li>
-        </ul>
-        <p class="hint"><span>Scroll to see how it works ↓</span><button type="button" class="skip" id="skipTour">Skip the tour</button></p>
+        <form class="book-panel" role="tabpanel" id="bp-flight" aria-labelledby="bt-flight" data-service="Air ticket" hidden>
+          <div class="fld"><label for="bfFrom">From</label><input id="bfFrom" type="text" value="Dhaka (DAC)"></div>
+          <div class="fld"><label for="bfTo">To</label><input id="bfTo" data-dest list="countryList" type="text" placeholder="City or country" autocomplete="off"></div>
+          <div class="fld"><label for="bfDate">Departure date</label><input id="bfDate" data-date type="date"></div>
+          <div class="fld"><label for="bfN">Passengers</label><select id="bfN" data-n><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></div>
+          <button class="btn btn-accent" type="submit">Get ticket price<svg><use href="#i-arrow"/></svg></button>
+        </form>
+        <form class="book-panel" role="tabpanel" id="bp-tour" aria-labelledby="bt-tour" data-service="Tour package" hidden>
+          <div class="fld"><label for="btDest">Where to?</label><input id="btDest" data-dest list="countryList" type="text" placeholder="For example Thailand" autocomplete="off"></div>
+          <div class="fld"><label for="btDate">Travel month</label><input id="btDate" data-date type="month"></div>
+          <div class="fld"><label for="btN">Travellers</label><select id="btN" data-n><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></div>
+          <button class="btn btn-accent" type="submit">See tour options<svg><use href="#i-arrow"/></svg></button>
+        </form>
+        <form class="book-panel" role="tabpanel" id="bp-umrah" aria-labelledby="bt-umrah" data-service="Umrah" hidden>
+          <div class="fld"><label for="buType">Package</label><select id="buType" data-svc><option value="Umrah">Umrah</option><option value="Hajj">Hajj</option></select></div>
+          <div class="fld"><label for="buDate">Preferred month</label><input id="buDate" data-date type="month"></div>
+          <div class="fld"><label for="buN">Pilgrims</label><select id="buN" data-n><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></div>
+          <button class="btn btn-accent" type="submit">See packages<svg><use href="#i-arrow"/></svg></button>
+        </form>
       </div>
-    </div>
+      <datalist id="countryList"></datalist>
+
+      <div class="trust">
+        <div><span class="ico"><svg><use href="#i-shield"/></svg></span><p><b>Licensed agency</b><span>Hajj, travel and IATA licences</span></p></div>
+        <div><span class="ico"><svg><use href="#i-office"/></svg></span><p><b>Real office in Dhaka</b><span>Walk in, or do it all by phone</span></p></div>
+        <div><span class="ico"><svg><use href="#i-track"/></svg></span><p><b>Track every step</b><span>Like a parcel, for your visa</span></p></div>
+        <div><span class="ico"><svg><use href="#i-chat"/></svg></span><p><b>Help on WhatsApp</b><span>A real person replies</span></p></div>
+      </div>
   </div>
-</section>
 
-<section class="scene" id="s-scan" style="--len:220vh">
-  <div class="stage"><div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Passport scanner</p>
-      <h2>Take a photo. Your form fills itself.</h2>
-      <p class="lede">Photograph your passport at home. We read it and prepare your application, so you never type the same details twice.</p>
-      <a class="btn gold go" href="#visa">Start my visa</a>
-    </div>
-    <div class="viz scan">
-      <div class="passport" id="pp">
-        <div class="pp-top mono"><span>PASSPORT · BANGLADESH</span><span>SPECIMEN</span></div>
-        <div class="pp-body">
-          <div class="pp-photo"></div>
-          <dl><div><dt>Surname</dt><dd>RAHMAN</dd></div><div><dt>Given names</dt><dd>ABDUR KARIM</dd></div><div><dt>Passport no.</dt><dd>A01234567</dd></div></dl>
-        </div>
-        <div class="mrz mono"><div class="mrz-hl" id="mrzhl"></div><span>P&lt;BGDRAHMAN&lt;&lt;ABDUR&lt;KARIM&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>A012345670BGD6803147M3202021&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span></div>
-        <div class="beam" id="beam"></div>
-      </div>
-      <div class="form glass">
-        <div class="form-head"><span>Your details</span><span class="pill ok" id="scanPill">Filled from passport</span></div>
-        <div class="fields" id="fields">
-          <div class="f done"><span class="k">Surname</span><span class="v">RAHMAN</span></div>
-          <div class="f done"><span class="k">Given names</span><span class="v">ABDUR KARIM</span></div>
-          <div class="f done"><span class="k">Passport number</span><span class="v">A01234567</span></div>
-          <div class="f done"><span class="k">Nationality</span><span class="v">BANGLADESHI</span></div>
-          <div class="f done"><span class="k">Date of birth</span><span class="v">14 MAR 1968</span></div>
-          <div class="f done"><span class="k">Sex</span><span class="v">MALE</span></div>
-          <div class="f done"><span class="k">Date of issue</span><span class="v">03 FEB 2022</span></div>
-          <div class="f done"><span class="k">Date of expiry</span><span class="v">02 FEB 2032</span></div>
-        </div>
+  <section class="section">
+    <div class="container">
+      <div class="shead"><div><span class="kicker">Our services</span><h2>What can we help you with?</h2></div></div>
+      <div class="svc">
+        <a href="#visa"><span class="ico"><svg><use href="#i-pass"/></svg></span><h3>Visa processing</h3><p>Visit, tourist, business, student, medical and work visas for any country.</p><span class="go">See countries<svg><use href="#i-arrow"/></svg></span></a>
+        <a href="#tours"><span class="ico"><svg><use href="#i-ticket"/></svg></span><h3>Air tickets</h3><p>Domestic and international flights on all major airlines.</p><span class="go">Get a price<svg><use href="#i-arrow"/></svg></span></a>
+        <a href="#tours"><span class="ico"><svg><use href="#i-palm"/></svg></span><h3>Tour packages</h3><p>Holidays with flights, hotels, transfers and sightseeing.</p><span class="go">See tours<svg><use href="#i-arrow"/></svg></span></a>
+        <a href="#hajj-umrah"><span class="ico"><svg><use href="#i-moon"/></svg></span><h3>Hajj and Umrah</h3><p>Visa, flights and hotels in Makkah and Madinah in one package.</p><span class="go">See packages<svg><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
-  </div></div>
-</section>
+  </section>
 
-<section class="scene" id="s-track" style="--len:260vh">
-  <div class="stage"><div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Live tracking and WhatsApp updates</p>
-      <h2>Parcel tracking, for your visa.</h2>
-      <p class="lede">Your file moves through clear steps. Each step sends a WhatsApp message to you and to a family member you choose.</p>
-      <a class="btn gold go" href="#track">Track my file</a>
-    </div>
-    <div class="viz track">
-      <div class="arcbox">
-        <svg viewBox="0 0 1000 300" role="img" aria-label="Flight route from Dhaka to London with five status points">
-          <path class="arc-bg" d="M50 270 Q500 -110 950 270"/>
-          <path class="arc-fg" id="arcFg" d="M50 270 Q500 -110 950 270"/>
-          <g id="arc-nodes"><circle r="11" cx="50" cy="270"/><circle r="11" cx="275" cy="128"/><circle r="11" cx="500" cy="80"/><circle r="11" cx="725" cy="128"/><circle r="11" cx="950" cy="270"/></g>
-          <g id="arc-plane" transform="translate(950 270)"><g transform="scale(.5) translate(-60 -60)"><path d="M112 60c0 4-10 6-24 6H22l-12 3v-18l12 3h66c14 0 24 2 24 6zM70 54L46 6h10l30 48zM70 66L46 114h10l30-48zM26 54l-10-18h7l15 18zM26 66l-10 18h7l15-18z"/></g></g>
-        </svg>
-        <span class="code mono c1">DAC</span><span class="code mono c2">LHR</span>
+  <section class="section alt">
+    <div class="container">
+      <div class="shead">
+        <div><span class="kicker">Popular visas</span><h2>Where do you want to go?</h2><p>Pick a country to see what you need. Not listed? We handle every country.</p></div>
+        <a class="btn btn-ghost" href="#visa">See all countries<svg><use href="#i-arrow"/></svg></a>
       </div>
-      <ol class="steps" id="steps">
-        <li class="on"><b>Passport scanned</b>02 Nov</li>
-        <li class="on"><b>Documents checked</b>04 Nov</li>
-        <li class="on"><b>Visa submitted</b>06 Nov</li>
-        <li class="on"><b>Visa approved</b>19 Nov</li>
-        <li class="on cur"><b>Ready to fly</b>21 Nov</li>
+      <div class="countries" id="popular"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="shead"><div><span class="kicker">How it works</span><h2>Four easy steps.</h2></div></div>
+      <ol class="steps">
+        <li><h3>Send your passport photo</h3><p>Take a photo with your phone. Your form fills itself.</p></li>
+        <li><h3>Get your checklist and price</h3><p>We tell you exactly which papers you need and what it costs.</p></li>
+        <li><h3>We check and submit</h3><p>Our team checks every document before it goes to the embassy.</p></li>
+        <li><h3>Track and collect</h3><p>Follow each step on WhatsApp until your passport is back.</p></li>
       </ol>
-      <div class="phones">
-        <div class="phone glass">
-          <h3><span>You</span><span>WhatsApp</span></h3>
-          <div class="bubbles" id="bubT">
-            <div class="bub in">Hello Mr. Rahman. Your UK visit visa file is open.<small>02 Nov</small></div>
-            <div class="bub in">Your documents are checked and complete.<small>04 Nov</small></div>
-            <div class="bub in">Your application is submitted to the visa centre.<small>06 Nov</small></div>
-            <div class="bub in">Good news. Your visit visa is approved.<small>19 Nov</small></div>
-            <div class="bub in">Passport and ticket are ready to collect.<small>21 Nov</small></div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container split">
+      <div class="split-copy">
+        <span class="kicker">Passport scanner</span>
+        <h2>No long forms. Just a photo.</h2>
+        <p>Our scanner reads your passport and fills in your name, passport number and dates for you. Fewer typing mistakes, fewer problems at the embassy.</p>
+        <ul class="ticks">
+          <li><svg><use href="#i-check"/></svg>Works with a normal phone photo</li>
+          <li><svg><use href="#i-check"/></svg>You check every detail before we submit</li>
+          <li><svg><use href="#i-check"/></svg>We remind you before your passport expires</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="scan" id="scanDemo">
+          <div class="pass" id="pass">
+            <div class="pass-top"><span>PASSPORT</span><span>SAMPLE</span></div>
+            <div class="pass-row"><div class="pass-photo"></div><dl><div><dt>Surname</dt><dd>RAHMAN</dd></div><div><dt>Given names</dt><dd>ABDUR KARIM</dd></div><div><dt>Passport no.</dt><dd>A01234567</dd></div></dl></div>
+            <div class="mrz">P&lt;BGDRAHMAN&lt;&lt;ABDUR&lt;KARIM&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>A012345670BGD6803147M3202021&lt;&lt;&lt;&lt;</div>
+            <div class="beam"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+            <div class="sfields" id="sfields">
+              <div class="sf done"><span>Surname</span><b data-v="RAHMAN">RAHMAN</b></div>
+              <div class="sf done"><span>Given names</span><b data-v="ABDUR KARIM">ABDUR KARIM</b></div>
+              <div class="sf done"><span>Passport no.</span><b data-v="A01234567">A01234567</b></div>
+              <div class="sf done"><span>Nationality</span><b data-v="Bangladeshi">Bangladeshi</b></div>
+              <div class="sf done"><span>Date of birth</span><b data-v="14 Mar 1968">14 Mar 1968</b></div>
+              <div class="sf done"><span>Expiry date</span><b data-v="02 Feb 2032">02 Feb 2032</b></div>
+            </div>
+            <p class="scan-status ok" id="scanStatus"><svg width="20" height="20"><use href="#i-check"/></svg>6 details filled from the photo</p>
+            <button class="btn btn-ghost" type="button" id="scanBtn"><svg><use href="#i-scan"/></svg>Try it with the sample passport</button>
           </div>
         </div>
-        <div class="phone glass">
-          <h3><span>Family contact</span><span>WhatsApp</span></h3>
-          <div class="bubbles" id="bubA">
-            <div class="bub in">Mr. Rahman's visa file has been opened.<small>02 Nov</small></div>
-            <div class="bub in">Documents checked and complete.<small>04 Nov</small></div>
-            <div class="bub in">Application submitted.<small>06 Nov</small></div>
-            <div class="bub in">Visa approved.<small>19 Nov</small></div>
-            <div class="bub in">Passport and ticket ready to collect.<small>21 Nov</small></div>
-          </div>
-        </div>
       </div>
     </div>
-  </div></div>
-</section>
+  </section>
 
-<section class="scene" id="s-reels" style="--len:330vh">
-  <div class="stage"><div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Where do you want to go?</p>
-      <h2>One desk for every country.</h2>
-      <a class="btn gold go" href="#visa">See all countries</a>
-    </div>
-    <div class="viz reelwin">
-      <div class="reeltrack" id="reelTrack">
-
-        <figure class="reel">
-          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs><linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#172446"/><stop offset="1" stop-color="#e0a070"/></linearGradient></defs>
-            <rect width="800" height="450" fill="url(#gl)"/>
-            <g class="ly" data-d=".3"><circle cx="640" cy="240" r="96" fill="none" stroke="#2b3966" stroke-width="6"/><circle cx="640" cy="240" r="8" fill="#2b3966"/><path d="M640 144v192M544 240h192M572 172l136 136M708 172L572 308" stroke="#2b3966" stroke-width="3"/><g fill="#2b3966"><rect x="500" y="290" width="70" height="160"/><rect x="716" y="270" width="64" height="180"/><rect x="20" y="300" width="90" height="150"/></g></g>
-            <g class="ly" data-d=".6" fill="#111b3c"><rect x="190" y="124" width="54" height="326"/><rect x="184" y="112" width="66" height="14"/><path d="M217 40l27 72h-54z"/><circle cx="217" cy="162" r="20" fill="#F5E6B0"/><rect x="244" y="304" width="250" height="146"/><rect x="264" y="270" width="12" height="36"/><rect x="324" y="270" width="12" height="36"/><rect x="384" y="270" width="12" height="36"/><rect x="444" y="270" width="12" height="36"/></g>
-            <g class="ly" data-d=".95"><rect x="-100" y="436" width="1000" height="30" fill="#0d1838"/><g fill="#080f26"><rect x="-100" y="388" width="1000" height="14"/><rect x="60" y="400" width="26" height="50"/><rect x="260" y="400" width="26" height="50"/><rect x="460" y="400" width="26" height="50"/><rect x="660" y="400" width="26" height="50"/></g></g>
-          </svg>
-          <div class="hud"><span><i></i>LONDON</span><span class="tc">00:00:00</span></div>
-          <figcaption><b>United Kingdom</b><span>Visit, tourist, student and business visas with a full document check.</span></figcaption>
-        </figure>
-
-        <figure class="reel">
-          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs><linearGradient id="gn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1636"/><stop offset="1" stop-color="#ec8458"/></linearGradient></defs>
-            <rect width="800" height="450" fill="url(#gn)"/>
-            <g class="ly" data-d=".3" fill="#27326a"><rect x="40" y="240" width="60" height="210"/><rect x="110" y="200" width="50" height="250"/><rect x="600" y="220" width="60" height="230"/><rect x="680" y="180" width="50" height="270"/><rect x="740" y="250" width="70" height="200"/></g>
-            <g class="ly" data-d=".6" fill="#10193e"><rect x="370" y="230" width="70" height="220"/><rect x="382" y="170" width="46" height="62"/><rect x="394" y="120" width="22" height="52"/><path d="M405 50l4 72h-8z"/><rect x="250" y="260" width="70" height="190"/><rect x="470" y="280" width="80" height="170"/><rect x="180" y="300" width="60" height="150"/><g fill="#F5D58A"><rect x="262" y="280" width="6" height="6"/><rect x="290" y="310" width="6" height="6"/><rect x="390" y="250" width="6" height="6"/><rect x="418" y="290" width="6" height="6"/><rect x="490" y="300" width="6" height="6"/><rect x="524" y="340" width="6" height="6"/><rect x="200" y="330" width="6" height="6"/></g></g>
-            <g class="ly" data-d=".95"><rect x="-100" y="425" width="1000" height="40" fill="#0a1230"/><g fill="#060b20"><rect x="-40" y="380" width="160" height="80"/><rect x="560" y="390" width="280" height="70"/></g></g>
-          </svg>
-          <div class="hud"><span><i></i>NEW YORK</span><span class="tc">00:00:00</span></div>
-          <figcaption><b>USA and Canada</b><span>Visit and travel visa files, interview preparation and tickets.</span></figcaption>
-        </figure>
-
-        <figure class="reel">
-          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#062a3d"/><stop offset="1" stop-color="#1fa89c"/></linearGradient></defs>
-            <rect width="800" height="450" fill="url(#gk)"/>
-            <g class="ly" data-d=".3" fill="#0d4a5c"><rect x="40" y="240" width="60" height="210"/><rect x="120" y="280" width="50" height="170"/><rect x="620" y="250" width="54" height="200"/><rect x="690" y="220" width="46" height="230"/></g>
-            <g class="ly" data-d=".6" fill="#052635"><rect x="316" y="170" width="56" height="280"/><rect x="326" y="120" width="36" height="52"/><path d="M344 50l8 70h-16z"/><rect x="428" y="170" width="56" height="280"/><rect x="438" y="120" width="36" height="52"/><path d="M456 50l8 70h-16z"/><rect x="372" y="268" width="56" height="9"/><g fill="#F5D58A"><rect x="328" y="200" width="6" height="6"/><rect x="346" y="230" width="6" height="6"/><rect x="440" y="214" width="6" height="6"/><rect x="462" y="250" width="6" height="6"/><rect x="336" y="300" width="6" height="6"/><rect x="454" y="320" width="6" height="6"/></g></g>
-            <g class="ly" data-d=".95" fill="#0b3d2e"><ellipse cx="80" cy="450" rx="190" ry="54"/><ellipse cx="420" cy="466" rx="230" ry="46"/><ellipse cx="760" cy="450" rx="190" ry="60"/></g>
-          </svg>
-          <div class="hud"><span><i></i>KUALA LUMPUR</span><span class="tc">00:00:00</span></div>
-          <figcaption><b>Malaysia, Thailand, Singapore</b><span>Tourist visas and holiday packages across Southeast Asia.</span></figcaption>
-        </figure>
-
-        <figure class="reel">
-          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs><linearGradient id="gu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d4fae"/><stop offset="1" stop-color="#f3b27a"/></linearGradient></defs>
-            <rect width="800" height="450" fill="url(#gu)"/>
-            <g class="ly" data-d=".15"><circle cx="160" cy="150" r="46" fill="#FFF1C9"/></g>
-            <g class="ly" data-d=".35" fill="#2d5fa8"><rect x="60" y="250" width="50" height="200"/><rect x="130" y="210" width="40" height="240"/><rect x="560" y="230" width="56" height="220"/><rect x="640" y="190" width="44" height="260"/><rect x="700" y="260" width="60" height="190"/></g>
-            <g class="ly" data-d=".6" fill="#123a78"><path d="M400 40l10 120 12 40 10 250h-64l10-250 12-40z"/><rect x="250" y="240" width="60" height="210"/><path d="M480 200l50 30v220h-50z"/><rect x="190" y="290" width="48" height="160"/></g>
-            <g class="ly" data-d=".95"><path d="M-100 410Q150 350 380 405T900 380V460H-100Z" fill="#E9B46A"/><path d="M-100 432Q250 392 520 430T900 420V460H-100Z" fill="#D99A4E"/></g>
-          </svg>
-          <div class="hud"><span><i></i>DUBAI</span><span class="tc">00:00:00</span></div>
-          <figcaption><b>UAE and the Gulf</b><span>Visit visas, tickets and city breaks.</span></figcaption>
-        </figure>
-
-        <figure class="reel">
-          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <defs><linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070d2b"/><stop offset="1" stop-color="#24357a"/></linearGradient></defs>
-            <rect width="800" height="450" fill="url(#gm)"/>
-            <g class="ly" data-d=".1" fill="#fff"><circle cx="90" cy="60" r="1.6"/><circle cx="210" cy="110" r="1.2"/><circle cx="330" cy="50" r="1.8"/><circle cx="470" cy="90" r="1.2"/><circle cx="700" cy="70" r="1.6"/><circle cx="760" cy="150" r="1.2"/><path d="M150 70a30 30 0 1 0 22 50a24 24 0 1 1-22-50z" fill="#F5E6B0"/></g>
-            <g class="ly" data-d=".3" fill="#131d4a"><rect x="560" y="130" width="64" height="320"/><rect x="574" y="86" width="36" height="46"/><path d="M592 30l7 56h-14z"/><circle cx="592" cy="165" r="18" fill="#9FF0C8"/><rect x="496" y="230" width="64" height="220"/><rect x="624" y="230" width="64" height="220"/><rect x="-40" y="260" width="180" height="190"/></g>
-            <g class="ly" data-d=".55" fill="#0c1438"><rect x="150" y="150" width="16" height="300"/><path d="M158 110l12 40h-24z"/><rect x="300" y="190" width="14" height="260"/><path d="M307 156l10 34h-20z"/><rect x="-100" y="330" width="1000" height="120"/><g fill="#F5D58A"><rect x="40" y="350" width="18" height="40" rx="9"/><rect x="100" y="350" width="18" height="40" rx="9"/><rect x="200" y="350" width="18" height="40" rx="9"/><rect x="260" y="350" width="18" height="40" rx="9"/><rect x="520" y="350" width="18" height="40" rx="9"/><rect x="580" y="350" width="18" height="40" rx="9"/><rect x="640" y="350" width="18" height="40" rx="9"/><rect x="700" y="350" width="18" height="40" rx="9"/></g></g>
-            <g class="ly" data-d=".9"><rect x="-100" y="418" width="1000" height="40" fill="#E9E4D6"/><rect x="345" y="296" width="120" height="126" fill="#08080d"/><rect x="345" y="326" width="120" height="10" fill="#F5B841"/><rect x="424" y="360" width="22" height="62" fill="#F5B841"/></g>
-          </svg>
-          <div class="hud"><span><i></i>MAKKAH</span><span class="tc">00:00:00</span></div>
-          <figcaption><b>Makkah and Madinah</b><span>Hajj and Umrah packages with visa, flights and hotels.</span></figcaption>
-        </figure>
-
+  <section class="section">
+    <div class="container split">
+      <div class="panel">
+        <div class="ptop"><div><span>File ML 2611 0418 · UK visit visa</span><h3>Abdur Karim Rahman</h3></div><span class="status-pill">Step 4 of 5</span></div>
+        <ol class="tl">
+          <li><span class="dot"><svg><use href="#i-check"/></svg></span><div><b>Passport received</b><span>02 Nov, 10:14</span></div></li>
+          <li><span class="dot"><svg><use href="#i-check"/></svg></span><div><b>Documents checked</b><span>04 Nov, 15:40</span></div></li>
+          <li><span class="dot"><svg><use href="#i-check"/></svg></span><div><b>Application submitted</b><span>06 Nov, 11:05</span></div></li>
+          <li class="now"><span class="dot"></span><div><b>Waiting for embassy decision</b><span>Usually [PROCESSING TIME]</span></div></li>
+          <li class="next"><span class="dot"></span><div><b>Ready to collect</b><span>We will message you</span></div></li>
+        </ol>
+        <div class="wa"><svg><use href="#i-wa"/></svg><span><b>WhatsApp, 06 Nov:</b> Your UK visa application is submitted. We will message you as soon as there is a decision.</span></div>
+      </div>
+      <div class="split-copy">
+        <span class="kicker">Live tracking</span>
+        <h2>Always know where your file is.</h2>
+        <p>Every application gets a file number. Check it on our website at any time, and get a WhatsApp message each time it moves forward. You can add a family member to receive the same updates.</p>
+        <div><a class="btn btn-primary" href="#track">Track my file<svg><use href="#i-arrow"/></svg></a></div>
       </div>
     </div>
-  </div></div>
-</section>
+  </section>
 
-<section class="scene" id="s-group" style="--len:220vh">
-  <div class="stage"><div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Family and group travel</p>
-      <h2>A family of four or a group of forty. One booking.</h2>
-      <p class="lede">Seats, rooms and visas for everyone travelling with you, in one place. The group leader sees who is ready and who still needs a document.</p>
+  <section class="section alt">
+    <div class="container">
+      <div class="shead">
+        <div><span class="kicker">Hajj and Umrah</span><h2>Umrah packages</h2><p>Visa, flights, hotels, transport and Ziyarah.</p></div>
+        <a class="btn btn-ghost" href="#hajj-umrah">All Hajj and Umrah packages<svg><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="pkgs" id="homePkgs"></div>
     </div>
-    <div class="viz group">
-      <div class="cabin glass"><div class="seats" id="seats"></div></div>
-      <div class="stats glass">
-        <div class="stat"><div><span>Passports scanned</span><b><span id="cScan">40</span> / 40</b></div><div class="bar"><i id="bScan"></i></div></div>
-        <div class="stat"><div><span>Visas approved</span><b><span id="cVisa">34</span> / 40</b></div><div class="bar"><i id="bVisa" style="transform:scaleX(.85)"></i></div></div>
-        <div class="legend"><span><i></i>Visa approved</span><span><i class="p"></i>In process</span><span><i class="m"></i>Document missing</span></div>
-        <a class="btn gold popin in" id="groupCta" href="#contact">Plan a group trip</a>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="shead"><div><span class="kicker">Questions</span><h2>Common questions</h2></div></div>
+      <div class="faq">
+        <details><summary>Can you guarantee my visa?</summary><p>No agency can guarantee a visa. The embassy makes the decision. We make sure your application is complete, correct and submitted on time, which gives you the best chance.</p></details>
+        <details><summary>How long does a visa take?</summary><p>It depends on the country and the visa type: [PROCESSING TIME BY COUNTRY]. You can see the current step of your file at any time on the Track page.</p></details>
+        <details><summary>How do I pay?</summary><p>[PAYMENT METHODS]. You always see the full price before you pay anything.</p></details>
+        <details><summary>Do I need to come to the office?</summary><p>[OFFICE VISIT POLICY]. Most steps start with a passport photo sent from your phone.</p></details>
+        <details><summary>Can my family get the updates too?</summary><p>Yes. Add one family member's WhatsApp number and they receive the same messages you do.</p></details>
       </div>
     </div>
-  </div></div>
-</section>
+  </section>
 
-<section class="scene" id="s-docs" style="--len:220vh">
-  <div class="stage"><div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Clear quotes and expiry reminders</p>
-      <h2>One clear quote. A reminder before anything expires.</h2>
-      <p class="lede">Your quote and itinerary arrive as one tidy document. We also watch your passport and visa dates and remind you in time to renew.</p>
+  <section class="container">
+    <div class="cta-band">
+      <svg class="cta-deco" viewBox="0 0 380 200" aria-hidden="true"><path d="M10 180 C 90 20, 260 0, 370 90"/><path d="M40 190 C 150 80, 280 70, 360 140"/></svg>
+      <div><h2>Ready to travel?</h2><p>Start online in five minutes, or talk to us on WhatsApp.</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-accent" href="#order">Apply now</a><a class="btn btn-ghost" href="#contact">Talk to us</a></div>
     </div>
-    <div class="viz docs">
-      <div class="doc" id="doc">
-        <div class="doc-band">MusafirLife<span>Quotation</span></div>
-        <div class="doc-body" id="docRows">
-          <div class="row in"><span>Visit visa service</span><span>[PRICE]</span></div>
-          <div class="row in"><span>Return flight from Dhaka</span><span>[PRICE]</span></div>
-          <div class="row x in"><span>Hotel, 7 nights</span><span>[PRICE]</span></div>
-          <div class="row x in"><span>Travel insurance</span><span>[PRICE]</span></div>
-          <div class="row t in"><span>Total</span><span>[TOTAL]</span></div>
-        </div>
-        <div class="stamp in" id="stamp">ITINERARY READY</div>
-      </div>
-      <div class="expiry glass warn" id="expiry">
-        <div class="ringbox">
-          <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="ring-bg" cx="100" cy="100" r="84"/><circle class="ring-fg" id="ring" cx="100" cy="100" r="84"/></svg>
-          <div class="ringnum"><b id="days">67</b><span>days left</span></div>
-        </div>
-        <p><strong>Your passport</strong><br>Expires 18 Jan 2027</p>
-        <a class="btn gold popin in" id="alertCta" href="#contact">Renew with us</a>
-      </div>
-    </div>
-  </div></div>
-</section>
-
-</main>
-
-<section class="land">
-  <div class="wrap">
-    <p class="eyebrow">Ready when you are</p>
-    <h2>Where to <em>next?</em></h2>
-    <p class="lede">Tell us the country and the dates. We take care of the visa, the ticket and the stay, and you watch it all happen on your phone.</p>
-    <div class="cta">
-      <a class="btn gold" href="#order">Order now</a>
-      <a class="btn line" href="#contact">Talk to us</a>
-    </div>
-    <div class="trust">
-      <article class="card glass"><span class="tag">Licensed</span><h3>A registered agency</h3><p>Hajj licence [NUMBER] · Travel agency licence [NUMBER] · IATA [NUMBER]</p></article>
-      <article class="card glass"><span class="tag">Visit us</span><h3>A real office</h3><p>[OFFICE ADDRESS, DHAKA] · [OPENING HOURS]</p></article>
-      <article class="card glass"><span class="tag">Reviews</span><h3>What travellers say</h3><p>[ADD REAL CUSTOMER REVIEWS HERE]</p></article>
-    </div>
-    <footer class="foot glass">
-      <div><b>MusafirLife.com</b><span>Visa processing, travel agency and Hajj Umrah agency.</span></div>
-      <div><b>Licences</b><span>Hajj licence [NUMBER]</span><span>Travel agency licence [NUMBER]</span><span>IATA [NUMBER]</span></div>
-      <div><b>Contact</b><span>[YOUR PHONE NUMBER]</span><span>[YOUR EMAIL]</span><span>[OFFICE ADDRESS, DHAKA]</span></div>
-    </footer>
-  </div>
-</section>
+  </section>
 </div>
 
 <!-- ================= VISA ================= -->
-<div class="view page" id="v-visa" hidden>
-  <div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Visa processing</p>
-      <h1>Visit and travel visas for any country.</h1>
-      <p class="lede">Tourist, visit, business, student, medical and work visas. We check every document before it reaches the embassy, and you track the file from your phone.</p>
-      <div class="cta"><button type="button" class="btn gold" data-order="Visit or travel visa|">Apply now</button><a class="btn line" href="#track">Track my application</a></div>
+<div class="view" id="v-visa" hidden>
+  <section class="page-head"><div class="container">
+    <p class="crumbs"><a href="#home">Home</a> / Visa</p>
+    <h1>Visa processing for any country</h1>
+    <p>Search for your country to see the visa types, the usual processing time and the price. If your country is not listed, we still handle it.</p>
+  </div></section>
+  <section class="section" style="padding-top:28px">
+    <div class="container">
+      <div class="toolbar">
+        <div class="fld"><label for="cSearch">Search country</label><input id="cSearch" type="search" placeholder="Type a country name" autocomplete="off"></div>
+        <div class="pills" id="regionPills" role="group" aria-label="Filter by region"></div>
+      </div>
+      <div class="countries" id="allCountries" aria-live="polite"></div>
     </div>
-    <div>
-      <ul class="chips" aria-label="Visa types">
-        <li>Visit visa</li><li>Tourist and travel visa</li><li>Business visa</li><li>Student visa</li><li>Medical visa</li><li>Work visa</li><li>Transit visa</li><li>Family visit</li>
-      </ul>
+  </section>
+  <section class="section alt">
+    <div class="container two">
+      <div class="split-copy">
+        <span class="kicker">Before you apply</span>
+        <h2>Documents most visit visas ask for</h2>
+        <p>Every embassy is different, and we send you the exact list for yours. This is what most visit visas need. Tick what you already have.</p>
+        <div class="panel">
+          <ul class="docs-list">
+            <li><input type="checkbox" id="d1"><label for="d1"><b>Passport</b><br><span class="note">Valid for at least six months after your trip</span></label></li>
+            <li><input type="checkbox" id="d2"><label for="d2"><b>Photos</b><br><span class="note">Recent, with a white background</span></label></li>
+            <li><input type="checkbox" id="d3"><label for="d3"><b>Bank statement</b><br><span class="note">Usually the last six months</span></label></li>
+            <li><input type="checkbox" id="d4"><label for="d4"><b>Job or business papers</b><br><span class="note">Employer letter, trade licence or student ID</span></label></li>
+            <li><input type="checkbox" id="d5"><label for="d5"><b>Travel plan</b><br><span class="note">We prepare the flight and hotel booking for you</span></label></li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+        <h3>Not sure what you need?</h3>
+        <p class="note" style="font-size:17px">Send us your destination and travel date on WhatsApp. We reply with your checklist and price.</p>
+        <a class="btn btn-primary" href="#contact"><svg><use href="#i-chat"/></svg>Ask on WhatsApp</a>
+        <a class="btn btn-ghost" href="#order">Start my application</a>
+      </div>
     </div>
-    <div class="cards">
-      <article class="card glass"><span class="tag">Europe</span><h3>Schengen countries</h3><p>France, Germany, Italy, Spain, the Netherlands and the rest of the Schengen area.</p><button type="button" class="btn line" data-order="Visit or travel visa|Schengen countries">Apply now</button></article>
-      <article class="card glass"><span class="tag">United Kingdom</span><h3>UK visit and student visas</h3><p>Standard visitor, family visit, student and business routes.</p><button type="button" class="btn line" data-order="Visit or travel visa|UK">Apply now</button></article>
-      <article class="card glass"><span class="tag">North America</span><h3>USA and Canada</h3><p>Visit and travel visa files, form filling and interview preparation.</p><button type="button" class="btn line" data-order="Visit or travel visa|USA and Canada">Apply now</button></article>
-      <article class="card glass"><span class="tag">Asia Pacific</span><h3>Japan, Korea, China, Australia</h3><p>Tourist, business and student visas, plus New Zealand.</p><button type="button" class="btn line" data-order="Visit or travel visa|Japan, Korea, China, Australia">Apply now</button></article>
-      <article class="card glass"><span class="tag">Southeast Asia</span><h3>Malaysia, Thailand, Singapore</h3><p>Tourist visas and e visas, often paired with a holiday package.</p><button type="button" class="btn line" data-order="Visit or travel visa|Malaysia, Thailand, Singapore">Apply now</button></article>
-      <article class="card glass"><span class="tag">Middle East</span><h3>UAE, Saudi Arabia, Qatar</h3><p>Visit visas, Umrah visas and family visit visas.</p><button type="button" class="btn line" data-order="Visit or travel visa|UAE, Saudi Arabia, Qatar">Apply now</button></article>
-      <article class="card glass"><span class="tag">Everywhere else</span><h3>Any other country</h3><p>Tell us where you are going. We will send the checklist for that embassy.</p><button type="button" class="btn line" data-order="Visit or travel visa|">Apply now</button></article>
-    </div>
-    <div class="panel glass">
-      <h2 style="font-size:clamp(26px,3vw,40px)">How it works</h2>
-      <ol class="how">
-        <li><b>Scan your passport</b>Take a photo. Your application form fills itself.</li>
-        <li><b>Get your checklist</b>We list the exact documents your embassy asks for.</li>
-        <li><b>We check and submit</b>Every paper is reviewed, then filed or booked for an appointment.</li>
-        <li><b>Track and collect</b>Follow each step on WhatsApp until your passport is back.</li>
-      </ol>
-      <p class="note">Fees and processing times depend on the country: [FEE] · [PROCESSING TIME]. The embassy makes the final decision on every visa. We make sure your file is complete and correct.</p>
-    </div>
-    <div class="panel glass faq">
-      <h2 style="font-size:clamp(26px,3vw,40px)">Common questions</h2>
-      <details><summary>Can you guarantee my visa?</summary><p>No agency can. The embassy makes the decision. We make sure your file is complete, correct and submitted on time.</p></details>
-      <details><summary>How long does it take?</summary><p>It depends on the country and the visa type: [PROCESSING TIME BY COUNTRY]. Your tracking page always shows the current step.</p></details>
-      <details><summary>How do I pay?</summary><p>[PAYMENT METHODS]. You see the full quote before you pay anything.</p></details>
-      <details><summary>Do I need to come to the office?</summary><p>[OFFICE VISIT POLICY]. Most steps start with a passport photo sent from your phone.</p></details>
-    </div>
-  </div>
+  </section>
 </div>
 
 <!-- ================= HAJJ AND UMRAH ================= -->
-<div class="view page" id="v-hajj-umrah" hidden>
-  <div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Hajj and Umrah</p>
-      <h1>Your pilgrimage, arranged with care.</h1>
-      <p class="lede">Visa, flights, hotels in Makkah and Madinah, transport and Ziyarah in one package. Travel alone, with family, or with a guided group.</p>
-      <div class="cta"><button type="button" class="btn gold" data-order="Umrah|Saudi Arabia">Book Umrah</button><button type="button" class="btn line" data-order="Hajj|Saudi Arabia">Book Hajj</button></div>
+<div class="view" id="v-hajj-umrah" hidden>
+  <section class="page-head"><div class="container">
+    <p class="crumbs"><a href="#home">Home</a> / Hajj and Umrah</p>
+    <h1>Hajj and Umrah packages</h1>
+    <p>Everything arranged in one package: visa, flights, hotels in Makkah and Madinah, transport and Ziyarah. Travel alone, with family, or with a guided group.</p>
+  </div></section>
+  <section class="section" style="padding-top:28px">
+    <div class="container">
+      <div class="shead"><div><h2>Umrah</h2></div></div>
+      <div class="pkgs" id="umrahPkgs"></div>
     </div>
-    <div class="cards">
-      <article class="card glass"><span class="tag">Umrah</span><h3>Individual and family Umrah</h3><p>Choose your dates and hotel distance from the Haram. From [PRICE] per person.</p><button type="button" class="btn line" data-order="Umrah|Saudi Arabia">Book now</button></article>
-      <article class="card glass"><span class="tag">Umrah</span><h3>Group Umrah</h3><p>Guided departures with a group leader. Next departure [DATE]. From [PRICE] per person.</p><button type="button" class="btn line" data-order="Umrah|Saudi Arabia">Book now</button></article>
-      <article class="card glass"><span class="tag">Hajj</span><h3>Hajj packages</h3><p>Registration support and full packages for the coming season. From [PRICE] per person.</p><button type="button" class="btn line" data-order="Hajj|Saudi Arabia">Book now</button></article>
+  </section>
+  <section class="section alt">
+    <div class="container">
+      <div class="shead"><div><h2>Hajj</h2><p>Registration support and complete packages for the coming season.</p></div></div>
+      <div class="pkgs" id="hajjPkgs"></div>
     </div>
-    <div class="panel glass">
-      <h2 style="font-size:clamp(26px,3vw,40px)">What every package includes</h2>
-      <ul class="chips"><li>Umrah or Hajj visa</li><li>Return flights</li><li>Makkah hotel</li><li>Madinah hotel</li><li>Airport and city transport</li><li>Ziyarah tours</li><li>Group leader</li><li>WhatsApp updates at every step</li></ul>
-      <p class="note">Travelling with elderly parents? Add a family contact and they receive the same updates you do.</p>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <div class="split-copy">
+        <span class="kicker">Every package includes</span>
+        <h2>Nothing left for you to arrange.</h2>
+        <ul class="ticks">
+          <li><svg><use href="#i-check"/></svg>Umrah or Hajj visa</li>
+          <li><svg><use href="#i-check"/></svg>Return flights from Dhaka</li>
+          <li><svg><use href="#i-check"/></svg>Hotels in Makkah and Madinah</li>
+          <li><svg><use href="#i-check"/></svg>Airport and city transport</li>
+          <li><svg><use href="#i-check"/></svg>Ziyarah tours</li>
+          <li><svg><use href="#i-check"/></svg>WhatsApp updates for you and your family</li>
+        </ul>
+      </div>
+      <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+        <h3>Travelling with elderly parents?</h3>
+        <p class="note" style="font-size:17px">Tell us. We can arrange wheelchair support, ground floor rooms and hotels close to the Haram.</p>
+        <a class="btn btn-primary" href="#contact">Talk to our Umrah team</a>
+      </div>
     </div>
-  </div>
+  </section>
 </div>
 
 <!-- ================= TICKETS AND TOURS ================= -->
-<div class="view page" id="v-tours" hidden>
-  <div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Tickets and tours</p>
-      <h1>Flights, hotels and holidays, anywhere.</h1>
-      <p class="lede">Tell us where and when. We send one clear quote with the flight, the stay and the visa together.</p>
-      <div class="cta"><button type="button" class="btn gold" data-order="Tour package|">Book a tour</button><button type="button" class="btn line" data-order="Air ticket|">Book a ticket</button></div>
+<div class="view" id="v-tours" hidden>
+  <section class="page-head"><div class="container">
+    <p class="crumbs"><a href="#home">Home</a> / Tickets and Tours</p>
+    <h1>Air tickets and tour packages</h1>
+    <p>Tell us where and when. We send one clear price with the flight, the hotel and the visa together.</p>
+  </div></section>
+  <section class="section" style="padding-top:28px">
+    <div class="container">
+      <form class="panel book-panel" id="flightForm" data-service="Air ticket" style="padding:20px">
+        <div class="fld"><label for="tfFrom">From</label><input id="tfFrom" type="text" value="Dhaka (DAC)"></div>
+        <div class="fld"><label for="tfTo">To</label><input id="tfTo" data-dest list="countryList" type="text" placeholder="City or country" autocomplete="off"></div>
+        <div class="fld"><label for="tfDate">Departure date</label><input id="tfDate" data-date type="date"></div>
+        <div class="fld"><label for="tfN">Passengers</label><select id="tfN" data-n><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></div>
+        <button class="btn btn-accent" type="submit">Get ticket price<svg><use href="#i-arrow"/></svg></button>
+      </form>
     </div>
-    <div class="cards">
-      <article class="card glass"><span class="tag">Flights</span><h3>Air tickets</h3><p>Domestic and international tickets on all major airlines, with date change support.</p><button type="button" class="btn line" data-order="Air ticket|">Book now</button></article>
-      <article class="card glass"><span class="tag">Holidays</span><h3>Tour packages</h3><p>Ready made and custom holidays with flights, hotels, transfers and sightseeing.</p><button type="button" class="btn line" data-order="Tour package|">Book now</button></article>
-      <article class="card glass"><span class="tag">Stays</span><h3>Hotel booking</h3><p>Hotels and apartments matched to your budget and your visa requirements.</p><button type="button" class="btn line" data-order="Tour package|">Book now</button></article>
-      <article class="card glass"><span class="tag">Extras</span><h3>Insurance and transfers</h3><p>Travel insurance, airport pickup and local transport added to the same booking.</p><button type="button" class="btn line" data-order="Tour package|">Book now</button></article>
+  </section>
+  <section class="section alt">
+    <div class="container">
+      <div class="shead"><div><span class="kicker">Holidays</span><h2>Popular tour packages</h2><p>Flights, hotel and transfers included.</p></div></div>
+      <div class="pkgs" id="tourPkgs"></div>
     </div>
-    <div class="panel glass">
-      <h2 style="font-size:clamp(26px,3vw,40px)">Popular right now</h2>
-      <ul class="chips"><li>Thailand</li><li>Malaysia</li><li>Singapore</li><li>Maldives</li><li>Dubai</li><li>Turkey</li><li>Nepal</li><li>Sri Lanka</li><li>Europe tours</li><li>Cox's Bazar</li></ul>
-    </div>
-  </div>
+  </section>
 </div>
 
 <!-- ================= TRACK ================= -->
-<div class="view page" id="v-track" hidden>
-  <div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Track my application</p>
-      <h1>See exactly where your file is.</h1>
-      <p class="lede">Enter the file number from your WhatsApp message.</p>
+<div class="view" id="v-track" hidden>
+  <section class="page-head"><div class="container">
+    <p class="crumbs"><a href="#home">Home</a> / Track my file</p>
+    <h1>Track my file</h1>
+    <p>Enter the file number from your WhatsApp message or receipt.</p>
+  </div></section>
+  <section class="section" style="padding-top:28px">
+    <div class="container two">
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <form class="panel" id="trackForm" style="display:flex;flex-direction:column;gap:14px">
+          <div class="fld"><label for="tNo">File number</label><input id="tNo" type="text" placeholder="For example ML 2611 0418" autocomplete="off"><span class="help">It starts with ML and has 8 digits.</span></div>
+          <div class="fld"><label for="tPhone">Phone number used to apply</label><input id="tPhone" type="tel" autocomplete="tel"></div>
+          <button class="btn btn-primary" type="submit">Track</button>
+          <p class="msg" id="trackMsg" hidden>This is a design preview, so files are not looked up yet. A sample file is shown here.</p>
+        </form>
+        <div class="panel">
+          <div class="ptop"><div><span>Sample file · ML 2611 0418 · UK visit visa</span><h3>Abdur Karim Rahman</h3></div><span class="status-pill">Step 4 of 5</span></div>
+          <ol class="tl">
+            <li><span class="dot"><svg><use href="#i-check"/></svg></span><div><b>Passport received</b><span>02 Nov, 10:14</span></div></li>
+            <li><span class="dot"><svg><use href="#i-check"/></svg></span><div><b>Documents checked</b><span>04 Nov, 15:40</span></div></li>
+            <li><span class="dot"><svg><use href="#i-check"/></svg></span><div><b>Application submitted</b><span>06 Nov, 11:05</span></div></li>
+            <li class="now"><span class="dot"></span><div><b>Waiting for embassy decision</b><span>Usually [PROCESSING TIME]</span></div></li>
+            <li class="next"><span class="dot"></span><div><b>Ready to collect</b><span>We will message you</span></div></li>
+          </ol>
+        </div>
+      </div>
+      <div class="panel" style="display:flex;flex-direction:column;gap:12px">
+        <h3>Lost your file number?</h3>
+        <p class="note" style="font-size:17px">Message us on WhatsApp from the number you applied with. We will send it again.</p>
+        <a class="btn btn-ghost" href="#contact"><svg><use href="#i-chat"/></svg>Ask on WhatsApp</a>
+      </div>
     </div>
-    <form class="panel glass" id="trackForm" style="max-width:720px">
-      <div class="fld"><label for="fileNo">File number</label><input id="fileNo" type="text" placeholder="For example ML 2611 0418" autocomplete="off"></div>
-      <div class="cta"><button class="btn gold" type="submit">Track</button></div>
-      <p class="msg" id="trackMsg" hidden>This is a design preview. Live tracking will connect here. A sample file is shown below.</p>
-    </form>
-    <div class="panel glass" style="max-width:720px">
-      <span class="eyebrow">Sample file · ML 2611 0418</span>
-      <h2 style="font-size:clamp(24px,2.6vw,34px)">UK visit visa · Abdur Karim Rahman</h2>
-      <ol class="tl">
-        <li><div><b>Passport scanned, file opened</b><span>02 Nov, 10:14</span></div></li>
-        <li><div><b>Documents checked</b><span>04 Nov, 15:40</span></div></li>
-        <li><div><b>Application submitted</b><span>06 Nov, 11:05</span></div></li>
-        <li class="now"><div><b>Waiting for embassy decision</b><span>In progress</span></div></li>
-        <li class="next"><div><b>Passport ready to collect</b><span>We will message you</span></div></li>
-      </ol>
-    </div>
-  </div>
+  </section>
 </div>
 
 <!-- ================= ORDER ================= -->
-<div class="view page" id="v-order" hidden>
-  <div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Order</p>
-      <h1>Place your order in four short steps.</h1>
-    </div>
-    <div class="order">
-      <form class="panel glass" id="orderForm">
-        <ol class="onav" id="oNav"><li>Service</li><li>Travellers</li><li>Passport</li><li>Confirm</li></ol>
-        <fieldset class="ostep"><legend>What do you need?</legend>
-          <div class="formgrid">
-            <div class="fld"><label for="oService">Service</label><select id="oService"><option>Visit or travel visa</option><option>Student visa</option><option>Business visa</option><option>Medical visa</option><option>Work visa</option><option>Air ticket</option><option>Tour package</option><option>Umrah</option><option>Hajj</option></select></div>
-            <div class="fld"><label for="oDest">Destination</label><input id="oDest" type="text" placeholder="Country or city" list="countries" autocomplete="off"></div>
-          </div>
-        </fieldset>
-        <fieldset class="ostep" hidden><legend>Who is travelling, and when?</legend>
-          <div class="formgrid">
-            <div class="fld"><label for="oN">Number of travellers</label><select id="oN"><option>1</option><option>2</option><option>3</option><option>4</option><option>5 to 10</option><option>More than 10</option></select></div>
-            <div class="fld"><label for="oDate">Travel date</label><input id="oDate" type="date"></div>
-          </div>
-          <p class="note">Not sure about the date? Leave it empty and we will suggest one.</p>
-        </fieldset>
-        <fieldset class="ostep" hidden><legend>Add your passport photo</legend>
-          <div class="fld"><label for="oFile">Photo of the passport data page</label><input id="oFile" type="file" accept="image/*" style="padding:10px 14px;height:auto"></div>
-          <p class="note">We read the photo and fill your application form for you. You can also skip this and send it later on WhatsApp.</p>
-        </fieldset>
-        <fieldset class="ostep" hidden><legend>Where should we reply?</legend>
-          <div class="formgrid">
-            <div class="fld"><label for="oName">Your name</label><input id="oName" type="text" autocomplete="name"></div>
-            <div class="fld"><label for="oPhone">WhatsApp number</label><input id="oPhone" type="tel" autocomplete="tel"></div>
-          </div>
-          <div class="fld"><span style="font-size:15px;font-weight:600">How would you like to pay?</span>
-            <div class="radios">
-              <label><input type="radio" name="oPay" value="At the office" checked>At the office</label>
-              <label><input type="radio" name="oPay" value="Mobile banking">Mobile banking</label>
-              <label><input type="radio" name="oPay" value="Card">Card</label>
+<div class="view" id="v-order" hidden>
+  <section class="page-head"><div class="container">
+    <p class="crumbs"><a href="#home">Home</a> / Apply</p>
+    <h1>Apply in four short steps</h1>
+    <p>It takes about five minutes. You pay nothing now. We send your price first.</p>
+  </div></section>
+  <section class="section" style="padding-top:28px">
+    <div class="container two">
+      <div class="panel" style="min-width:0">
+        <form id="orderForm">
+          <ol class="onav" id="oNav"><li><span>Service</span></li><li><span>Travellers</span></li><li><span>Passport</span></li><li><span>Your details</span></li></ol>
+          <fieldset class="ostep">
+            <legend>What do you need?</legend>
+            <div class="choice" id="oSvc">
+              <label><input type="radio" name="oSvc" value="Visit or travel visa" checked>Visit or travel visa</label>
+              <label><input type="radio" name="oSvc" value="Student, work or medical visa">Student, work or medical visa</label>
+              <label><input type="radio" name="oSvc" value="Air ticket">Air ticket</label>
+              <label><input type="radio" name="oSvc" value="Tour package">Tour package</label>
+              <label><input type="radio" name="oSvc" value="Umrah">Umrah</label>
+              <label><input type="radio" name="oSvc" value="Hajj">Hajj</label>
             </div>
-          </div>
-          <p class="note">You pay nothing now. We send the full quote first.</p>
-        </fieldset>
-        <p class="msg" id="oErr" hidden></p>
-        <div class="cta"><button type="button" class="btn line" id="oBack" hidden>Back</button><button type="button" class="btn gold" id="oNext">Continue</button></div>
-      </form>
-      <div class="panel glass" id="orderDone" hidden>
-        <span class="eyebrow">Order ready</span>
-        <h2 style="font-size:clamp(26px,3vw,40px)">Thank you, <span id="dName">traveller</span>.</h2>
-        <p class="note">This is a design preview, so nothing has been sent. On the live site you would now get a WhatsApp message with your file number, your document checklist and your quote.</p>
-        <div class="cta"><a class="btn gold" href="#track">See a sample tracking page</a><button type="button" class="btn line" id="oAgain">Start another order</button></div>
+            <div class="fld"><label for="oDest">Country or city</label><input id="oDest" type="text" list="countryList" placeholder="Where are you going?" autocomplete="off"></div>
+          </fieldset>
+          <fieldset class="ostep" hidden>
+            <legend>Who is travelling, and when?</legend>
+            <div class="ogrid">
+              <div class="fld"><label for="oN">Number of travellers</label><select id="oN"><option>1</option><option>2</option><option>3</option><option>4</option><option>5 or more</option></select></div>
+              <div class="fld"><label for="oDate">Travel date</label><input id="oDate" type="date"><span class="help">Not sure? Leave it empty.</span></div>
+            </div>
+          </fieldset>
+          <fieldset class="ostep" hidden>
+            <legend>Add a photo of your passport</legend>
+            <label class="drop" for="oFile"><svg><use href="#i-upload"/></svg><b>Tap to take or choose a photo</b><span class="note">The page with your photo and name</span><input id="oFile" type="file" accept="image/*"></label>
+            <p class="note" id="oFileName">No photo added. You can also send it later on WhatsApp.</p>
+          </fieldset>
+          <fieldset class="ostep" hidden>
+            <legend>Where should we send your price?</legend>
+            <div class="ogrid">
+              <div class="fld"><label for="oName">Full name</label><input id="oName" type="text" autocomplete="name"></div>
+              <div class="fld"><label for="oPhone">WhatsApp number</label><input id="oPhone" type="tel" autocomplete="tel" placeholder="01XXXXXXXXX"></div>
+            </div>
+            <div class="fld"><label for="oFamily">Family member's WhatsApp (optional)</label><input id="oFamily" type="tel" autocomplete="off"><span class="help">They receive the same updates.</span></div>
+          </fieldset>
+          <p class="msg" id="oErr" role="alert" hidden></p>
+          <div class="oacts"><button type="button" class="btn btn-ghost" id="oBack" hidden>Back</button><button type="button" class="btn btn-primary" id="oNext" style="margin-left:auto">Continue</button></div>
+        </form>
+        <div id="orderDone" hidden style="display:flex;flex-direction:column;gap:14px">
+          <span class="kicker">Application started</span>
+          <h2>Thank you, <span id="dName"></span>.</h2>
+          <p class="msg ok">This is a design preview, so nothing was sent. On the live site you would now get a WhatsApp message with your file number, your checklist and your price.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-primary" href="#track">See how tracking works</a><button type="button" class="btn btn-ghost" id="oAgain">Start another</button></div>
+        </div>
       </div>
-      <aside class="panel glass" aria-label="Order summary">
-        <h3>Your order</h3>
+      <aside class="panel" aria-label="Your application">
+        <h3 style="margin-bottom:14px">Your application</h3>
         <dl class="sum">
-          <dt>Service</dt><dd id="sService"></dd>
-          <dt>Destination</dt><dd id="sDest"></dd>
+          <dt>Service</dt><dd id="sSvc"></dd>
+          <dt>Going to</dt><dd id="sDest"></dd>
           <dt>Travellers</dt><dd id="sN"></dd>
           <dt>Travel date</dt><dd id="sDate"></dd>
-          <dt>Passport</dt><dd id="sPass"></dd>
-          <dt>Payment</dt><dd id="sPay"></dd>
-          <dt>Price</dt><dd>[QUOTE SENT ON WHATSAPP]</dd>
+          <dt>Passport photo</dt><dd id="sPass"></dd>
+          <dt>Price</dt><dd>Sent on WhatsApp</dd>
         </dl>
+        <div class="wa"><svg><use href="#i-check"/></svg><span>You pay nothing until you have seen and accepted the price.</span></div>
       </aside>
     </div>
-  </div>
+  </section>
 </div>
 
 <!-- ================= CONTACT ================= -->
-<div class="view page" id="v-contact" hidden>
-  <div class="wrap">
-    <div class="copy">
-      <p class="eyebrow">Contact</p>
-      <h1>Tell us where you want to go.</h1>
-      <p class="lede">Send a few details and we will reply on WhatsApp with a checklist and a quote.</p>
-    </div>
-    <form class="panel glass" id="contactForm">
-      <div class="formgrid">
-        <div class="fld"><label for="cName">Your name</label><input id="cName" type="text" autocomplete="name"></div>
-        <div class="fld"><label for="cPhone">WhatsApp number</label><input id="cPhone" type="tel" autocomplete="tel"></div>
-        <div class="fld"><label for="cService">Service</label><select id="cService"><option>Visit or travel visa</option><option>Student, work or medical visa</option><option>Air ticket</option><option>Tour package</option><option>Umrah</option><option>Hajj</option></select></div>
-        <div class="fld"><label for="cCountry">Country</label><input id="cCountry" type="text" placeholder="Where are you going?"></div>
+<div class="view" id="v-contact" hidden>
+  <section class="page-head"><div class="container">
+    <p class="crumbs"><a href="#home">Home</a> / Contact</p>
+    <h1>Talk to us</h1>
+    <p>Call, send a WhatsApp message, visit our office, or leave your number and we will call you back.</p>
+  </div></section>
+  <section class="section" style="padding-top:28px">
+    <div class="container two">
+      <form class="panel" id="contactForm" style="display:flex;flex-direction:column;gap:14px">
+        <h3>Ask for a call back</h3>
+        <div class="ogrid">
+          <div class="fld"><label for="cName">Your name</label><input id="cName" type="text" autocomplete="name"></div>
+          <div class="fld"><label for="cPhone">Phone or WhatsApp</label><input id="cPhone" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="fld"><label for="cMsg">How can we help?</label><textarea id="cMsg" placeholder="For example: UK visit visa for two people in March"></textarea></div>
+        <button class="btn btn-primary" type="submit">Send</button>
+        <p class="msg" id="contactMsg" hidden>This is a design preview, so nothing was sent. Connect this form to your WhatsApp or email to go live.</p>
+      </form>
+      <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+        <div class="panel" style="display:flex;gap:14px;align-items:flex-start"><span class="ico"><svg><use href="#i-phone"/></svg></span><div><h3>Call or WhatsApp</h3><p class="note" style="font-size:17px">[YOUR PHONE NUMBER]</p></div></div>
+        <div class="panel" style="display:flex;gap:14px;align-items:flex-start"><span class="ico"><svg><use href="#i-office"/></svg></span><div><h3>Visit our office</h3><p class="note" style="font-size:17px">[OFFICE ADDRESS, DHAKA]</p></div></div>
+        <div class="panel" style="display:flex;gap:14px;align-items:flex-start"><span class="ico"><svg><use href="#i-clock"/></svg></span><div><h3>Opening hours</h3><p class="note" style="font-size:17px">[DAYS], [HOURS]</p></div></div>
       </div>
-      <div class="cta"><button class="btn gold" type="submit">Send my request</button></div>
-      <p class="msg" id="contactMsg" hidden>This is a design preview, so nothing was sent. Connect this form to your WhatsApp or CRM to go live.</p>
-    </form>
-    <footer class="foot glass">
-      <div><b>Call or WhatsApp</b><span>[YOUR PHONE NUMBER]</span><span>[YOUR EMAIL]</span></div>
-      <div><b>Office</b><span>[OFFICE ADDRESS, DHAKA]</span><span>[OPENING HOURS]</span></div>
-      <div><b>Licences</b><span>Hajj licence [NUMBER]</span><span>Travel agency licence [NUMBER]</span><span>IATA [NUMBER]</span></div>
-    </footer>
-  </div>
+    </div>
+  </section>
 </div>
+
+</main>
+
+<footer class="site">
+  <div class="container">
+    <div class="fgrid">
+      <div><a class="logo" href="#home" aria-label="MusafirLife home"><svg class="logo-mark" viewBox="2 6 62 60" aria-hidden="true"><g class="lw"><path class="lw1" d="M6 44 C 22 42, 38 32, 52 10 C 50 30, 34 46, 8 48 Z" fill="url(#mlg)"/><path class="lw2" d="M10 53 C 28 52, 44 42, 58 22 C 56 40, 40 54, 12 56.5 Z" fill="var(--logo-ink)"/><path class="lw3" d="M16 61 C 32 60.5, 46 54, 60 38 C 57 52, 44 61.5, 18 63 Z" fill="var(--logo-mid)"/></g></svg><span class="wm"><svg class="wm-svg" viewBox="-2 -77.5 690.6 79.5" aria-hidden="true"><path d="M6.6000000000000005 0.0V-74.5H21.6L49.5 -37.5H42.5L69.60000000000001 -74.5H84.60000000000001V0.0H69.10000000000001V-57.400000000000006L75.3 -56.0L46.6 -19.0H44.6L16.900000000000002 -56.0L22.1 -57.400000000000006V0.0ZM130.4 1.2000000000000002Q121.60000000000001 1.2000000000000002 114.70000000000002 -2.5Q107.80000000000001 -6.2 103.85000000000001 -12.65Q99.9 -19.1 99.9 -27.3V-74.5H115.4V-28.3Q115.4 -23.900000000000002 117.35000000000001 -20.35Q119.30000000000001 -16.8 122.70000000000002 -14.8Q126.10000000000001 -12.8 130.4 -12.8Q134.8 -12.8 138.15 -14.8Q141.5 -16.8 143.45 -20.35Q145.4 -23.900000000000002 145.4 -28.3V-74.5H160.9V-27.3Q160.9 -19.1 156.95 -12.65Q153.0 -6.2 146.1 -2.5Q139.2 1.2000000000000002 130.4 1.2000000000000002ZM203.3 1.2000000000000002Q196.3 1.2000000000000002 190.15000000000003 -1.35Q184.00000000000003 -3.9000000000000004 179.55 -8.600000000000001Q175.10000000000002 -13.3 172.90000000000003 -19.700000000000003L185.60000000000002 -25.400000000000002Q188.40000000000003 -19.3 193.35000000000002 -15.8Q198.3 -12.3 204.3 -12.3Q207.50000000000003 -12.3 209.8 -13.3Q212.10000000000002 -14.3 213.40000000000003 -16.05Q214.70000000000002 -17.8 214.70000000000002 -20.200000000000003Q214.70000000000002 -22.8 213.10000000000002 -24.65Q211.50000000000003 -26.5 208.10000000000002 -27.6L193.50000000000003 -32.4Q184.60000000000002 -35.300000000000004 180.10000000000002 -40.650000000000006Q175.60000000000002 -46.0 175.60000000000002 -53.5Q175.60000000000002 -60.1 178.85000000000002 -65.10000000000001Q182.10000000000002 -70.10000000000001 187.95000000000002 -72.9Q193.8 -75.7 201.40000000000003 -75.7Q208.10000000000002 -75.7 213.8 -73.4Q219.50000000000003 -71.10000000000001 223.65000000000003 -66.9Q227.8 -62.7 229.90000000000003 -56.800000000000004L217.3 -51.1Q215.20000000000002 -56.300000000000004 211.0 -59.25Q206.8 -62.2 201.40000000000003 -62.2Q198.3 -62.2 195.90000000000003 -61.2Q193.50000000000003 -60.2 192.20000000000005 -58.35Q190.90000000000003 -56.5 190.90000000000003 -54.1Q190.90000000000003 -51.5 192.60000000000002 -49.55Q194.3 -47.6 197.70000000000002 -46.5L212.00000000000003 -41.900000000000006Q221.00000000000003 -39.0 225.45000000000005 -33.8Q229.90000000000003 -28.6 229.90000000000003 -21.1Q229.90000000000003 -14.600000000000001 226.50000000000003 -9.55Q223.10000000000002 -4.5 217.15000000000003 -1.65Q211.20000000000002 1.2000000000000002 203.3 1.2000000000000002ZM320.1 0.0V-74.5H371.1V-61.0H335.6V-42.1H366.1V-28.6H335.6V0.0ZM381.8 0.0V-74.5H397.3V0.0ZM413.5 0.0V-74.5H442.0Q449.7 -74.5 455.65 -71.80000000000001Q461.59999999999997 -69.10000000000001 465.0 -63.800000000000004Q468.4 -58.5 468.4 -50.7Q468.4 -43.1 464.9 -37.75Q461.4 -32.4 455.5 -29.700000000000003L472.5 0.0H455.09999999999997L436.7 -32.9L446.7 -27.0H429.0V0.0ZM429.0 -40.5H442.09999999999997Q445.4 -40.5 447.79999999999995 -41.8Q450.2 -43.1 451.54999999999995 -45.400000000000006Q452.9 -47.7 452.9 -50.7Q452.9 -53.800000000000004 451.54999999999995 -56.10000000000001Q450.2 -58.400000000000006 447.79999999999995 -59.7Q445.4 -61.0 442.09999999999997 -61.0H429.0Z" fill="var(--logo-ink)"/><path d="M238.40 0.00L267.39 -74.50L280.41 -74.50L309.40 0.00L291.11 0.00L273.90 -47.38L256.69 0.00Z" fill="var(--logo-ink)"/><path class="wm-sw" d="M239.82 -22.35C263.25 -24.59 300.88 -31.29 316.50 -49.17" fill="none" stroke="var(--logo-gold)" stroke-width="7.13" stroke-linecap="round" pathLength="100"/><path d="M483.2 0.0V-74.5H498.7V-13.5H530.1999999999999V0.0ZM540.9 0.0V-74.5H556.4V0.0ZM572.6 0.0V-74.5H623.6V-61.0H588.1V-42.1H618.6V-28.6H588.1V0.0ZM634.3000000000001 0.0V-74.5H684.4000000000001V-61.0H649.8000000000001V-44.1H682.4000000000001V-30.6H649.8000000000001V-13.5H684.4000000000001V0.0Z" fill="var(--logo-gold)"/></svg><small>Travel · Visa · Hajj and Umrah</small></span></a><p class="muted">Visa processing, air tickets, tours, and Hajj and Umrah from Dhaka.</p></div>
+      <div><h3>Services</h3><a href="#visa">Visa processing</a><a href="#tours">Air tickets and tours</a><a href="#hajj-umrah">Hajj and Umrah</a></div>
+      <div><h3>Help</h3><a href="#track">Track my file</a><a href="#order">Apply now</a><a href="#contact">Contact</a></div>
+      <div><h3>Licences</h3><span class="muted">Hajj licence [NUMBER]</span><span class="muted">Travel agency licence [NUMBER]</span><span class="muted">IATA [NUMBER]</span></div>
+    </div>
+    <div class="fbottom"><span>© 2026 MusafirLife.com</span><span>[YOUR EMAIL] · [YOUR PHONE NUMBER]</span></div>
+  </div>
+</footer>
+
+<button class="totop" id="toTop" type="button" aria-label="Back to top" hidden><svg><use href="#i-arrow"/></svg></button>
+<a class="float-wa" href="#contact" aria-label="Chat with us on WhatsApp"><svg><use href="#i-wa"/></svg><span>Chat with us</span></a>
 
 <script>
 (function(){
 'use strict';
-var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
-var clamp=function(v,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,v))};
-var seg=function(p,a,b){return clamp((p-a)/(b-a))};
-var lerp=function(a,b,t){return a+(b-a)*t};
-var ease=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
-var out=function(t){return 1-Math.pow(1-t,3)};
-var mod=function(a,m){return ((a%m)+m)%m};
-var seed=7; var rnd=function(){seed=(seed*16807)%2147483647;return seed/2147483647};
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-var MOTION=!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+/* ---------- data ---------- */
+var COUNTRIES=[
+  ['GB','United Kingdom','Europe',['Visit','Student','Business']],
+  ['EU','Schengen area','Europe',['Tourist','Business','Family visit']],
+  ['TR','Turkey','Europe',['Tourist','e Visa']],
+  ['US','United States','Americas',['Visit','Student','Business']],
+  ['CA','Canada','Americas',['Visit','Student','Work']],
+  ['AU','Australia','Oceania',['Visit','Student']],
+  ['NZ','New Zealand','Oceania',['Visit','Student']],
+  ['JP','Japan','Asia',['Tourist','Business']],
+  ['KR','South Korea','Asia',['Tourist','Business']],
+  ['CN','China','Asia',['Tourist','Business','Medical']],
+  ['MY','Malaysia','Asia',['Tourist','Student','Medical']],
+  ['TH','Thailand','Asia',['Tourist','Medical']],
+  ['SG','Singapore','Asia',['Tourist','Business']],
+  ['IN','India','Asia',['Tourist','Medical','Business']],
+  ['AE','United Arab Emirates','Middle East',['Visit','Business']],
+  ['SA','Saudi Arabia','Middle East',['Umrah','Visit','Work']],
+  ['QA','Qatar','Middle East',['Visit','Work']]
+];
+var POPULAR=['GB','EU','US','CA','MY','TH','AE','SA'];
+var UMRAH=[
+  ['Umrah Economy','14 days',['Hotel within 1 km of the Haram','Shared room for 4','Group transport','Ziyarah in Makkah and Madinah'],false],
+  ['Umrah Standard','14 days',['Hotel within 500 m of the Haram','Room for 2 or 3','Group transport and guide','Ziyarah in Makkah and Madinah'],true],
+  ['Umrah Family','10 to 21 days, your dates',['Hotel close to the Haram','Private family room','Private car transfers','Flexible dates'],false]
+];
+var HAJJ=[
+  ['Hajj Standard','Hajj season',['Registration support','Mina and Arafat camps','Makkah and Madinah hotels','Experienced group leader'],false],
+  ['Hajj Premium','Hajj season',['Registration support','Upgraded camps','Hotels near the Haram','Small group with guide'],true],
+  ['Hajj Pre registration','Next season',['Help with pre registration','Document check','Payment plan [DETAILS]','Updates on WhatsApp'],false]
+];
+var TOURS=[
+  ['Thailand','5 days, 4 nights',['Bangkok and Pattaya','Return flights','Hotel with breakfast','Airport transfers'],false,'Thailand'],
+  ['Malaysia and Singapore','6 days, 5 nights',['Kuala Lumpur and Singapore','Return flights','Hotels with breakfast','City tours'],true,'Malaysia'],
+  ['Dubai','4 days, 3 nights',['Desert safari','Return flights','Hotel with breakfast','Visa included'],false,'United Arab Emirates']
+];
 
-/* ---------- forms (preview only) ---------- */
-[['#trackForm','#trackMsg'],['#contactForm','#contactMsg']].forEach(function(p){
-  $(p[0]).addEventListener('submit',function(ev){ev.preventDefault();$(p[1]).hidden=false});
+/* ---------- render ---------- */
+function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function countryCard(c){
+  return '<article class="ccard"><div class="ctop"><span class="code" aria-hidden="true">'+c[0]+'</span><div><b>'+esc(c[1])+'</b><span>'+esc(c[2])+'</span></div></div>'+
+    '<div class="cmeta">'+c[3].map(function(t){return '<span class="chip">'+esc(t)+'</span>'}).join('')+'</div>'+
+    '<div class="cfoot"><span class="price">Checklist and quote on WhatsApp</span><button type="button" class="btn-link" data-order="Visit or travel visa|'+esc(c[1])+'">Apply<svg><use href="#i-arrow"/></svg></button></div></article>';
+}
+function pkgCard(p,svc,btn){
+  return '<article class="pkg'+(p[3]?' best':'')+'">'+(p[3]?'<span class="badge">Most chosen</span>':'')+
+    '<div><h3>'+esc(p[0])+'</h3><span class="note">'+esc(p[1])+'</span></div>'+
+    
+    '<ul class="ticks">'+p[2].map(function(t){return '<li><svg><use href="#i-check"/></svg>'+esc(t)+'</li>'}).join('')+'</ul>'+
+    '<button type="button" class="btn '+(p[3]?'btn-primary':'btn-ghost')+'" data-order="'+svc+'|'+esc(p[4]||'Saudi Arabia')+'">'+btn+'</button></article>';
+}
+$('#popular').innerHTML=COUNTRIES.filter(function(c){return POPULAR.indexOf(c[0])>=0}).map(countryCard).join('');
+$('#homePkgs').innerHTML=UMRAH.map(function(p){return pkgCard(p,'Umrah','Book this package')}).join('');
+$('#umrahPkgs').innerHTML=UMRAH.map(function(p){return pkgCard(p,'Umrah','Book this package')}).join('');
+$('#hajjPkgs').innerHTML=HAJJ.map(function(p){return pkgCard(p,'Hajj','Ask about this package')}).join('');
+$('#tourPkgs').innerHTML=TOURS.map(function(p){return pkgCard(p,'Tour package','Book this tour')}).join('');
+$('#countryList').innerHTML=COUNTRIES.map(function(c){return '<option value="'+esc(c[1])+'">'}).join('');
+
+/* visa search + region filter */
+var regions=['All'].concat(COUNTRIES.map(function(c){return c[2]}).filter(function(r,i,a){return a.indexOf(r)===i}));
+var region='All';
+$('#regionPills').innerHTML=regions.map(function(r){return '<button type="button" aria-pressed="'+(r==='All')+'" data-r="'+r+'">'+r+'</button>'}).join('');
+function drawCountries(){
+  var q=$('#cSearch').value.trim().toLowerCase();
+  var list=COUNTRIES.filter(function(c){return (region==='All'||c[2]===region)&&(!q||c[1].toLowerCase().indexOf(q)>=0)});
+  $('#allCountries').innerHTML=list.length?list.map(countryCard).join(''):
+    '<div class="empty"><b>'+esc($('#cSearch').value)+'</b> is not in this list, but we can still help.<br><button type="button" class="btn btn-primary" style="margin-top:12px" data-order="Visit or travel visa|'+esc($('#cSearch').value)+'">Apply for '+esc($('#cSearch').value||'this country')+'</button></div>';
+}
+$('#cSearch').addEventListener('input',drawCountries);
+$('#regionPills').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;region=b.getAttribute('data-r');$$('#regionPills button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});drawCountries()});
+drawCountries();
+
+/* ---------- routing ---------- */
+var ROUTES=['home','visa','hajj-umrah','tours','track','order','contact'];
+var menu=$('#menu'),burger=$('#burger');
+function route(){
+  var h=(location.hash||'').slice(1);if(ROUTES.indexOf(h)<0)h='home';
+  $$('.view').forEach(function(v){v.hidden=v.id!=='v-'+h});
+  $$('#menu a').forEach(function(a){if(a.getAttribute('data-tab')===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  menu.classList.remove('open');burger.setAttribute('aria-expanded','false');
+  window.scrollTo(0,0);
+}
+addEventListener('hashchange',route);route();
+burger.addEventListener('click',function(){var o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);burger.setAttribute('aria-label',o?'Close menu':'Open menu')});
+
+/* ---------- booking tabs ---------- */
+var tabs=$$('.book-tabs [role="tab"]');
+function selectTab(t,focus){
+  tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;$('#'+x.getAttribute('aria-controls')).hidden=!on});
+  if(focus)t.focus();
+}
+tabs.forEach(function(t,i){
+  t.addEventListener('click',function(){selectTab(t)});
+  t.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(d){e.preventDefault();selectTab(tabs[(i+d+tabs.length)%tabs.length],true)}});
 });
-
-$('#skipTour').addEventListener('click',function(){var l=$('.land');window.scrollTo(0,l.getBoundingClientRect().top+window.scrollY)});
 
 /* ---------- order flow (preview only) ---------- */
-var O={step:1};
-var oSteps=$$('.ostep'),oNavL=$$('#oNav li'),oBack=$('#oBack'),oNext=$('#oNext'),oErr=$('#oErr'),oForm=$('#orderForm'),oDone=$('#orderDone');
-var oF={service:$('#oService'),dest:$('#oDest'),n:$('#oN'),date:$('#oDate'),file:$('#oFile'),name:$('#oName'),phone:$('#oPhone')};
-function oSum(){
-  $('#sService').textContent=oF.service.value;
-  $('#sDest').textContent=oF.dest.value||'Not chosen yet';
-  $('#sN').textContent=oF.n.value;
-  $('#sDate').textContent=oF.date.value||'Flexible';
-  $('#sPass').textContent=(oF.file.files&&oF.file.files[0])?oF.file.files[0].name:'Not added yet';
-  var pay=document.querySelector('input[name="oPay"]:checked');
-  $('#sPay').textContent=pay?pay.value:'';
+var step=1,steps=$$('.ostep'),navL=$$('#oNav li'),oBack=$('#oBack'),oNext=$('#oNext'),oErr=$('#oErr'),oForm=$('#orderForm'),oDone=$('#orderDone');
+function svcVal(){var r=$('input[name="oSvc"]:checked');return r?r.value:''}
+function sum(){
+  $('#sSvc').textContent=svcVal();
+  $('#sDest').textContent=$('#oDest').value||'Not chosen yet';
+  $('#sN').textContent=$('#oN').value;
+  $('#sDate').textContent=$('#oDate').value||'Flexible';
+  var f=$('#oFile').files&&$('#oFile').files[0];
+  $('#sPass').textContent=f?'Added':'Not yet';
+  $('#oFileName').textContent=f?('Added: '+f.name):'No photo added. You can also send it later on WhatsApp.';
 }
-function oShow(){
-  oSteps.forEach(function(f,i){f.hidden=(i+1!==O.step)});
-  oNavL.forEach(function(l,i){l.classList.toggle('cur',i+1===O.step);l.classList.toggle('ok',i+1<O.step)});
-  oBack.hidden=O.step===1;
-  oNext.textContent=O.step===4?'Place my order':'Continue';
-  oErr.hidden=true; oSum();
+function show(){
+  steps.forEach(function(f,i){f.hidden=i+1!==step});
+  navL.forEach(function(l,i){l.classList.toggle('cur',i+1===step);l.classList.toggle('ok',i+1<step)});
+  oBack.hidden=step===1;oNext.textContent=step===4?'Send my application':'Continue';
+  oErr.hidden=true;sum();
 }
-function oFail(t){oErr.textContent=t;oErr.hidden=false}
+function fail(t){oErr.textContent=t;oErr.hidden=false}
 oNext.addEventListener('click',function(){
-  if(O.step===1&&!oF.dest.value.trim())return oFail('Tell us where you are going.');
-  if(O.step===4&&(!oF.name.value.trim()||!oF.phone.value.trim()))return oFail('Add your name and WhatsApp number so we can reply.');
-  if(O.step<4){O.step++;oShow()}
-  else{$('#dName').textContent=oF.name.value.trim();oForm.hidden=true;oDone.hidden=false;window.scrollTo(0,0)}
+  if(step===1&&!$('#oDest').value.trim())return fail('Please tell us the country or city you are going to.');
+  if(step===4){
+    if(!$('#oName').value.trim())return fail('Please add your full name.');
+    if($('#oPhone').value.replace(/\D/g,'').length<10)return fail('Please add a WhatsApp number we can reach, for example 01XXXXXXXXX.');
+    $('#dName').textContent=$('#oName').value.trim();oForm.hidden=true;oDone.hidden=false;window.scrollTo(0,0);return;
+  }
+  step++;show();
+  var first=steps[step-1].querySelector('input,select');if(first)first.focus();
 });
-oBack.addEventListener('click',function(){if(O.step>1){O.step--;oShow()}});
-oForm.addEventListener('input',oSum);oForm.addEventListener('change',oSum);
-oForm.addEventListener('submit',function(ev){ev.preventDefault()});
-function preset(svc,dest){
-  if(svc)oF.service.value=svc;
-  if(dest!==undefined)oF.dest.value=dest;
-  oForm.hidden=false;oDone.hidden=true;O.step=1;oShow();
+oBack.addEventListener('click',function(){if(step>1){step--;show()}});
+oForm.addEventListener('input',sum);oForm.addEventListener('change',sum);
+oForm.addEventListener('submit',function(e){e.preventDefault()});
+function preset(svc,dest,n,date){
+  if(svc){var r=$('input[name="oSvc"][value="'+svc+'"]');if(r)r.checked=true}
+  $('#oDest').value=dest||'';
+  if(n)$('#oN').value=n;
+  $('#oDate').value=(date&&/^\d{4}-\d{2}-\d{2}$/.test(date))?date:'';
+  oForm.hidden=false;oDone.hidden=true;step=1;show();
   if(location.hash==='#order')window.scrollTo(0,0);else location.hash='order';
 }
 $('#oAgain').addEventListener('click',function(){preset('','')});
-$$('[data-order]').forEach(function(b){b.addEventListener('click',function(){var p=b.getAttribute('data-order').split('|');preset(p[0],p[1]||'')})});
-$('#finder').addEventListener('submit',function(ev){ev.preventDefault();preset($('#hService').value,$('#hDest').value)});
-oShow();
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-order]');if(!b)return;
+  var p=b.getAttribute('data-order').split('|');preset(p[0],p[1]);
+});
+$$('form[data-service]').forEach(function(f){
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var svc=f.getAttribute('data-service'),s=$('[data-svc]',f);if(s)svc=s.value;
+    var d=$('[data-dest]',f),n=$('[data-n]',f),dt=$('[data-date]',f);
+    preset(svc,d?d.value:(svc==='Umrah'||svc==='Hajj'?'Saudi Arabia':''),n?n.value:'',dt?dt.value:'');
+  });
+});
+show();
 
-/* ---------- tabs ---------- */
-var ROUTES=['home','visa','hajj-umrah','tours','track','order','contact'], current='home', onRoute=null;
-var views=$$('.view'), tabLinks=$$('#tabs a');
-function route(){
-  var h=(location.hash||'').slice(1); if(ROUTES.indexOf(h)<0)h='home';
-  current=h;
-  views.forEach(function(v){v.hidden=(v.id!=='v-'+h)});
-  tabLinks.forEach(function(a){if(a.getAttribute('data-tab')===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  window.scrollTo(0,0);
-  if(onRoute)onRoute();
-}
-addEventListener('hashchange',route);
-route();
+/* ---------- scanner demo ---------- */
+var scanBtn=$('#scanBtn'),pass=$('#pass'),status=$('#scanStatus'),sf=$$('#sfields .sf'),busy=false;
+scanBtn.addEventListener('click',function(){
+  if(busy)return;busy=true;
+  sf.forEach(function(f){f.classList.remove('done');$('b',f).textContent=''});
+  status.classList.remove('ok');status.lastChild.textContent='Reading the passport…';
+  pass.classList.remove('scanning');void pass.offsetWidth;pass.classList.add('scanning');
+  var i=0,gap=reduce?0:260;
+  (function next(){
+    if(i>=sf.length){status.classList.add('ok');status.lastChild.textContent='6 details filled from the photo';busy=false;return}
+    var f=sf[i++];$('b',f).textContent=$('b',f).getAttribute('data-v');f.classList.add('done');
+    setTimeout(next,gap);
+  })();
+});
 
-/* ---------- build seats ---------- */
-var seatsBox=$('#seats'), seats=[];
-var missing={7:1,23:1}, proc={3:1,12:1,18:1,31:1};
+/* ---------- back to top + hero tilt ---------- */
+var toTop=$('#toTop');
+addEventListener('scroll',function(){toTop.hidden=window.scrollY<600},{passive:true});
+toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'})});
+/* ---------- hero slideshow ---------- */
 (function(){
-  var n=0;
-  for(var r=0;r<5;r++){
-    for(var c=0;c<9;c++){
-      var d=document.createElement('div');
-      if(c===4){seatsBox.appendChild(d);continue}
-      var st=missing[n]?'miss':proc[n]?'proc':'ok';
-      d.className='seat lit '+st; d.textContent=(n+1);
-      seatsBox.appendChild(d);
-      seats.push({el:d,st:st,dx:(rnd()-.5)*1400,dy:(rnd()-.5)*900,r:(rnd()-.5)*260});
-      n++;
-    }
+  var box=$('#slides'),sl=$$('.slide',box),tabsB=$$('#sDots button'),live=$('#sLive'),play=$('#sPlay'),ico=$('#sPlayIco');
+  var i=0,DUR=4000,timer=null,userPaused=reduce,hover=false;
+  box.style.setProperty('--dur',DUR+'ms');
+  function bars(){
+    tabsB.forEach(function(b,k){var bar=$('i',b);bar.className='';b.classList.toggle('done',k<i)});
+    var cur=$('i',tabsB[i]);void cur.offsetWidth;cur.className=userPaused?'stop':'run';
   }
+  function go(n,announce){
+    i=(n+sl.length)%sl.length;
+    sl.forEach(function(el,k){var on=k===i;el.classList.toggle('on',on);if(on)el.removeAttribute('aria-hidden');else el.setAttribute('aria-hidden','true');$$('a,button',el).forEach(function(b){b.tabIndex=on?0:-1})});
+    tabsB.forEach(function(d,k){if(k===i)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current')});
+    if(announce)live.textContent=sl[i].getAttribute('aria-label');
+    restart();
+  }
+  function restart(){
+    clearTimeout(timer);bars();
+    box.classList.toggle('paused',userPaused||hover);
+    if(!userPaused&&!hover)timer=setTimeout(function(){go(i+1)},DUR);
+  }
+  function setPlay(){
+    play.setAttribute('aria-label',userPaused?'Play slideshow':'Pause slideshow');
+    ico.innerHTML=userPaused?'<path fill="currentColor" d="M8 5l11 7-11 7z"/>':'<path fill="currentColor" d="M7 5h4v14H7zM13 5h4v14h-4z"/>';
+  }
+  $('#sPrev').addEventListener('click',function(){go(i-1,true)});
+  $('#sNext').addEventListener('click',function(){go(i+1,true)});
+  play.addEventListener('click',function(){userPaused=!userPaused;setPlay();restart()});
+  tabsB.forEach(function(d,k){d.addEventListener('click',function(){go(k,true)})});
+  var content=$$('.sc-in',box);
+  content.forEach(function(c){
+    c.addEventListener('mouseenter',function(){hover=true;clearTimeout(timer);box.classList.add('paused')});
+    c.addEventListener('mouseleave',function(){hover=false;restart()});
+  });
+  box.addEventListener('focusin',function(){hover=true;clearTimeout(timer);box.classList.add('paused')});
+  box.addEventListener('focusout',function(e){if(!box.contains(e.relatedTarget)){hover=false;restart()}});
+  box.addEventListener('keydown',function(e){if(e.key==='ArrowRight')go(i+1,true);else if(e.key==='ArrowLeft')go(i-1,true)});
+  var sx=null,sy=null;
+  box.addEventListener('pointerdown',function(e){sx=e.clientX;sy=e.clientY});
+  box.addEventListener('pointerup',function(e){if(sx===null)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1),true);sx=null});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)clearTimeout(timer);else restart()});
+  setPlay();go(0);
 })();
 
-/* ---------- element refs ---------- */
-var l1=$('#l1'),l2=$('#l2'),heroIn=$('#heroIn'),heroWord=$('#heroWord');
-var pp=$('#pp'),beam=$('#beam'),mrzhl=$('#mrzhl'),pill=$('#scanPill');
-var fields=$$('#fields .f').map(function(row){var v=row.querySelector('.v');return{row:row,el:v,full:v.textContent,n:-1}});
-var arcFg=$('#arcFg'),arcPlane=$('#arc-plane'),nodes=$$('#arc-nodes circle'),steps=$$('#steps li'),bubT=$$('#bubT .bub'),bubA=$$('#bubA .bub');
-var L=arcFg.getTotalLength()||1100;
-nodes.forEach(function(n,i){var pt=arcFg.getPointAtLength(L*i/4);n.setAttribute('cx',pt.x);n.setAttribute('cy',pt.y)});
-var track=$('#reelTrack'),reels=$$('.reel').map(function(el){return{el:el,tc:el.querySelector('.tc'),ly:Array.prototype.slice.call(el.querySelectorAll('.ly')).map(function(g){return{g:g,d:parseFloat(g.getAttribute('data-d'))}})}});
-var cScan=$('#cScan'),cVisa=$('#cVisa'),bScan=$('#bScan'),bVisa=$('#bVisa'),groupCta=$('#groupCta');
-var docRows=$$('#docRows .row'),stamp=$('#stamp'),daysEl=$('#days'),ring=$('#ring'),expiry=$('#expiry'),alertCta=$('#alertCta');
-var C=2*Math.PI*84; ring.style.strokeDasharray=C; ring.style.strokeDashoffset=C*(1-67/180);
-
-var vw=innerWidth,vh=innerHeight,docH=1;
-
-/* ---------- scene renderers: p = pinned progress, e = entrance progress ---------- */
-var R={};
-R['s-hero']=function(p){
-  l1.style.transform='translateX('+(-p*28)+'vw)';
-  l2.style.transform='translateX('+(p*28)+'vw)';
-  heroIn.style.opacity=1-seg(p,.3,.8);
-  heroWord.style.transform='translate(-50%,-50%) scale('+(1+p*p*3.2)+')';
-  heroWord.style.opacity=lerp(1,0,seg(p,.55,1));
-};
-R['s-scan']=function(p,e){
-  var t=out(e);
-  pp.style.transform='translateY('+((1-t)*34)+'vh) rotate('+lerp(-16,-3,t)+'deg)';
-  var b=seg(p,.06,.6);
-  beam.style.left=(b*100)+'%'; beam.style.opacity=(b>0&&b<1)?1:0;
-  mrzhl.style.width=(b*100)+'%';
-  var done=0;
-  fields.forEach(function(f,i){
-    var ft=seg(p,.12+i*.055,.19+i*.055), n=Math.ceil(f.full.length*ft);
-    if(f.n!==n){f.el.textContent=f.full.slice(0,n)||' ';f.n=n}
-    f.row.classList.toggle('done',ft>=1); if(ft>=1)done++;
-  });
-  var label=done===8?'Filled from passport':(done?'Reading '+done+' of 8':'Waiting for scan');
-  if(pill.textContent!==label)pill.textContent=label;
-  pill.classList.toggle('ok',done===8);
-};
-R['s-track']=function(p){
-  var r=seg(p,.06,.86), started=p>.03;
-  arcFg.style.strokeDasharray=L; arcFg.style.strokeDashoffset=L*(1-r);
-  var pt=arcFg.getPointAtLength(L*r), p2=arcFg.getPointAtLength(Math.min(L,L*r+2)), p1=arcFg.getPointAtLength(Math.max(0,L*r-2));
-  var a=Math.atan2(p2.y-p1.y,p2.x-p1.x)*180/Math.PI;
-  arcPlane.setAttribute('transform','translate('+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+') rotate('+a.toFixed(1)+')');
-  var n=Math.min(4,Math.floor(r*4+.02));
-  for(var i=0;i<5;i++){
-    var on=started&&i<=n;
-    nodes[i].classList.toggle('on',on);
-    steps[i].classList.toggle('on',on);
-    steps[i].classList.toggle('cur',i===(started?n:0));
-    bubT[i].classList.toggle('in',on);
-    bubA[i].classList.toggle('in',on);
-  }
-};
-R['s-reels']=function(p){
-  var max=Math.max(0,track.scrollWidth-vw), x=-seg(p,.05,.95)*max;
-  track.style.transform='translate3d('+x.toFixed(1)+'px,0,0)';
-  reels.forEach(function(r,i){
-    var rel=(r.el.offsetLeft+x+r.el.offsetWidth/2-vw/2)/vw;
-    r.el.style.transform='scale('+(1-Math.min(.08,Math.abs(rel)*.09)).toFixed(4)+')';
-    r.ly.forEach(function(l){l.g.style.transform='translateX('+(-rel*l.d*150).toFixed(1)+'px)'});
-    var s=Math.max(0,p*96-i*3), sec=Math.floor(s), fr=Math.floor((s-sec)*24);
-    r.tc.textContent='00:'+(sec<10?'0':'')+sec+':'+(fr<10?'0':'')+fr;
-  });
-};
-R['s-group']=function(p){
-  var issued=0;
-  seats.forEach(function(s,i){
-    var t=out(seg(p,.02+i*.007,.28+i*.007));
-    s.el.style.transform='translate('+(s.dx*(1-t)).toFixed(1)+'px,'+(s.dy*(1-t)).toFixed(1)+'px) rotate('+(s.r*(1-t)).toFixed(1)+'deg) scale('+lerp(.4,1,t).toFixed(3)+')';
-    var lit=p>.44+i*.009;
-    s.el.classList.toggle('lit',lit);
-    if(lit&&s.st==='ok')issued++;
-  });
-  var sc=Math.round(40*seg(p,.04,.5));
-  cScan.textContent=sc; bScan.style.transform='scaleX('+(sc/40)+')';
-  cVisa.textContent=issued; bVisa.style.transform='scaleX('+(issued/40)+')';
-  groupCta.classList.toggle('in',p>.84);
-};
-R['s-docs']=function(p){
-  docRows.forEach(function(r,i){r.classList.toggle('in',p>.05+i*.07)});
-  stamp.classList.toggle('in',p>.42);
-  var d=Math.round(lerp(180,67,ease(seg(p,.48,.8))));
-  daysEl.textContent=d;
-  ring.style.strokeDashoffset=C*(1-d/180);
-  expiry.classList.toggle('warn',d<90);
-  alertCta.classList.toggle('in',p>.84);
-};
-
-if(!MOTION){ return; } /* reduced motion: every tab stays in its finished state, laid out as a normal document */
-
-document.documentElement.classList.add('motion');
-
-/* ---------- sky ---------- */
-var cv=$('#sky'),cx=cv.getContext('2d'),dpr=Math.min(1.5,window.devicePixelRatio||1);
-var KEYS=[[0,[26,30,82],[204,92,70]],[.2,[10,58,150],[40,118,214]],[.5,[12,64,160],[46,126,218]],[.68,[52,28,104],[220,100,62]],[.86,[7,16,36],[22,40,86]],[1,[5,12,28],[16,30,66]]];
-var TABSKY={order:.24,visa:.32,'hajj-umrah':.93,tours:.66,track:.42,contact:.8};
-function skyAt(g){
-  for(var i=0;i<KEYS.length-1;i++){
-    if(g<=KEYS[i+1][0]){
-      var a=KEYS[i],b=KEYS[i+1],t=(g-a[0])/(b[0]-a[0]);
-      return [[0,1,2].map(function(k){return Math.round(lerp(a[1][k],b[1][k],t))}),[0,1,2].map(function(k){return Math.round(lerp(a[2][k],b[2][k],t))})];
-    }
-  }
-  return [KEYS[5][1],KEYS[5][2]];
-}
-function cloudSprite(){
-  var c=document.createElement('canvas');c.width=380;c.height=190;var x=c.getContext('2d');
-  for(var i=0;i<11;i++){
-    var px=60+rnd()*260,py=96+rnd()*36,r=36+rnd()*36,gr=x.createRadialGradient(px,py,0,px,py,r);
-    gr.addColorStop(0,'rgba(255,255,255,.6)');gr.addColorStop(1,'rgba(255,255,255,0)');
-    x.fillStyle=gr;x.beginPath();x.arc(px,py,r,0,7);x.fill();
-  }
-  return c;
-}
-var sprites=[cloudSprite(),cloudSprite(),cloudSprite(),cloudSprite()];
-var clouds=[];
-[[.5,.12,6],[.9,.3,5],[1.6,.62,4]].forEach(function(l){for(var i=0;i<l[2];i++)clouds.push({x:rnd(),y:rnd(),s:l[0]*(.8+rnd()*.5),par:l[1],sp:.6+rnd(),spr:sprites[Math.floor(rnd()*4)]})});
-var stars=[];for(var i=0;i<150;i++)stars.push({x:rnd(),y:rnd()*.8,r:.5+rnd()*1.3,ph:rnd()*6.28});
-var streaks=[];for(i=0;i<26;i++)streaks.push({x:rnd(),y:rnd()});
-
-/* ---------- plane route (viewport fractions) ---------- */
-var planeEl=$('#plane');
-var WP=[[0,.1,.84,.9],[.06,.56,.56,1.05],[.12,.9,.3,.85],[.22,.72,.16,.6],[.32,.2,.24,.7],[.42,.08,.56,.95],[.52,.5,.84,1.15],[.62,.92,.62,.9],[.72,.82,.2,.7],[.82,.3,.14,.6],[.92,.12,.44,.8],[1,.5,.6,1.05]];
-function cr(a,b,c,d,t){var t2=t*t,t3=t2*t;return .5*((2*b)+(-a+c)*t+(2*a-5*b+4*c-d)*t2+(-a+3*b-3*c+d)*t3)}
-function pos(g){
-  g=clamp(g);var i=0;while(i<WP.length-2&&g>WP[i+1][0])i++;
-  var a=WP[Math.max(0,i-1)],b=WP[i],c=WP[i+1],d=WP[Math.min(WP.length-1,i+2)],t=(g-b[0])/(c[0]-b[0]);
-  return [cr(a[1],b[1],c[1],d[1],t)*vw,cr(a[2],b[2],c[2],d[2],t)*vh,cr(a[3],b[3],c[3],d[3],t)];
-}
-
-/* ---------- loop ---------- */
-var scenes=$$('.scene').map(function(el){return{el:el,top:0,h:0,fn:R[el.id]}});
-var S=window.scrollY||0,prev=S,vel=0,first=true,skyG=0;
-function measure(){
-  vw=innerWidth;vh=innerHeight;
-  scenes.forEach(function(s){s.top=s.el.getBoundingClientRect().top+window.scrollY;s.h=s.el.offsetHeight});
-  docH=document.documentElement.scrollHeight;
-  cv.width=Math.round(vw*dpr);cv.height=Math.round(vh*dpr);
-  first=true;
-}
-onRoute=function(){S=0;prev=0;measure()};
-function draw(g,pg,home,t){
-  var w=cv.width,h=cv.height,col=skyAt(g),night=seg(g,.66,.88);
-  var gr=cx.createLinearGradient(0,0,0,h);
-  gr.addColorStop(0,'rgb('+col[0].join(',')+')');gr.addColorStop(1,'rgb('+col[1].join(',')+')');
-  cx.fillStyle=gr;cx.fillRect(0,0,w,h);
-  if(night>0){
-    cx.fillStyle='#fff';
-    stars.forEach(function(s){cx.globalAlpha=night*(.45+.55*Math.sin(t*.002+s.ph));cx.beginPath();cx.arc(s.x*w,s.y*h,s.r*dpr,0,7);cx.fill()});
-    cx.globalAlpha=1;
-  }
-  var sx=w*(.82-.55*g),sy=h*(.9-Math.sin(clamp(g/.72)*Math.PI)*.74),sr=Math.min(w,h)*.5;
-  if(night<1){
-    var sg=cx.createRadialGradient(sx,sy,0,sx,sy,sr);
-    sg.addColorStop(0,'rgba(255,236,190,'+(.95*(1-night))+')');sg.addColorStop(.08,'rgba(255,210,130,'+(.55*(1-night))+')');sg.addColorStop(1,'rgba(255,170,90,0)');
-    cx.fillStyle=sg;cx.fillRect(0,0,w,h);
-  }
-  var ca=lerp(.8,.14,night);
-  clouds.forEach(function(c){
-    var cw=380*c.s*dpr,ch=190*c.s*dpr;
-    var X=mod(c.x*(w+cw)-t*.012*c.sp*c.s*dpr,w+cw)-cw, Y=mod(c.y*(h+ch)-S*c.par*dpr,h+ch)-ch;
-    cx.globalAlpha=ca*Math.min(1,.5+c.par);cx.drawImage(c.spr,X,Y,cw,ch);
-  });
-  cx.globalAlpha=1;
-  var av=Math.abs(vel);
-  if(av>1.5){
-    cx.strokeStyle='#fff';cx.lineWidth=1.2*dpr;cx.globalAlpha=Math.min(.4,av/70);cx.beginPath();
-    streaks.forEach(function(s){var x=s.x*w,y=mod(s.y*h-S*1.6*dpr,h);cx.moveTo(x,y);cx.lineTo(x,y+vel*3.2*dpr)});
-    cx.stroke();cx.globalAlpha=1;
-  }
-  if(!home)return;
-  cx.lineCap='round';
-  for(var k=1;k<34;k++){
-    var a=pos(pg-(k-1)*.0018),b=pos(pg-k*.0018);
-    cx.strokeStyle='rgba(255,255,255,'+(.55*(1-k/34))+')';cx.lineWidth=(3.4-k*.06)*a[2]*dpr;
-    cx.beginPath();cx.moveTo(a[0]*dpr,a[1]*dpr);cx.lineTo(b[0]*dpr,b[1]*dpr);cx.stroke();
-  }
-}
-function frame(t){
-  var target=window.scrollY||0, home=current==='home';
-  S+=(target-S)*.11; if(Math.abs(target-S)<.1)S=target;
-  vel=S-prev;prev=S;
-  var g=clamp(S/Math.max(1,docH-vh));
-  var skyTarget=home?g:TABSKY[current];
-  skyG+=(skyTarget-skyG)*(home?.25:.05);
-  if(home){
-    scenes.forEach(function(s){
-      if(!s.fn)return;
-      if(!first&&(S+vh<s.top-80||S>s.top+s.h+80))return;
-      s.fn(clamp((S-s.top)/Math.max(1,s.h-vh)),clamp((S+vh-s.top)/vh));
-    });
-    first=false;
-  }
-  draw(skyG,g,home,t);
-  planeEl.style.opacity=home?1:0;
-  rail.classList.toggle('show',home);
-  prog.style.transform='scaleX('+(home?g:0)+')';
-  if(home){var mid=S+vh/2;railBtns.forEach(function(b,i){var s=scenes[i];b.classList.toggle('cur',mid>=s.top&&mid<s.top+s.h)})}
-  if(home){
-    var a=pos(g),b=pos(g+.002),c=pos(g-.002);
-    var ang=(g>.998)?0:Math.atan2(b[1]-c[1],b[0]-c[0]);
-    var half=planeEl.offsetWidth/2;
-    planeEl.style.transform='translate3d('+(a[0]-half).toFixed(1)+'px,'+(a[1]-half).toFixed(1)+'px,0) rotate('+ang.toFixed(3)+'rad) scale('+a[2].toFixed(3)+')';
-  }
-  requestAnimationFrame(frame);
-}
-var rail=$('#rail'),railBtns=$$('#rail button'),prog=$('#prog');
-railBtns.forEach(function(b,i){b.setAttribute('aria-label',b.textContent);b.addEventListener('click',function(){var s=scenes[i];window.scrollTo(0,i===0?0:s.top+(s.h-vh)*.8)})});
-measure();
-addEventListener('resize',measure);
-addEventListener('load',measure);
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
-requestAnimationFrame(frame);
+/* ---------- preview forms ---------- */
+[['#trackForm','#trackMsg'],['#contactForm','#contactMsg']].forEach(function(p){$(p[0]).addEventListener('submit',function(e){e.preventDefault();$(p[1]).hidden=false})});
 })();
 </script>
 </body>

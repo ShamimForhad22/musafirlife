@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="MusafirLife: visit and travel visas for any country, air tickets, tours, and Hajj and Umrah packages, with live tracking of every application.">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>MusafirLife</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one continuous flight on the Home tab. A fixed sky and a plane sit behind pinned stages; scroll position is the flight time. Other tabs are calm reading pages under the same sky. */
+:root{
+  color-scheme:dark;
+  --night:#071226; --ink:#0B1B33; --fg:#F6F8FC; --muted:#CDD8E8;
+  --gold:#F5B841; --mint:#37D6A0; --coral:#FF8A5B; --paper:#F7F3EA; --paper-ink:#1B2433;
+  --glass:rgba(7,18,38,.66); --glass-line:rgba(255,255,255,.18);
+  --display:'Plus Jakarta Sans','Segoe UI',system-ui,sans-serif;
+  --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --navh:76px;
+}
+@media (max-width:900px){:root{--navh:120px}}
+*{box-sizing:border-box}
+body{background:var(--night);color:var(--fg);font-family:var(--body);font-size:18px;line-height:1.6}
+main{position:relative;z-index:2;overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.mono{font-family:var(--mono);letter-spacing:.03em}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;background:linear-gradient(#0a3a96,#2876d6)}
+#plane{position:fixed;left:0;top:0;width:clamp(56px,7vw,96px);z-index:1;pointer-events:none;filter:drop-shadow(0 14px 18px rgba(3,8,20,.45));will-change:transform;transition:opacity .4s}
+#plane svg{display:block;width:100%;height:auto}
+html:not(.motion) #plane{display:none}
+
+/* nav with tabs */
+.nav{position:fixed;inset:0 0 auto;z-index:20;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(rgba(7,18,38,.9),rgba(7,18,38,.55) 70%,rgba(7,18,38,0))}
+.nav-in{max-width:1280px;margin:0 auto;padding-block:12px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;text-decoration:none;min-height:44px}
+.brand i{width:26px;height:26px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center}
+.brand i::after{content:"";width:9px;height:9px;background:var(--gold);clip-path:polygon(0 50%,100% 0,60% 100%,45% 60%)}
+.tabs{display:flex;gap:4px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;text-decoration:none;font-weight:600;font-size:16px;white-space:nowrap}
+.tabs a:hover{background:rgba(255,255,255,.14)}
+.tabs a[aria-current="page"]{background:var(--gold);color:#1a1300}
+@media (max-width:900px){.tabs{order:3;flex:1 1 100%}}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:999px;font-weight:600;font-size:17px;text-decoration:none;border:1.5px solid transparent;font-family:var(--body);cursor:pointer}
+.btn.gold{background:var(--gold);color:#1a1300}
+.btn.line{border-color:rgba(255,255,255,.7);color:var(--fg);background:rgba(7,18,38,.35)}
+.btn:hover{filter:brightness(1.08)}
+
+/* shared */
+.view{position:relative;z-index:2}
+.stage{position:relative}
+.motion .scene{height:var(--len)}
+.motion .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(var(--navh) + 8px + env(safe-area-inset-top,0px)) 28px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(14px,3vh,34px)}
+.motion .scene .wrap{height:100%}
+.copy{max-width:800px;display:flex;flex-direction:column;gap:10px;text-shadow:0 2px 26px rgba(4,10,26,.6)}
+.eyebrow{margin:0;font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+h1,h2{font-family:var(--display);font-weight:800;line-height:1.04;letter-spacing:-.015em;margin:0;text-wrap:balance}
+h2{font-size:clamp(30px,4.6vw,62px)}
+h3{font-family:var(--display);font-weight:700;margin:0;font-size:22px;line-height:1.2}
+.lede{margin:0;color:var(--fg);font-size:clamp(16px,1.5vw,20px);font-weight:500;max-width:60ch}
+.viz{min-height:0;min-width:0}
+.glass{background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+
+/* hero */
+.hero{position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(var(--navh) + 8px + env(safe-area-inset-top,0px)) 28px}
+.hero-word{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-family:var(--display);font-weight:800;font-size:clamp(90px,23vw,380px);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.26);white-space:nowrap;pointer-events:none;will-change:transform}
+.hero-in{position:relative;display:flex;flex-direction:column;gap:clamp(12px,2.2vh,24px);text-shadow:0 2px 26px rgba(4,10,26,.6)}
+h1{font-size:clamp(42px,7.6vw,116px)}
+h1 span{display:block;will-change:transform}
+h1 .l2{color:var(--gold)}
+.services{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px}
+.services li{flex:1 1 220px;min-width:0;text-shadow:none;display:flex}
+.services a{display:block;flex:1;padding:16px 18px;text-decoration:none;transition:transform .2s,border-color .2s}
+.services a:hover{transform:translateY(-3px);border-color:var(--gold)}
+.ask{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(18px,1.8vw,24px)}
+.hint{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+.skip{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.7);background:rgba(7,18,38,.35);color:var(--fg);font:inherit;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:none;cursor:pointer}
+.go{align-self:flex-start;text-shadow:none}
+@media (max-width:760px){.go{display:none}}
+.finder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) auto;gap:12px;align-items:end;padding:16px;max-width:880px;text-shadow:none}
+.quick{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 22px;font-weight:600;font-size:16px}
+.quick a{display:inline-flex;align-items:center;min-height:44px}
+@media (max-width:760px){.finder{grid-template-columns:repeat(2,minmax(0,1fr))}.finder .btn{grid-column:1/-1}.quick{display:none}.hero .lede{font-size:15px}}
+.card .btn{margin-top:auto;align-self:flex-start}
+.order{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.order{grid-template-columns:minmax(0,1fr)}}
+.onav{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;counter-reset:o}
+.onav li{counter-increment:o;display:flex;flex-direction:column;gap:2px;padding-top:10px;border-top:4px solid rgba(255,255,255,.3);font-size:15px;font-weight:600;color:var(--muted)}
+.onav li::before{content:"Step " counter(o);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.onav li.ok{border-color:var(--mint);color:var(--fg)}
+.onav li.cur{border-color:var(--gold);color:var(--fg)}
+.ostep{border:0;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:16px}
+.ostep legend{padding:0;font-family:var(--display);font-weight:700;font-size:24px;margin-bottom:6px}
+.radios{display:flex;flex-wrap:wrap;gap:10px}
+.radios label{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 16px;border-radius:12px;border:1.5px solid rgba(255,255,255,.5);font-weight:500;cursor:pointer}
+.radios input{width:20px;height:20px;accent-color:var(--gold)}
+.sum{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 16px;font-size:16px}
+.sum dt{color:var(--muted)}.sum dd{margin:0;font-weight:600;text-align:right;overflow-wrap:anywhere}
+.faq details{border-top:1px solid var(--glass-line);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:18px;min-height:32px}
+.faq p{margin:8px 0 0;color:var(--muted);font-size:17px;max-width:70ch}
+.trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+/* chapter rail, progress and help */
+#prog{position:fixed;left:0;right:0;top:0;height:4px;z-index:25;background:var(--gold);transform-origin:left;transform:scaleX(0)}
+.rail{position:fixed;right:max(8px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:15;display:none;flex-direction:column}
+.motion .rail.show{display:flex}
+.rail button{position:relative;width:44px;height:34px;background:none;border:0;cursor:pointer;display:grid;place-items:center}
+.rail button::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid #fff;background:rgba(7,18,38,.5);transition:transform .2s,background .2s}
+.rail button.cur::before{background:var(--gold);border-color:var(--gold);transform:scale(1.4)}
+.rail button span{position:absolute;right:44px;white-space:nowrap;padding:4px 10px;border-radius:8px;background:rgba(7,18,38,.9);font-size:14px;font-weight:600;color:var(--fg);opacity:0;pointer-events:none;transition:opacity .2s}
+.rail button:hover span,.rail button:focus-visible span,.rail button.cur span{opacity:1}
+@media (max-width:900px){.motion .rail.show{display:none}}
+.help{position:fixed;z-index:22;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 10px 30px rgba(3,8,20,.5)}
+.services b{display:block;font-family:var(--display);font-size:19px}
+.services span{color:var(--muted);font-size:16px}
+.hint{margin:0;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+@media (max-width:760px){.services li{flex:1 1 45%}.services a{padding:12px 14px}.services b{font-size:15px}.services span{display:none}}
+
+/* scanner */
+.scan{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(14px,4vw,56px);align-items:center}
+.passport{position:relative;overflow:hidden;background:var(--paper);color:var(--paper-ink);border-radius:16px;padding:clamp(12px,1.6vw,22px);display:flex;flex-direction:column;gap:12px;max-width:460px;width:100%;justify-self:center;box-shadow:0 30px 60px rgba(3,8,20,.45);transform:rotate(-3deg);will-change:transform}
+.pp-top{display:flex;justify-content:space-between;gap:8px;font-size:11px;font-weight:700}
+.pp-body{display:flex;gap:14px}
+.pp-photo{width:28%;aspect-ratio:4/5;border-radius:8px;background:repeating-linear-gradient(135deg,#d8d0bd 0 8px,#cfc6b0 8px 16px);flex-shrink:0}
+.pp-body dl{margin:0;display:grid;gap:6px;min-width:0}
+.pp-body dt{color:#4d5767;font-size:12px}
+.pp-body dd{margin:0;font-weight:700;font-family:var(--mono);font-size:13px}
+.mrz{position:relative;font-size:clamp(8px,1vw,12px);line-height:1.7;white-space:nowrap;overflow:hidden;padding:6px 8px;border-radius:6px;font-weight:500}
+.mrz-hl{position:absolute;inset:0 auto 0 0;width:100%;background:rgba(245,184,65,.5);z-index:0}
+.mrz span{position:relative;z-index:1}
+.beam{position:absolute;top:0;bottom:0;left:100%;width:3px;background:var(--coral);box-shadow:0 0 0 1px rgba(255,138,91,.5),-40px 0 50px 20px rgba(255,138,91,.35);opacity:0}
+.form{padding:clamp(14px,2vw,26px);display:flex;flex-direction:column;gap:14px}
+.form-head{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px}
+.pill{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.16);color:var(--fg);white-space:nowrap}
+.pill.ok{background:var(--mint);color:#04261a}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.f{border:1px solid var(--glass-line);border-radius:12px;padding:8px 12px;display:flex;flex-direction:column;min-width:0;transition:border-color .3s,background .3s}
+.f.done{border-color:var(--mint);background:rgba(55,214,160,.12)}
+.f .k{font-size:13px;color:var(--muted)}
+.f .v{font-family:var(--mono);font-weight:700;font-size:clamp(12px,1.2vw,15px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:760px){.scan{grid-template-columns:minmax(0,1fr)}.passport{max-width:290px}}
+
+/* tracking */
+.track{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:clamp(8px,1.6vh,18px)}
+.arcbox{position:relative}
+.arcbox svg{display:block;width:100%;height:auto;max-height:28vh;overflow:visible}
+.arc-bg{fill:none;stroke:rgba(255,255,255,.4);stroke-width:2;stroke-dasharray:3 9}
+.arc-fg{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round}
+#arc-nodes circle{fill:var(--night);stroke:#fff;stroke-width:3;transition:fill .3s}
+#arc-nodes circle.on{fill:var(--mint);stroke:var(--mint)}
+#arc-plane path{fill:#fff}
+.code{position:absolute;bottom:-4px;font-size:clamp(13px,1.6vw,20px);font-weight:700}
+.code.c1{left:0}.code.c2{right:0}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.steps li{padding:8px 12px;border-radius:12px;border:1px solid var(--glass-line);background:var(--glass);font-size:15px;line-height:1.35;color:var(--muted);transition:background .3s,color .3s,border-color .3s}
+.steps li b{display:block;color:inherit}
+.steps li.on{color:var(--fg);border-color:var(--mint)}
+.steps li.cur{background:var(--gold);border-color:var(--gold);color:#1a1300}
+.phones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,2vw,24px);min-height:0}
+.phone{padding:12px;display:flex;flex-direction:column;gap:8px;min-height:140px;overflow:hidden}
+.phone h3{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.bubbles{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;overflow:hidden}
+.bub{align-self:flex-start;max-width:94%;background:#E4F7EC;color:#0b2418;border-radius:4px 14px 14px 14px;padding:8px 12px;font-size:clamp(13.5px,1.2vw,16px);line-height:1.4;display:none}
+.bub.in{display:block;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+.bub small{display:block;font-size:11px;color:#355646;text-align:right}
+@keyframes pop{from{transform:translateY(14px) scale(.9);opacity:0}}
+@media (max-width:760px){.steps{grid-template-columns:minmax(0,1fr)}.steps li{display:none}.steps li.cur{display:block}}
+
+/* reels */
+.reelwin{margin-inline:calc(50% - 50vw);display:flex;align-items:center;min-height:0}
+.reeltrack{display:flex;gap:4vw;padding-inline:9vw;will-change:transform}
+.reel{position:relative;flex:0 0 auto;width:min(82vw,1000px);height:min(56vh,560px);min-height:240px;margin:0;border-radius:22px;overflow:hidden;background:var(--ink);box-shadow:0 30px 70px rgba(3,8,20,.5);will-change:transform}
+.reel svg{position:absolute;inset:0;width:100%;height:100%}
+.reel figcaption{position:absolute;left:0;right:0;bottom:0;padding:clamp(14px,2vw,28px);display:flex;flex-direction:column;gap:4px;background:linear-gradient(transparent,rgba(4,10,26,.88))}
+.reel figcaption b{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,54px);line-height:1.05}
+.reel figcaption span{color:var(--fg);font-size:clamp(15px,1.4vw,19px);font-weight:500}
+.hud{position:absolute;top:14px;left:16px;right:16px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;font-weight:700;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.hud i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--coral);margin-right:8px;animation:blink 1.2s steps(2) infinite}
+@keyframes blink{50%{opacity:.2}}
+html:not(.motion) .reelwin{overflow-x:auto}
+
+/* group */
+.group{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(14px,4vw,56px);align-items:center}
+.cabin{justify-self:center;width:100%;max-width:min(640px,78vh);padding:clamp(10px,1.6vw,22px);border-radius:28px}
+.seats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) .5fr repeat(4,minmax(0,1fr));gap:clamp(4px,.9vw,10px)}
+.seat{aspect-ratio:1;border-radius:26%;background:rgba(255,255,255,.2);border:2px solid transparent;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:clamp(9px,1.1vw,14px);color:#fff;will-change:transform;transition:background .35s,color .35s,border-color .35s}
+.seat.ok.lit{background:var(--mint);color:#04261a}
+.seat.proc.lit{background:var(--gold);color:#1a1300}
+.seat.miss.lit{background:transparent;border:2px dashed #fff}
+.stats{padding:clamp(14px,2vw,26px);display:flex;flex-direction:column;gap:14px}
+.stat{display:flex;flex-direction:column;gap:6px}
+.stat div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:16px}
+.stat b{font-family:var(--display);font-size:clamp(22px,2.6vw,34px);font-weight:800;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:rgba(255,255,255,.18);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--mint);transform-origin:left;will-change:transform}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:4px;background:var(--mint)}
+.legend .p{background:var(--gold)}.legend .m{background:transparent;border:2px dashed #fff}
+.popin{transition:transform .4s cubic-bezier(.2,1.4,.4,1),opacity .3s}
+.motion .popin:not(.in){transform:translateY(16px) scale(.9);opacity:0}
+@media (max-width:760px){.group{grid-template-columns:minmax(0,1fr)}.cabin{max-width:340px}}
+
+/* quote and expiry */
+.docs{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(14px,4vw,56px);align-items:center}
+.doc{position:relative;background:var(--paper);color:var(--paper-ink);border-radius:10px;overflow:hidden;box-shadow:0 30px 60px rgba(3,8,20,.45);max-width:560px;width:100%;justify-self:center}
+.doc-band{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(14px,2vh,22px) clamp(14px,2vw,26px);background:var(--ink);color:#fff;font-family:var(--display);font-weight:800;font-size:clamp(18px,2.2vw,24px)}
+.doc-band span{font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.doc-body{padding:clamp(12px,1.8vw,24px);display:flex;flex-direction:column;font-size:clamp(14px,1.25vw,16px)}
+.row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #d9d2c2;transition:opacity .35s,transform .35s}
+.row.t{border-bottom:0;font-weight:700;font-size:1.1em}
+.motion .row:not(.in){opacity:0;transform:translateX(-18px)}
+.stamp{position:absolute;right:16px;bottom:56px;padding:6px 12px;border:3px solid #0B6B5D;color:#0B6B5D;font-weight:700;font-size:13px;letter-spacing:.08em;border-radius:8px;transform:rotate(-10deg);background:rgba(247,243,234,.9);transition:transform .35s cubic-bezier(.2,1.6,.4,1),opacity .2s}
+.motion .stamp:not(.in){transform:rotate(-10deg) scale(2.2);opacity:0}
+.expiry{padding:clamp(14px,2vw,26px);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.ringbox{position:relative;width:min(220px,26vh);aspect-ratio:1}
+.ringbox svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:14}
+.ring-fg{fill:none;stroke:var(--mint);stroke-width:14;stroke-linecap:round;transition:stroke .4s}
+.warn .ring-fg{stroke:var(--gold)}
+.ringnum{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.ringnum b{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vh,56px);font-variant-numeric:tabular-nums}
+.ringnum span{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.expiry p{margin:0;font-size:16px}
+@media (max-width:760px){.docs{grid-template-columns:minmax(0,1fr)}.doc{max-width:340px}.row.x{display:none}.ringbox{width:120px}}
+
+/* landing strip and footer */
+.land .wrap{display:flex;flex-direction:column;gap:26px;padding-block:14vh 40px}
+.land h2{font-size:clamp(40px,7.4vw,108px)}
+.land h2 em{font-style:normal;color:var(--gold)}
+.foot{display:flex;flex-wrap:wrap;gap:20px 48px;padding:24px;font-size:16px}
+.foot div{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 220px}
+.foot b{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+
+/* reading pages (other tabs) */
+.page .wrap{display:flex;flex-direction:column;gap:clamp(22px,4vh,40px);padding-block:calc(var(--navh) + 36px + env(safe-area-inset-top,0px)) 48px}
+.page h1{font-size:clamp(36px,5.6vw,76px)}
+.page .wrap>*{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.page .wrap>*:nth-child(2){animation-delay:.08s}.page .wrap>*:nth-child(3){animation-delay:.16s}.page .wrap>*:nth-child(4){animation-delay:.24s}.page .wrap>*:nth-child(5){animation-delay:.32s}
+@keyframes rise{from{transform:translateY(26px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.page .wrap>*{animation:none}.bub.in{animation:none}.hud i{animation:none}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{padding:22px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card p{margin:0;color:var(--muted);font-size:17px}
+.card .tag{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.chips li{padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-line);font-size:16px;font-weight:500}
+.panel{padding:clamp(18px,3vw,32px);display:flex;flex-direction:column;gap:16px}
+.how{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;counter-reset:s}
+.how li{counter-increment:s;display:flex;flex-direction:column;gap:6px;border-top:3px solid var(--gold);padding-top:12px;font-size:17px;color:var(--muted)}
+.how li::before{content:"Step " counter(s);font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.how b{color:var(--fg);font-family:var(--display);font-size:20px}
+.note{margin:0;font-size:16px;color:var(--muted);max-width:70ch}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:14px;padding-bottom:18px;position:relative}
+.tl li::before{content:"";width:20px;height:20px;border-radius:50%;background:var(--mint);margin-top:4px}
+.tl li::after{content:"";position:absolute;left:9px;top:26px;bottom:0;width:2px;background:var(--mint)}
+.tl li:last-child::after{display:none}
+.tl li.now::before{background:var(--night);border:6px solid var(--gold)}
+.tl li.now::after,.tl li.next::after{background:rgba(255,255,255,.3)}
+.tl li.next::before{background:transparent;border:2px solid #fff}
+.tl b{display:block}.tl span{color:var(--muted);font-size:16px}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld label{font-size:15px;font-weight:600}
+.fld input,.fld select{min-height:48px;padding:0 14px;border-radius:12px;border:1.5px solid rgba(255,255,255,.5);background:rgba(7,18,38,.6);color:var(--fg);font:inherit;font-size:17px;min-width:0;width:100%}
+.msg{margin:0;padding:12px 16px;border-radius:12px;background:rgba(245,184,65,.18);border:1px solid var(--gold);font-size:16px}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div id="plane" aria-hidden="true"><svg viewBox="0 0 120 120"><path fill="#fff" d="M112 60c0 4-10 6-24 6H22l-12 3v-18l12 3h66c14 0 24 2 24 6zM70 54L46 6h10l30 48zM70 66L46 114h10l30-48zM26 54l-10-18h7l15 18zM26 66l-10 18h7l15-18z"/><path fill="#F5B841" d="M10 51l12 3v12l-12 3z"/></svg></div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="brand" href="#home"><i></i>MusafirLife</a>
+    <nav class="tabs" aria-label="Main" id="tabs">
+      <a href="#home" data-tab="home">Home</a>
+      <a href="#visa" data-tab="visa">Visa</a>
+      <a href="#hajj-umrah" data-tab="hajj-umrah">Hajj and Umrah</a>
+      <a href="#tours" data-tab="tours">Tickets and Tours</a>
+      <a href="#track" data-tab="track">Track</a>
+      <a href="#contact" data-tab="contact">Contact</a>
+    </nav>
+    <a class="btn gold" href="#order">Order now</a>
+  </div>
+</header>
+
+<div id="prog" aria-hidden="true"></div>
+<nav class="rail" id="rail" aria-label="Home sections">
+  <button type="button"><span>Start</span></button>
+  <button type="button"><span>Passport scan</span></button>
+  <button type="button"><span>Tracking</span></button>
+  <button type="button"><span>Countries</span></button>
+  <button type="button"><span>Family and groups</span></button>
+  <button type="button"><span>Quotes and reminders</span></button>
+</nav>
+<a class="btn gold help" href="#contact">Need help? Chat with us</a>
+
+<!-- ================= HOME ================= -->
+<div class="view" id="v-home">
+<main>
+
+<section class="scene" id="s-hero" style="--len:150vh">
+  <div class="stage">
+    <div class="hero">
+      <div class="hero-word" id="heroWord" aria-hidden="true">MUSAFIR</div>
+      <div class="hero-in" id="heroIn">
+        <p class="eyebrow">Visa · Tickets · Tours · Hajj and Umrah · Any country</p>
+        <h1><span class="l1" id="l1">Every journey,</span><span class="l2" id="l2">tracked to the gate.</span></h1>
+        <p class="lede">MusafirLife handles visit and travel visas for any country, air tickets, tours, and Hajj and Umrah. You follow every step on your phone.</p>
+        <form class="finder glass" id="finder">
+          <div class="fld"><label for="hService">I need</label><select id="hService"><option>Visit or travel visa</option><option>Student visa</option><option>Business visa</option><option>Medical visa</option><option>Work visa</option><option>Air ticket</option><option>Tour package</option><option>Umrah</option><option>Hajj</option></select></div>
+          <div class="fld"><label for="hDest">Going to</label><input id="hDest" type="text" placeholder="Country or city" list="countries" autocomplete="off"></div>
+          <button class="btn gold" type="submit">Start my order</button>
+        </form>
+        <datalist id="countries"><option value="United Kingdom"><option value="USA"><option value="Canada"><option value="Schengen area"><option value="Australia"><option value="Japan"><option value="Malaysia"><option value="Thailand"><option value="Singapore"><option value="UAE"><option value="Saudi Arabia"><option value="Turkey"><option value="India"><option value="China"></datalist>
+        <ul class="quick">
+          <li><a href="#track">Track my file</a></li>
+          <li><a href="#hajj-umrah">Hajj and Umrah packages</a></li>
+          <li><a href="#tours">Tickets and tours</a></li>
+          <li><a href="#visa">All visa countries</a></li>
+        </ul>
+        <p class="hint"><span>Scroll to see how it works ↓</span><button type="button" class="skip" id="skipTour">Skip the tour</button></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scene" id="s-scan" style="--len:220vh">
+  <div class="stage"><div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Passport scanner</p>
+      <h2>Take a photo. Your form fills itself.</h2>
+      <p class="lede">Photograph your passport at home. We read it and prepare your application, so you never type the same details twice.</p>
+      <a class="btn gold go" href="#visa">Start my visa</a>
+    </div>
+    <div class="viz scan">
+      <div class="passport" id="pp">
+        <div class="pp-top mono"><span>PASSPORT · BANGLADESH</span><span>SPECIMEN</span></div>
+        <div class="pp-body">
+          <div class="pp-photo"></div>
+          <dl><div><dt>Surname</dt><dd>RAHMAN</dd></div><div><dt>Given names</dt><dd>ABDUR KARIM</dd></div><div><dt>Passport no.</dt><dd>A01234567</dd></div></dl>
+        </div>
+        <div class="mrz mono"><div class="mrz-hl" id="mrzhl"></div><span>P&lt;BGDRAHMAN&lt;&lt;ABDUR&lt;KARIM&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>A012345670BGD6803147M3202021&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span></div>
+        <div class="beam" id="beam"></div>
+      </div>
+      <div class="form glass">
+        <div class="form-head"><span>Your details</span><span class="pill ok" id="scanPill">Filled from passport</span></div>
+        <div class="fields" id="fields">
+          <div class="f done"><span class="k">Surname</span><span class="v">RAHMAN</span></div>
+          <div class="f done"><span class="k">Given names</span><span class="v">ABDUR KARIM</span></div>
+          <div class="f done"><span class="k">Passport number</span><span class="v">A01234567</span></div>
+          <div class="f done"><span class="k">Nationality</span><span class="v">BANGLADESHI</span></div>
+          <div class="f done"><span class="k">Date of birth</span><span class="v">14 MAR 1968</span></div>
+          <div class="f done"><span class="k">Sex</span><span class="v">MALE</span></div>
+          <div class="f done"><span class="k">Date of issue</span><span class="v">03 FEB 2022</span></div>
+          <div class="f done"><span class="k">Date of expiry</span><span class="v">02 FEB 2032</span></div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="scene" id="s-track" style="--len:260vh">
+  <div class="stage"><div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Live tracking and WhatsApp updates</p>
+      <h2>Parcel tracking, for your visa.</h2>
+      <p class="lede">Your file moves through clear steps. Each step sends a WhatsApp message to you and to a family member you choose.</p>
+      <a class="btn gold go" href="#track">Track my file</a>
+    </div>
+    <div class="viz track">
+      <div class="arcbox">
+        <svg viewBox="0 0 1000 300" role="img" aria-label="Flight route from Dhaka to London with five status points">
+          <path class="arc-bg" d="M50 270 Q500 -110 950 270"/>
+          <path class="arc-fg" id="arcFg" d="M50 270 Q500 -110 950 270"/>
+          <g id="arc-nodes"><circle r="11" cx="50" cy="270"/><circle r="11" cx="275" cy="128"/><circle r="11" cx="500" cy="80"/><circle r="11" cx="725" cy="128"/><circle r="11" cx="950" cy="270"/></g>
+          <g id="arc-plane" transform="translate(950 270)"><g transform="scale(.5) translate(-60 -60)"><path d="M112 60c0 4-10 6-24 6H22l-12 3v-18l12 3h66c14 0 24 2 24 6zM70 54L46 6h10l30 48zM70 66L46 114h10l30-48zM26 54l-10-18h7l15 18zM26 66l-10 18h7l15-18z"/></g></g>
+        </svg>
+        <span class="code mono c1">DAC</span><span class="code mono c2">LHR</span>
+      </div>
+      <ol class="steps" id="steps">
+        <li class="on"><b>Passport scanned</b>02 Nov</li>
+        <li class="on"><b>Documents checked</b>04 Nov</li>
+        <li class="on"><b>Visa submitted</b>06 Nov</li>
+        <li class="on"><b>Visa approved</b>19 Nov</li>
+        <li class="on cur"><b>Ready to fly</b>21 Nov</li>
+      </ol>
+      <div class="phones">
+        <div class="phone glass">
+          <h3><span>You</span><span>WhatsApp</span></h3>
+          <div class="bubbles" id="bubT">
+            <div class="bub in">Hello Mr. Rahman. Your UK visit visa file is open.<small>02 Nov</small></div>
+            <div class="bub in">Your documents are checked and complete.<small>04 Nov</small></div>
+            <div class="bub in">Your application is submitted to the visa centre.<small>06 Nov</small></div>
+            <div class="bub in">Good news. Your visit visa is approved.<small>19 Nov</small></div>
+            <div class="bub in">Passport and ticket are ready to collect.<small>21 Nov</small></div>
+          </div>
+        </div>
+        <div class="phone glass">
+          <h3><span>Family contact</span><span>WhatsApp</span></h3>
+          <div class="bubbles" id="bubA">
+            <div class="bub in">Mr. Rahman's visa file has been opened.<small>02 Nov</small></div>
+            <div class="bub in">Documents checked and complete.<small>04 Nov</small></div>
+            <div class="bub in">Application submitted.<small>06 Nov</small></div>
+            <div class="bub in">Visa approved.<small>19 Nov</small></div>
+            <div class="bub in">Passport and ticket ready to collect.<small>21 Nov</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="scene" id="s-reels" style="--len:330vh">
+  <div class="stage"><div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Where do you want to go?</p>
+      <h2>One desk for every country.</h2>
+      <a class="btn gold go" href="#visa">See all countries</a>
+    </div>
+    <div class="viz reelwin">
+      <div class="reeltrack" id="reelTrack">
+
+        <figure class="reel">
+          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#172446"/><stop offset="1" stop-color="#e0a070"/></linearGradient></defs>
+            <rect width="800" height="450" fill="url(#gl)"/>
+            <g class="ly" data-d=".3"><circle cx="640" cy="240" r="96" fill="none" stroke="#2b3966" stroke-width="6"/><circle cx="640" cy="240" r="8" fill="#2b3966"/><path d="M640 144v192M544 240h192M572 172l136 136M708 172L572 308" stroke="#2b3966" stroke-width="3"/><g fill="#2b3966"><rect x="500" y="290" width="70" height="160"/><rect x="716" y="270" width="64" height="180"/><rect x="20" y="300" width="90" height="150"/></g></g>
+            <g class="ly" data-d=".6" fill="#111b3c"><rect x="190" y="124" width="54" height="326"/><rect x="184" y="112" width="66" height="14"/><path d="M217 40l27 72h-54z"/><circle cx="217" cy="162" r="20" fill="#F5E6B0"/><rect x="244" y="304" width="250" height="146"/><rect x="264" y="270" width="12" height="36"/><rect x="324" y="270" width="12" height="36"/><rect x="384" y="270" width="12" height="36"/><rect x="444" y="270" width="12" height="36"/></g>
+            <g class="ly" data-d=".95"><rect x="-100" y="436" width="1000" height="30" fill="#0d1838"/><g fill="#080f26"><rect x="-100" y="388" width="1000" height="14"/><rect x="60" y="400" width="26" height="50"/><rect x="260" y="400" width="26" height="50"/><rect x="460" y="400" width="26" height="50"/><rect x="660" y="400" width="26" height="50"/></g></g>
+          </svg>
+          <div class="hud"><span><i></i>LONDON</span><span class="tc">00:00:00</span></div>
+          <figcaption><b>United Kingdom</b><span>Visit, tourist, student and business visas with a full document check.</span></figcaption>
+        </figure>
+
+        <figure class="reel">
+          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="gn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1636"/><stop offset="1" stop-color="#ec8458"/></linearGradient></defs>
+            <rect width="800" height="450" fill="url(#gn)"/>
+            <g class="ly" data-d=".3" fill="#27326a"><rect x="40" y="240" width="60" height="210"/><rect x="110" y="200" width="50" height="250"/><rect x="600" y="220" width="60" height="230"/><rect x="680" y="180" width="50" height="270"/><rect x="740" y="250" width="70" height="200"/></g>
+            <g class="ly" data-d=".6" fill="#10193e"><rect x="370" y="230" width="70" height="220"/><rect x="382" y="170" width="46" height="62"/><rect x="394" y="120" width="22" height="52"/><path d="M405 50l4 72h-8z"/><rect x="250" y="260" width="70" height="190"/><rect x="470" y="280" width="80" height="170"/><rect x="180" y="300" width="60" height="150"/><g fill="#F5D58A"><rect x="262" y="280" width="6" height="6"/><rect x="290" y="310" width="6" height="6"/><rect x="390" y="250" width="6" height="6"/><rect x="418" y="290" width="6" height="6"/><rect x="490" y="300" width="6" height="6"/><rect x="524" y="340" width="6" height="6"/><rect x="200" y="330" width="6" height="6"/></g></g>
+            <g class="ly" data-d=".95"><rect x="-100" y="425" width="1000" height="40" fill="#0a1230"/><g fill="#060b20"><rect x="-40" y="380" width="160" height="80"/><rect x="560" y="390" width="280" height="70"/></g></g>
+          </svg>
+          <div class="hud"><span><i></i>NEW YORK</span><span class="tc">00:00:00</span></div>
+          <figcaption><b>USA and Canada</b><span>Visit and travel visa files, interview preparation and tickets.</span></figcaption>
+        </figure>
+
+        <figure class="reel">
+          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#062a3d"/><stop offset="1" stop-color="#1fa89c"/></linearGradient></defs>
+            <rect width="800" height="450" fill="url(#gk)"/>
+            <g class="ly" data-d=".3" fill="#0d4a5c"><rect x="40" y="240" width="60" height="210"/><rect x="120" y="280" width="50" height="170"/><rect x="620" y="250" width="54" height="200"/><rect x="690" y="220" width="46" height="230"/></g>
+            <g class="ly" data-d=".6" fill="#052635"><rect x="316" y="170" width="56" height="280"/><rect x="326" y="120" width="36" height="52"/><path d="M344 50l8 70h-16z"/><rect x="428" y="170" width="56" height="280"/><rect x="438" y="120" width="36" height="52"/><path d="M456 50l8 70h-16z"/><rect x="372" y="268" width="56" height="9"/><g fill="#F5D58A"><rect x="328" y="200" width="6" height="6"/><rect x="346" y="230" width="6" height="6"/><rect x="440" y="214" width="6" height="6"/><rect x="462" y="250" width="6" height="6"/><rect x="336" y="300" width="6" height="6"/><rect x="454" y="320" width="6" height="6"/></g></g>
+            <g class="ly" data-d=".95" fill="#0b3d2e"><ellipse cx="80" cy="450" rx="190" ry="54"/><ellipse cx="420" cy="466" rx="230" ry="46"/><ellipse cx="760" cy="450" rx="190" ry="60"/></g>
+          </svg>
+          <div class="hud"><span><i></i>KUALA LUMPUR</span><span class="tc">00:00:00</span></div>
+          <figcaption><b>Malaysia, Thailand, Singapore</b><span>Tourist visas and holiday packages across Southeast Asia.</span></figcaption>
+        </figure>
+
+        <figure class="reel">
+          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="gu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d4fae"/><stop offset="1" stop-color="#f3b27a"/></linearGradient></defs>
+            <rect width="800" height="450" fill="url(#gu)"/>
+            <g class="ly" data-d=".15"><circle cx="160" cy="150" r="46" fill="#FFF1C9"/></g>
+            <g class="ly" data-d=".35" fill="#2d5fa8"><rect x="60" y="250" width="50" height="200"/><rect x="130" y="210" width="40" height="240"/><rect x="560" y="230" width="56" height="220"/><rect x="640" y="190" width="44" height="260"/><rect x="700" y="260" width="60" height="190"/></g>
+            <g class="ly" data-d=".6" fill="#123a78"><path d="M400 40l10 120 12 40 10 250h-64l10-250 12-40z"/><rect x="250" y="240" width="60" height="210"/><path d="M480 200l50 30v220h-50z"/><rect x="190" y="290" width="48" height="160"/></g>
+            <g class="ly" data-d=".95"><path d="M-100 410Q150 350 380 405T900 380V460H-100Z" fill="#E9B46A"/><path d="M-100 432Q250 392 520 430T900 420V460H-100Z" fill="#D99A4E"/></g>
+          </svg>
+          <div class="hud"><span><i></i>DUBAI</span><span class="tc">00:00:00</span></div>
+          <figcaption><b>UAE and the Gulf</b><span>Visit visas, tickets and city breaks.</span></figcaption>
+        </figure>
+
+        <figure class="reel">
+          <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070d2b"/><stop offset="1" stop-color="#24357a"/></linearGradient></defs>
+            <rect width="800" height="450" fill="url(#gm)"/>
+            <g class="ly" data-d=".1" fill="#fff"><circle cx="90" cy="60" r="1.6"/><circle cx="210" cy="110" r="1.2"/><circle cx="330" cy="50" r="1.8"/><circle cx="470" cy="90" r="1.2"/><circle cx="700" cy="70" r="1.6"/><circle cx="760" cy="150" r="1.2"/><path d="M150 70a30 30 0 1 0 22 50a24 24 0 1 1-22-50z" fill="#F5E6B0"/></g>
+            <g class="ly" data-d=".3" fill="#131d4a"><rect x="560" y="130" width="64" height="320"/><rect x="574" y="86" width="36" height="46"/><path d="M592 30l7 56h-14z"/><circle cx="592" cy="165" r="18" fill="#9FF0C8"/><rect x="496" y="230" width="64" height="220"/><rect x="624" y="230" width="64" height="220"/><rect x="-40" y="260" width="180" height="190"/></g>
+            <g class="ly" data-d=".55" fill="#0c1438"><rect x="150" y="150" width="16" height="300"/><path d="M158 110l12 40h-24z"/><rect x="300" y="190" width="14" height="260"/><path d="M307 156l10 34h-20z"/><rect x="-100" y="330" width="1000" height="120"/><g fill="#F5D58A"><rect x="40" y="350" width="18" height="40" rx="9"/><rect x="100" y="350" width="18" height="40" rx="9"/><rect x="200" y="350" width="18" height="40" rx="9"/><rect x="260" y="350" width="18" height="40" rx="9"/><rect x="520" y="350" width="18" height="40" rx="9"/><rect x="580" y="350" width="18" height="40" rx="9"/><rect x="640" y="350" width="18" height="40" rx="9"/><rect x="700" y="350" width="18" height="40" rx="9"/></g></g>
+            <g class="ly" data-d=".9"><rect x="-100" y="418" width="1000" height="40" fill="#E9E4D6"/><rect x="345" y="296" width="120" height="126" fill="#08080d"/><rect x="345" y="326" width="120" height="10" fill="#F5B841"/><rect x="424" y="360" width="22" height="62" fill="#F5B841"/></g>
+          </svg>
+          <div class="hud"><span><i></i>MAKKAH</span><span class="tc">00:00:00</span></div>
+          <figcaption><b>Makkah and Madinah</b><span>Hajj and Umrah packages with visa, flights and hotels.</span></figcaption>
+        </figure>
+
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="scene" id="s-group" style="--len:220vh">
+  <div class="stage"><div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Family and group travel</p>
+      <h2>A family of four or a group of forty. One booking.</h2>
+      <p class="lede">Seats, rooms and visas for everyone travelling with you, in one place. The group leader sees who is ready and who still needs a document.</p>
+    </div>
+    <div class="viz group">
+      <div class="cabin glass"><div class="seats" id="seats"></div></div>
+      <div class="stats glass">
+        <div class="stat"><div><span>Passports scanned</span><b><span id="cScan">40</span> / 40</b></div><div class="bar"><i id="bScan"></i></div></div>
+        <div class="stat"><div><span>Visas approved</span><b><span id="cVisa">34</span> / 40</b></div><div class="bar"><i id="bVisa" style="transform:scaleX(.85)"></i></div></div>
+        <div class="legend"><span><i></i>Visa approved</span><span><i class="p"></i>In process</span><span><i class="m"></i>Document missing</span></div>
+        <a class="btn gold popin in" id="groupCta" href="#contact">Plan a group trip</a>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<section class="scene" id="s-docs" style="--len:220vh">
+  <div class="stage"><div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Clear quotes and expiry reminders</p>
+      <h2>One clear quote. A reminder before anything expires.</h2>
+      <p class="lede">Your quote and itinerary arrive as one tidy document. We also watch your passport and visa dates and remind you in time to renew.</p>
+    </div>
+    <div class="viz docs">
+      <div class="doc" id="doc">
+        <div class="doc-band">MusafirLife<span>Quotation</span></div>
+        <div class="doc-body" id="docRows">
+          <div class="row in"><span>Visit visa service</span><span>[PRICE]</span></div>
+          <div class="row in"><span>Return flight from Dhaka</span><span>[PRICE]</span></div>
+          <div class="row x in"><span>Hotel, 7 nights</span><span>[PRICE]</span></div>
+          <div class="row x in"><span>Travel insurance</span><span>[PRICE]</span></div>
+          <div class="row t in"><span>Total</span><span>[TOTAL]</span></div>
+        </div>
+        <div class="stamp in" id="stamp">ITINERARY READY</div>
+      </div>
+      <div class="expiry glass warn" id="expiry">
+        <div class="ringbox">
+          <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="ring-bg" cx="100" cy="100" r="84"/><circle class="ring-fg" id="ring" cx="100" cy="100" r="84"/></svg>
+          <div class="ringnum"><b id="days">67</b><span>days left</span></div>
+        </div>
+        <p><strong>Your passport</strong><br>Expires 18 Jan 2027</p>
+        <a class="btn gold popin in" id="alertCta" href="#contact">Renew with us</a>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+</main>
+
+<section class="land">
+  <div class="wrap">
+    <p class="eyebrow">Ready when you are</p>
+    <h2>Where to <em>next?</em></h2>
+    <p class="lede">Tell us the country and the dates. We take care of the visa, the ticket and the stay, and you watch it all happen on your phone.</p>
+    <div class="cta">
+      <a class="btn gold" href="#order">Order now</a>
+      <a class="btn line" href="#contact">Talk to us</a>
+    </div>
+    <div class="trust">
+      <article class="card glass"><span class="tag">Licensed</span><h3>A registered agency</h3><p>Hajj licence [NUMBER] · Travel agency licence [NUMBER] · IATA [NUMBER]</p></article>
+      <article class="card glass"><span class="tag">Visit us</span><h3>A real office</h3><p>[OFFICE ADDRESS, DHAKA] · [OPENING HOURS]</p></article>
+      <article class="card glass"><span class="tag">Reviews</span><h3>What travellers say</h3><p>[ADD REAL CUSTOMER REVIEWS HERE]</p></article>
+    </div>
+    <footer class="foot glass">
+      <div><b>MusafirLife.com</b><span>Visa processing, travel agency and Hajj Umrah agency.</span></div>
+      <div><b>Licences</b><span>Hajj licence [NUMBER]</span><span>Travel agency licence [NUMBER]</span><span>IATA [NUMBER]</span></div>
+      <div><b>Contact</b><span>[YOUR PHONE NUMBER]</span><span>[YOUR EMAIL]</span><span>[OFFICE ADDRESS, DHAKA]</span></div>
+    </footer>
+  </div>
+</section>
+</div>
+
+<!-- ================= VISA ================= -->
+<div class="view page" id="v-visa" hidden>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Visa processing</p>
+      <h1>Visit and travel visas for any country.</h1>
+      <p class="lede">Tourist, visit, business, student, medical and work visas. We check every document before it reaches the embassy, and you track the file from your phone.</p>
+      <div class="cta"><button type="button" class="btn gold" data-order="Visit or travel visa|">Apply now</button><a class="btn line" href="#track">Track my application</a></div>
+    </div>
+    <div>
+      <ul class="chips" aria-label="Visa types">
+        <li>Visit visa</li><li>Tourist and travel visa</li><li>Business visa</li><li>Student visa</li><li>Medical visa</li><li>Work visa</li><li>Transit visa</li><li>Family visit</li>
+      </ul>
+    </div>
+    <div class="cards">
+      <article class="card glass"><span class="tag">Europe</span><h3>Schengen countries</h3><p>France, Germany, Italy, Spain, the Netherlands and the rest of the Schengen area.</p><button type="button" class="btn line" data-order="Visit or travel visa|Schengen countries">Apply now</button></article>
+      <article class="card glass"><span class="tag">United Kingdom</span><h3>UK visit and student visas</h3><p>Standard visitor, family visit, student and business routes.</p><button type="button" class="btn line" data-order="Visit or travel visa|UK">Apply now</button></article>
+      <article class="card glass"><span class="tag">North America</span><h3>USA and Canada</h3><p>Visit and travel visa files, form filling and interview preparation.</p><button type="button" class="btn line" data-order="Visit or travel visa|USA and Canada">Apply now</button></article>
+      <article class="card glass"><span class="tag">Asia Pacific</span><h3>Japan, Korea, China, Australia</h3><p>Tourist, business and student visas, plus New Zealand.</p><button type="button" class="btn line" data-order="Visit or travel visa|Japan, Korea, China, Australia">Apply now</button></article>
+      <article class="card glass"><span class="tag">Southeast Asia</span><h3>Malaysia, Thailand, Singapore</h3><p>Tourist visas and e visas, often paired with a holiday package.</p><button type="button" class="btn line" data-order="Visit or travel visa|Malaysia, Thailand, Singapore">Apply now</button></article>
+      <article class="card glass"><span class="tag">Middle East</span><h3>UAE, Saudi Arabia, Qatar</h3><p>Visit visas, Umrah visas and family visit visas.</p><button type="button" class="btn line" data-order="Visit or travel visa|UAE, Saudi Arabia, Qatar">Apply now</button></article>
+      <article class="card glass"><span class="tag">Everywhere else</span><h3>Any other country</h3><p>Tell us where you are going. We will send the checklist for that embassy.</p><button type="button" class="btn line" data-order="Visit or travel visa|">Apply now</button></article>
+    </div>
+    <div class="panel glass">
+      <h2 style="font-size:clamp(26px,3vw,40px)">How it works</h2>
+      <ol class="how">
+        <li><b>Scan your passport</b>Take a photo. Your application form fills itself.</li>
+        <li><b>Get your checklist</b>We list the exact documents your embassy asks for.</li>
+        <li><b>We check and submit</b>Every paper is reviewed, then filed or booked for an appointment.</li>
+        <li><b>Track and collect</b>Follow each step on WhatsApp until your passport is back.</li>
+      </ol>
+      <p class="note">Fees and processing times depend on the country: [FEE] · [PROCESSING TIME]. The embassy makes the final decision on every visa. We make sure your file is complete and correct.</p>
+    </div>
+    <div class="panel glass faq">
+      <h2 style="font-size:clamp(26px,3vw,40px)">Common questions</h2>
+      <details><summary>Can you guarantee my visa?</summary><p>No agency can. The embassy makes the decision. We make sure your file is complete, correct and submitted on time.</p></details>
+      <details><summary>How long does it take?</summary><p>It depends on the country and the visa type: [PROCESSING TIME BY COUNTRY]. Your tracking page always shows the current step.</p></details>
+      <details><summary>How do I pay?</summary><p>[PAYMENT METHODS]. You see the full quote before you pay anything.</p></details>
+      <details><summary>Do I need to come to the office?</summary><p>[OFFICE VISIT POLICY]. Most steps start with a passport photo sent from your phone.</p></details>
+    </div>
+  </div>
+</div>
+
+<!-- ================= HAJJ AND UMRAH ================= -->
+<div class="view page" id="v-hajj-umrah" hidden>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Hajj and Umrah</p>
+      <h1>Your pilgrimage, arranged with care.</h1>
+      <p class="lede">Visa, flights, hotels in Makkah and Madinah, transport and Ziyarah in one package. Travel alone, with family, or with a guided group.</p>
+      <div class="cta"><button type="button" class="btn gold" data-order="Umrah|Saudi Arabia">Book Umrah</button><button type="button" class="btn line" data-order="Hajj|Saudi Arabia">Book Hajj</button></div>
+    </div>
+    <div class="cards">
+      <article class="card glass"><span class="tag">Umrah</span><h3>Individual and family Umrah</h3><p>Choose your dates and hotel distance from the Haram. From [PRICE] per person.</p><button type="button" class="btn line" data-order="Umrah|Saudi Arabia">Book now</button></article>
+      <article class="card glass"><span class="tag">Umrah</span><h3>Group Umrah</h3><p>Guided departures with a group leader. Next departure [DATE]. From [PRICE] per person.</p><button type="button" class="btn line" data-order="Umrah|Saudi Arabia">Book now</button></article>
+      <article class="card glass"><span class="tag">Hajj</span><h3>Hajj packages</h3><p>Registration support and full packages for the coming season. From [PRICE] per person.</p><button type="button" class="btn line" data-order="Hajj|Saudi Arabia">Book now</button></article>
+    </div>
+    <div class="panel glass">
+      <h2 style="font-size:clamp(26px,3vw,40px)">What every package includes</h2>
+      <ul class="chips"><li>Umrah or Hajj visa</li><li>Return flights</li><li>Makkah hotel</li><li>Madinah hotel</li><li>Airport and city transport</li><li>Ziyarah tours</li><li>Group leader</li><li>WhatsApp updates at every step</li></ul>
+      <p class="note">Travelling with elderly parents? Add a family contact and they receive the same updates you do.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TICKETS AND TOURS ================= -->
+<div class="view page" id="v-tours" hidden>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Tickets and tours</p>
+      <h1>Flights, hotels and holidays, anywhere.</h1>
+      <p class="lede">Tell us where and when. We send one clear quote with the flight, the stay and the visa together.</p>
+      <div class="cta"><button type="button" class="btn gold" data-order="Tour package|">Book a tour</button><button type="button" class="btn line" data-order="Air ticket|">Book a ticket</button></div>
+    </div>
+    <div class="cards">
+      <article class="card glass"><span class="tag">Flights</span><h3>Air tickets</h3><p>Domestic and international tickets on all major airlines, with date change support.</p><button type="button" class="btn line" data-order="Air ticket|">Book now</button></article>
+      <article class="card glass"><span class="tag">Holidays</span><h3>Tour packages</h3><p>Ready made and custom holidays with flights, hotels, transfers and sightseeing.</p><button type="button" class="btn line" data-order="Tour package|">Book now</button></article>
+      <article class="card glass"><span class="tag">Stays</span><h3>Hotel booking</h3><p>Hotels and apartments matched to your budget and your visa requirements.</p><button type="button" class="btn line" data-order="Tour package|">Book now</button></article>
+      <article class="card glass"><span class="tag">Extras</span><h3>Insurance and transfers</h3><p>Travel insurance, airport pickup and local transport added to the same booking.</p><button type="button" class="btn line" data-order="Tour package|">Book now</button></article>
+    </div>
+    <div class="panel glass">
+      <h2 style="font-size:clamp(26px,3vw,40px)">Popular right now</h2>
+      <ul class="chips"><li>Thailand</li><li>Malaysia</li><li>Singapore</li><li>Maldives</li><li>Dubai</li><li>Turkey</li><li>Nepal</li><li>Sri Lanka</li><li>Europe tours</li><li>Cox's Bazar</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TRACK ================= -->
+<div class="view page" id="v-track" hidden>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Track my application</p>
+      <h1>See exactly where your file is.</h1>
+      <p class="lede">Enter the file number from your WhatsApp message.</p>
+    </div>
+    <form class="panel glass" id="trackForm" style="max-width:720px">
+      <div class="fld"><label for="fileNo">File number</label><input id="fileNo" type="text" placeholder="For example ML 2611 0418" autocomplete="off"></div>
+      <div class="cta"><button class="btn gold" type="submit">Track</button></div>
+      <p class="msg" id="trackMsg" hidden>This is a design preview. Live tracking will connect here. A sample file is shown below.</p>
+    </form>
+    <div class="panel glass" style="max-width:720px">
+      <span class="eyebrow">Sample file · ML 2611 0418</span>
+      <h2 style="font-size:clamp(24px,2.6vw,34px)">UK visit visa · Abdur Karim Rahman</h2>
+      <ol class="tl">
+        <li><div><b>Passport scanned, file opened</b><span>02 Nov, 10:14</span></div></li>
+        <li><div><b>Documents checked</b><span>04 Nov, 15:40</span></div></li>
+        <li><div><b>Application submitted</b><span>06 Nov, 11:05</span></div></li>
+        <li class="now"><div><b>Waiting for embassy decision</b><span>In progress</span></div></li>
+        <li class="next"><div><b>Passport ready to collect</b><span>We will message you</span></div></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ORDER ================= -->
+<div class="view page" id="v-order" hidden>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Order</p>
+      <h1>Place your order in four short steps.</h1>
+    </div>
+    <div class="order">
+      <form class="panel glass" id="orderForm">
+        <ol class="onav" id="oNav"><li>Service</li><li>Travellers</li><li>Passport</li><li>Confirm</li></ol>
+        <fieldset class="ostep"><legend>What do you need?</legend>
+          <div class="formgrid">
+            <div class="fld"><label for="oService">Service</label><select id="oService"><option>Visit or travel visa</option><option>Student visa</option><option>Business visa</option><option>Medical visa</option><option>Work visa</option><option>Air ticket</option><option>Tour package</option><option>Umrah</option><option>Hajj</option></select></div>
+            <div class="fld"><label for="oDest">Destination</label><input id="oDest" type="text" placeholder="Country or city" list="countries" autocomplete="off"></div>
+          </div>
+        </fieldset>
+        <fieldset class="ostep" hidden><legend>Who is travelling, and when?</legend>
+          <div class="formgrid">
+            <div class="fld"><label for="oN">Number of travellers</label><select id="oN"><option>1</option><option>2</option><option>3</option><option>4</option><option>5 to 10</option><option>More than 10</option></select></div>
+            <div class="fld"><label for="oDate">Travel date</label><input id="oDate" type="date"></div>
+          </div>
+          <p class="note">Not sure about the date? Leave it empty and we will suggest one.</p>
+        </fieldset>
+        <fieldset class="ostep" hidden><legend>Add your passport photo</legend>
+          <div class="fld"><label for="oFile">Photo of the passport data page</label><input id="oFile" type="file" accept="image/*" style="padding:10px 14px;height:auto"></div>
+          <p class="note">We read the photo and fill your application form for you. You can also skip this and send it later on WhatsApp.</p>
+        </fieldset>
+        <fieldset class="ostep" hidden><legend>Where should we reply?</legend>
+          <div class="formgrid">
+            <div class="fld"><label for="oName">Your name</label><input id="oName" type="text" autocomplete="name"></div>
+            <div class="fld"><label for="oPhone">WhatsApp number</label><input id="oPhone" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="fld"><span style="font-size:15px;font-weight:600">How would you like to pay?</span>
+            <div class="radios">
+              <label><input type="radio" name="oPay" value="At the office" checked>At the office</label>
+              <label><input type="radio" name="oPay" value="Mobile banking">Mobile banking</label>
+              <label><input type="radio" name="oPay" value="Card">Card</label>
+            </div>
+          </div>
+          <p class="note">You pay nothing now. We send the full quote first.</p>
+        </fieldset>
+        <p class="msg" id="oErr" hidden></p>
+        <div class="cta"><button type="button" class="btn line" id="oBack" hidden>Back</button><button type="button" class="btn gold" id="oNext">Continue</button></div>
+      </form>
+      <div class="panel glass" id="orderDone" hidden>
+        <span class="eyebrow">Order ready</span>
+        <h2 style="font-size:clamp(26px,3vw,40px)">Thank you, <span id="dName">traveller</span>.</h2>
+        <p class="note">This is a design preview, so nothing has been sent. On the live site you would now get a WhatsApp message with your file number, your document checklist and your quote.</p>
+        <div class="cta"><a class="btn gold" href="#track">See a sample tracking page</a><button type="button" class="btn line" id="oAgain">Start another order</button></div>
+      </div>
+      <aside class="panel glass" aria-label="Order summary">
+        <h3>Your order</h3>
+        <dl class="sum">
+          <dt>Service</dt><dd id="sService"></dd>
+          <dt>Destination</dt><dd id="sDest"></dd>
+          <dt>Travellers</dt><dd id="sN"></dd>
+          <dt>Travel date</dt><dd id="sDate"></dd>
+          <dt>Passport</dt><dd id="sPass"></dd>
+          <dt>Payment</dt><dd id="sPay"></dd>
+          <dt>Price</dt><dd>[QUOTE SENT ON WHATSAPP]</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONTACT ================= -->
+<div class="view page" id="v-contact" hidden>
+  <div class="wrap">
+    <div class="copy">
+      <p class="eyebrow">Contact</p>
+      <h1>Tell us where you want to go.</h1>
+      <p class="lede">Send a few details and we will reply on WhatsApp with a checklist and a quote.</p>
+    </div>
+    <form class="panel glass" id="contactForm">
+      <div class="formgrid">
+        <div class="fld"><label for="cName">Your name</label><input id="cName" type="text" autocomplete="name"></div>
+        <div class="fld"><label for="cPhone">WhatsApp number</label><input id="cPhone" type="tel" autocomplete="tel"></div>
+        <div class="fld"><label for="cService">Service</label><select id="cService"><option>Visit or travel visa</option><option>Student, work or medical visa</option><option>Air ticket</option><option>Tour package</option><option>Umrah</option><option>Hajj</option></select></div>
+        <div class="fld"><label for="cCountry">Country</label><input id="cCountry" type="text" placeholder="Where are you going?"></div>
+      </div>
+      <div class="cta"><button class="btn gold" type="submit">Send my request</button></div>
+      <p class="msg" id="contactMsg" hidden>This is a design preview, so nothing was sent. Connect this form to your WhatsApp or CRM to go live.</p>
+    </form>
+    <footer class="foot glass">
+      <div><b>Call or WhatsApp</b><span>[YOUR PHONE NUMBER]</span><span>[YOUR EMAIL]</span></div>
+      <div><b>Office</b><span>[OFFICE ADDRESS, DHAKA]</span><span>[OPENING HOURS]</span></div>
+      <div><b>Licences</b><span>Hajj licence [NUMBER]</span><span>Travel agency licence [NUMBER]</span><span>IATA [NUMBER]</span></div>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)}, $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+var clamp=function(v,a,b){a=a===undefined?0:a;b=b===undefined?1:b;return Math.min(b,Math.max(a,v))};
+var seg=function(p,a,b){return clamp((p-a)/(b-a))};
+var lerp=function(a,b,t){return a+(b-a)*t};
+var ease=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2};
+var out=function(t){return 1-Math.pow(1-t,3)};
+var mod=function(a,m){return ((a%m)+m)%m};
+var seed=7; var rnd=function(){seed=(seed*16807)%2147483647;return seed/2147483647};
+
+var MOTION=!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+/* ---------- forms (preview only) ---------- */
+[['#trackForm','#trackMsg'],['#contactForm','#contactMsg']].forEach(function(p){
+  $(p[0]).addEventListener('submit',function(ev){ev.preventDefault();$(p[1]).hidden=false});
+});
+
+$('#skipTour').addEventListener('click',function(){var l=$('.land');window.scrollTo(0,l.getBoundingClientRect().top+window.scrollY)});
+
+/* ---------- order flow (preview only) ---------- */
+var O={step:1};
+var oSteps=$$('.ostep'),oNavL=$$('#oNav li'),oBack=$('#oBack'),oNext=$('#oNext'),oErr=$('#oErr'),oForm=$('#orderForm'),oDone=$('#orderDone');
+var oF={service:$('#oService'),dest:$('#oDest'),n:$('#oN'),date:$('#oDate'),file:$('#oFile'),name:$('#oName'),phone:$('#oPhone')};
+function oSum(){
+  $('#sService').textContent=oF.service.value;
+  $('#sDest').textContent=oF.dest.value||'Not chosen yet';
+  $('#sN').textContent=oF.n.value;
+  $('#sDate').textContent=oF.date.value||'Flexible';
+  $('#sPass').textContent=(oF.file.files&&oF.file.files[0])?oF.file.files[0].name:'Not added yet';
+  var pay=document.querySelector('input[name="oPay"]:checked');
+  $('#sPay').textContent=pay?pay.value:'';
+}
+function oShow(){
+  oSteps.forEach(function(f,i){f.hidden=(i+1!==O.step)});
+  oNavL.forEach(function(l,i){l.classList.toggle('cur',i+1===O.step);l.classList.toggle('ok',i+1<O.step)});
+  oBack.hidden=O.step===1;
+  oNext.textContent=O.step===4?'Place my order':'Continue';
+  oErr.hidden=true; oSum();
+}
+function oFail(t){oErr.textContent=t;oErr.hidden=false}
+oNext.addEventListener('click',function(){
+  if(O.step===1&&!oF.dest.value.trim())return oFail('Tell us where you are going.');
+  if(O.step===4&&(!oF.name.value.trim()||!oF.phone.value.trim()))return oFail('Add your name and WhatsApp number so we can reply.');
+  if(O.step<4){O.step++;oShow()}
+  else{$('#dName').textContent=oF.name.value.trim();oForm.hidden=true;oDone.hidden=false;window.scrollTo(0,0)}
+});
+oBack.addEventListener('click',function(){if(O.step>1){O.step--;oShow()}});
+oForm.addEventListener('input',oSum);oForm.addEventListener('change',oSum);
+oForm.addEventListener('submit',function(ev){ev.preventDefault()});
+function preset(svc,dest){
+  if(svc)oF.service.value=svc;
+  if(dest!==undefined)oF.dest.value=dest;
+  oForm.hidden=false;oDone.hidden=true;O.step=1;oShow();
+  if(location.hash==='#order')window.scrollTo(0,0);else location.hash='order';
+}
+$('#oAgain').addEventListener('click',function(){preset('','')});
+$$('[data-order]').forEach(function(b){b.addEventListener('click',function(){var p=b.getAttribute('data-order').split('|');preset(p[0],p[1]||'')})});
+$('#finder').addEventListener('submit',function(ev){ev.preventDefault();preset($('#hService').value,$('#hDest').value)});
+oShow();
+
+/* ---------- tabs ---------- */
+var ROUTES=['home','visa','hajj-umrah','tours','track','order','contact'], current='home', onRoute=null;
+var views=$$('.view'), tabLinks=$$('#tabs a');
+function route(){
+  var h=(location.hash||'').slice(1); if(ROUTES.indexOf(h)<0)h='home';
+  current=h;
+  views.forEach(function(v){v.hidden=(v.id!=='v-'+h)});
+  tabLinks.forEach(function(a){if(a.getAttribute('data-tab')===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  window.scrollTo(0,0);
+  if(onRoute)onRoute();
+}
+addEventListener('hashchange',route);
+route();
+
+/* ---------- build seats ---------- */
+var seatsBox=$('#seats'), seats=[];
+var missing={7:1,23:1}, proc={3:1,12:1,18:1,31:1};
+(function(){
+  var n=0;
+  for(var r=0;r<5;r++){
+    for(var c=0;c<9;c++){
+      var d=document.createElement('div');
+      if(c===4){seatsBox.appendChild(d);continue}
+      var st=missing[n]?'miss':proc[n]?'proc':'ok';
+      d.className='seat lit '+st; d.textContent=(n+1);
+      seatsBox.appendChild(d);
+      seats.push({el:d,st:st,dx:(rnd()-.5)*1400,dy:(rnd()-.5)*900,r:(rnd()-.5)*260});
+      n++;
+    }
+  }
+})();
+
+/* ---------- element refs ---------- */
+var l1=$('#l1'),l2=$('#l2'),heroIn=$('#heroIn'),heroWord=$('#heroWord');
+var pp=$('#pp'),beam=$('#beam'),mrzhl=$('#mrzhl'),pill=$('#scanPill');
+var fields=$$('#fields .f').map(function(row){var v=row.querySelector('.v');return{row:row,el:v,full:v.textContent,n:-1}});
+var arcFg=$('#arcFg'),arcPlane=$('#arc-plane'),nodes=$$('#arc-nodes circle'),steps=$$('#steps li'),bubT=$$('#bubT .bub'),bubA=$$('#bubA .bub');
+var L=arcFg.getTotalLength()||1100;
+nodes.forEach(function(n,i){var pt=arcFg.getPointAtLength(L*i/4);n.setAttribute('cx',pt.x);n.setAttribute('cy',pt.y)});
+var track=$('#reelTrack'),reels=$$('.reel').map(function(el){return{el:el,tc:el.querySelector('.tc'),ly:Array.prototype.slice.call(el.querySelectorAll('.ly')).map(function(g){return{g:g,d:parseFloat(g.getAttribute('data-d'))}})}});
+var cScan=$('#cScan'),cVisa=$('#cVisa'),bScan=$('#bScan'),bVisa=$('#bVisa'),groupCta=$('#groupCta');
+var docRows=$$('#docRows .row'),stamp=$('#stamp'),daysEl=$('#days'),ring=$('#ring'),expiry=$('#expiry'),alertCta=$('#alertCta');
+var C=2*Math.PI*84; ring.style.strokeDasharray=C; ring.style.strokeDashoffset=C*(1-67/180);
+
+var vw=innerWidth,vh=innerHeight,docH=1;
+
+/* ---------- scene renderers: p = pinned progress, e = entrance progress ---------- */
+var R={};
+R['s-hero']=function(p){
+  l1.style.transform='translateX('+(-p*28)+'vw)';
+  l2.style.transform='translateX('+(p*28)+'vw)';
+  heroIn.style.opacity=1-seg(p,.3,.8);
+  heroWord.style.transform='translate(-50%,-50%) scale('+(1+p*p*3.2)+')';
+  heroWord.style.opacity=lerp(1,0,seg(p,.55,1));
+};
+R['s-scan']=function(p,e){
+  var t=out(e);
+  pp.style.transform='translateY('+((1-t)*34)+'vh) rotate('+lerp(-16,-3,t)+'deg)';
+  var b=seg(p,.06,.6);
+  beam.style.left=(b*100)+'%'; beam.style.opacity=(b>0&&b<1)?1:0;
+  mrzhl.style.width=(b*100)+'%';
+  var done=0;
+  fields.forEach(function(f,i){
+    var ft=seg(p,.12+i*.055,.19+i*.055), n=Math.ceil(f.full.length*ft);
+    if(f.n!==n){f.el.textContent=f.full.slice(0,n)||' ';f.n=n}
+    f.row.classList.toggle('done',ft>=1); if(ft>=1)done++;
+  });
+  var label=done===8?'Filled from passport':(done?'Reading '+done+' of 8':'Waiting for scan');
+  if(pill.textContent!==label)pill.textContent=label;
+  pill.classList.toggle('ok',done===8);
+};
+R['s-track']=function(p){
+  var r=seg(p,.06,.86), started=p>.03;
+  arcFg.style.strokeDasharray=L; arcFg.style.strokeDashoffset=L*(1-r);
+  var pt=arcFg.getPointAtLength(L*r), p2=arcFg.getPointAtLength(Math.min(L,L*r+2)), p1=arcFg.getPointAtLength(Math.max(0,L*r-2));
+  var a=Math.atan2(p2.y-p1.y,p2.x-p1.x)*180/Math.PI;
+  arcPlane.setAttribute('transform','translate('+pt.x.toFixed(1)+' '+pt.y.toFixed(1)+') rotate('+a.toFixed(1)+')');
+  var n=Math.min(4,Math.floor(r*4+.02));
+  for(var i=0;i<5;i++){
+    var on=started&&i<=n;
+    nodes[i].classList.toggle('on',on);
+    steps[i].classList.toggle('on',on);
+    steps[i].classList.toggle('cur',i===(started?n:0));
+    bubT[i].classList.toggle('in',on);
+    bubA[i].classList.toggle('in',on);
+  }
+};
+R['s-reels']=function(p){
+  var max=Math.max(0,track.scrollWidth-vw), x=-seg(p,.05,.95)*max;
+  track.style.transform='translate3d('+x.toFixed(1)+'px,0,0)';
+  reels.forEach(function(r,i){
+    var rel=(r.el.offsetLeft+x+r.el.offsetWidth/2-vw/2)/vw;
+    r.el.style.transform='scale('+(1-Math.min(.08,Math.abs(rel)*.09)).toFixed(4)+')';
+    r.ly.forEach(function(l){l.g.style.transform='translateX('+(-rel*l.d*150).toFixed(1)+'px)'});
+    var s=Math.max(0,p*96-i*3), sec=Math.floor(s), fr=Math.floor((s-sec)*24);
+    r.tc.textContent='00:'+(sec<10?'0':'')+sec+':'+(fr<10?'0':'')+fr;
+  });
+};
+R['s-group']=function(p){
+  var issued=0;
+  seats.forEach(function(s,i){
+    var t=out(seg(p,.02+i*.007,.28+i*.007));
+    s.el.style.transform='translate('+(s.dx*(1-t)).toFixed(1)+'px,'+(s.dy*(1-t)).toFixed(1)+'px) rotate('+(s.r*(1-t)).toFixed(1)+'deg) scale('+lerp(.4,1,t).toFixed(3)+')';
+    var lit=p>.44+i*.009;
+    s.el.classList.toggle('lit',lit);
+    if(lit&&s.st==='ok')issued++;
+  });
+  var sc=Math.round(40*seg(p,.04,.5));
+  cScan.textContent=sc; bScan.style.transform='scaleX('+(sc/40)+')';
+  cVisa.textContent=issued; bVisa.style.transform='scaleX('+(issued/40)+')';
+  groupCta.classList.toggle('in',p>.84);
+};
+R['s-docs']=function(p){
+  docRows.forEach(function(r,i){r.classList.toggle('in',p>.05+i*.07)});
+  stamp.classList.toggle('in',p>.42);
+  var d=Math.round(lerp(180,67,ease(seg(p,.48,.8))));
+  daysEl.textContent=d;
+  ring.style.strokeDashoffset=C*(1-d/180);
+  expiry.classList.toggle('warn',d<90);
+  alertCta.classList.toggle('in',p>.84);
+};
+
+if(!MOTION){ return; } /* reduced motion: every tab stays in its finished state, laid out as a normal document */
+
+document.documentElement.classList.add('motion');
+
+/* ---------- sky ---------- */
+var cv=$('#sky'),cx=cv.getContext('2d'),dpr=Math.min(1.5,window.devicePixelRatio||1);
+var KEYS=[[0,[26,30,82],[204,92,70]],[.2,[10,58,150],[40,118,214]],[.5,[12,64,160],[46,126,218]],[.68,[52,28,104],[220,100,62]],[.86,[7,16,36],[22,40,86]],[1,[5,12,28],[16,30,66]]];
+var TABSKY={order:.24,visa:.32,'hajj-umrah':.93,tours:.66,track:.42,contact:.8};
+function skyAt(g){
+  for(var i=0;i<KEYS.length-1;i++){
+    if(g<=KEYS[i+1][0]){
+      var a=KEYS[i],b=KEYS[i+1],t=(g-a[0])/(b[0]-a[0]);
+      return [[0,1,2].map(function(k){return Math.round(lerp(a[1][k],b[1][k],t))}),[0,1,2].map(function(k){return Math.round(lerp(a[2][k],b[2][k],t))})];
+    }
+  }
+  return [KEYS[5][1],KEYS[5][2]];
+}
+function cloudSprite(){
+  var c=document.createElement('canvas');c.width=380;c.height=190;var x=c.getContext('2d');
+  for(var i=0;i<11;i++){
+    var px=60+rnd()*260,py=96+rnd()*36,r=36+rnd()*36,gr=x.createRadialGradient(px,py,0,px,py,r);
+    gr.addColorStop(0,'rgba(255,255,255,.6)');gr.addColorStop(1,'rgba(255,255,255,0)');
+    x.fillStyle=gr;x.beginPath();x.arc(px,py,r,0,7);x.fill();
+  }
+  return c;
+}
+var sprites=[cloudSprite(),cloudSprite(),cloudSprite(),cloudSprite()];
+var clouds=[];
+[[.5,.12,6],[.9,.3,5],[1.6,.62,4]].forEach(function(l){for(var i=0;i<l[2];i++)clouds.push({x:rnd(),y:rnd(),s:l[0]*(.8+rnd()*.5),par:l[1],sp:.6+rnd(),spr:sprites[Math.floor(rnd()*4)]})});
+var stars=[];for(var i=0;i<150;i++)stars.push({x:rnd(),y:rnd()*.8,r:.5+rnd()*1.3,ph:rnd()*6.28});
+var streaks=[];for(i=0;i<26;i++)streaks.push({x:rnd(),y:rnd()});
+
+/* ---------- plane route (viewport fractions) ---------- */
+var planeEl=$('#plane');
+var WP=[[0,.1,.84,.9],[.06,.56,.56,1.05],[.12,.9,.3,.85],[.22,.72,.16,.6],[.32,.2,.24,.7],[.42,.08,.56,.95],[.52,.5,.84,1.15],[.62,.92,.62,.9],[.72,.82,.2,.7],[.82,.3,.14,.6],[.92,.12,.44,.8],[1,.5,.6,1.05]];
+function cr(a,b,c,d,t){var t2=t*t,t3=t2*t;return .5*((2*b)+(-a+c)*t+(2*a-5*b+4*c-d)*t2+(-a+3*b-3*c+d)*t3)}
+function pos(g){
+  g=clamp(g);var i=0;while(i<WP.length-2&&g>WP[i+1][0])i++;
+  var a=WP[Math.max(0,i-1)],b=WP[i],c=WP[i+1],d=WP[Math.min(WP.length-1,i+2)],t=(g-b[0])/(c[0]-b[0]);
+  return [cr(a[1],b[1],c[1],d[1],t)*vw,cr(a[2],b[2],c[2],d[2],t)*vh,cr(a[3],b[3],c[3],d[3],t)];
+}
+
+/* ---------- loop ---------- */
+var scenes=$$('.scene').map(function(el){return{el:el,top:0,h:0,fn:R[el.id]}});
+var S=window.scrollY||0,prev=S,vel=0,first=true,skyG=0;
+function measure(){
+  vw=innerWidth;vh=innerHeight;
+  scenes.forEach(function(s){s.top=s.el.getBoundingClientRect().top+window.scrollY;s.h=s.el.offsetHeight});
+  docH=document.documentElement.scrollHeight;
+  cv.width=Math.round(vw*dpr);cv.height=Math.round(vh*dpr);
+  first=true;
+}
+onRoute=function(){S=0;prev=0;measure()};
+function draw(g,pg,home,t){
+  var w=cv.width,h=cv.height,col=skyAt(g),night=seg(g,.66,.88);
+  var gr=cx.createLinearGradient(0,0,0,h);
+  gr.addColorStop(0,'rgb('+col[0].join(',')+')');gr.addColorStop(1,'rgb('+col[1].join(',')+')');
+  cx.fillStyle=gr;cx.fillRect(0,0,w,h);
+  if(night>0){
+    cx.fillStyle='#fff';
+    stars.forEach(function(s){cx.globalAlpha=night*(.45+.55*Math.sin(t*.002+s.ph));cx.beginPath();cx.arc(s.x*w,s.y*h,s.r*dpr,0,7);cx.fill()});
+    cx.globalAlpha=1;
+  }
+  var sx=w*(.82-.55*g),sy=h*(.9-Math.sin(clamp(g/.72)*Math.PI)*.74),sr=Math.min(w,h)*.5;
+  if(night<1){
+    var sg=cx.createRadialGradient(sx,sy,0,sx,sy,sr);
+    sg.addColorStop(0,'rgba(255,236,190,'+(.95*(1-night))+')');sg.addColorStop(.08,'rgba(255,210,130,'+(.55*(1-night))+')');sg.addColorStop(1,'rgba(255,170,90,0)');
+    cx.fillStyle=sg;cx.fillRect(0,0,w,h);
+  }
+  var ca=lerp(.8,.14,night);
+  clouds.forEach(function(c){
+    var cw=380*c.s*dpr,ch=190*c.s*dpr;
+    var X=mod(c.x*(w+cw)-t*.012*c.sp*c.s*dpr,w+cw)-cw, Y=mod(c.y*(h+ch)-S*c.par*dpr,h+ch)-ch;
+    cx.globalAlpha=ca*Math.min(1,.5+c.par);cx.drawImage(c.spr,X,Y,cw,ch);
+  });
+  cx.globalAlpha=1;
+  var av=Math.abs(vel);
+  if(av>1.5){
+    cx.strokeStyle='#fff';cx.lineWidth=1.2*dpr;cx.globalAlpha=Math.min(.4,av/70);cx.beginPath();
+    streaks.forEach(function(s){var x=s.x*w,y=mod(s.y*h-S*1.6*dpr,h);cx.moveTo(x,y);cx.lineTo(x,y+vel*3.2*dpr)});
+    cx.stroke();cx.globalAlpha=1;
+  }
+  if(!home)return;
+  cx.lineCap='round';
+  for(var k=1;k<34;k++){
+    var a=pos(pg-(k-1)*.0018),b=pos(pg-k*.0018);
+    cx.strokeStyle='rgba(255,255,255,'+(.55*(1-k/34))+')';cx.lineWidth=(3.4-k*.06)*a[2]*dpr;
+    cx.beginPath();cx.moveTo(a[0]*dpr,a[1]*dpr);cx.lineTo(b[0]*dpr,b[1]*dpr);cx.stroke();
+  }
+}
+function frame(t){
+  var target=window.scrollY||0, home=current==='home';
+  S+=(target-S)*.11; if(Math.abs(target-S)<.1)S=target;
+  vel=S-prev;prev=S;
+  var g=clamp(S/Math.max(1,docH-vh));
+  var skyTarget=home?g:TABSKY[current];
+  skyG+=(skyTarget-skyG)*(home?.25:.05);
+  if(home){
+    scenes.forEach(function(s){
+      if(!s.fn)return;
+      if(!first&&(S+vh<s.top-80||S>s.top+s.h+80))return;
+      s.fn(clamp((S-s.top)/Math.max(1,s.h-vh)),clamp((S+vh-s.top)/vh));
+    });
+    first=false;
+  }
+  draw(skyG,g,home,t);
+  planeEl.style.opacity=home?1:0;
+  rail.classList.toggle('show',home);
+  prog.style.transform='scaleX('+(home?g:0)+')';
+  if(home){var mid=S+vh/2;railBtns.forEach(function(b,i){var s=scenes[i];b.classList.toggle('cur',mid>=s.top&&mid<s.top+s.h)})}
+  if(home){
+    var a=pos(g),b=pos(g+.002),c=pos(g-.002);
+    var ang=(g>.998)?0:Math.atan2(b[1]-c[1],b[0]-c[0]);
+    var half=planeEl.offsetWidth/2;
+    planeEl.style.transform='translate3d('+(a[0]-half).toFixed(1)+'px,'+(a[1]-half).toFixed(1)+'px,0) rotate('+ang.toFixed(3)+'rad) scale('+a[2].toFixed(3)+')';
+  }
+  requestAnimationFrame(frame);
+}
+var rail=$('#rail'),railBtns=$$('#rail button'),prog=$('#prog');
+railBtns.forEach(function(b,i){b.setAttribute('aria-label',b.textContent);b.addEventListener('click',function(){var s=scenes[i];window.scrollTo(0,i===0?0:s.top+(s.h-vh)*.8)})});
+measure();
+addEventListener('resize',measure);
+addEventListener('load',measure);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
